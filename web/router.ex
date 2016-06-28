@@ -17,10 +17,12 @@ defmodule Underdog.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Underdog do
-  #   pipe_through :api
-  # end
+  scope "/api", Underdog do
+    pipe_through :api
+    resources "/leagues", LeagueController, except: [:new, :edit]
+  end
 end
