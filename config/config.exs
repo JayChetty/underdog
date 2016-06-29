@@ -29,11 +29,11 @@ config :phoenix, :generators,
   binary_id: false
 
 config :guardian, Guardian,
-allowed_algos: ["HS512", "HS384"],
-issuer: "MyApp",
-ttl: { 30, :days },
-serializer: MyApp.GuardianSerializer,
-secret_key: "lksjdlkjsdflkjsdf"
+  allowed_algos: ["HS512", "HS384"],
+  issuer: "MyApp",
+  ttl: { 30, :days },
+  serializer: MyApp.GuardianSerializer,
+  secret_key: "lksjdlkjsdflkjsdf"
 
 # config :guardian, Guardian,
 #   allowed_algos: ["HS512"], # optional
