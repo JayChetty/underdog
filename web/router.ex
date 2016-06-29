@@ -24,5 +24,7 @@ defmodule Underdog.Router do
   scope "/api", Underdog do
     pipe_through :api
     resources "/leagues", LeagueController, except: [:new, :edit]
+    resources "/seasons", SeasonController, except: [:new, :edit]
+    resources "/weeks", WeekController, except: [:new, :edit]
   end
 end
