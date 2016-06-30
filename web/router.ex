@@ -26,5 +26,7 @@ defmodule Underdog.Router do
     resources "/leagues", LeagueController, except: [:new, :edit]
     resources "/seasons", SeasonController, except: [:new, :edit]
     resources "/weeks", WeekController, except: [:new, :edit]
+    resources "/teams", TeamController, except: [:new, :edit]
+    resources "/fixtures", FixtureController, except: [:new, :edit]
   end
 end
