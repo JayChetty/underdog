@@ -75,8 +75,8 @@ league = %Underdog.League{name: "Premier League"}
 season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id }
 {:ok, inserted_season} = Underdog.Repo.insert(season)
 
-week_1 = SeedHelper.create_week(2016,08,01,1, season.id)
-week_2 = SeedHelper.create_week(2016,08,08,2, season.id)
+week_1 = SeedHelper.create_week(2016,08,01,1, inserted_season.id)
+week_2 = SeedHelper.create_week(2016,08,08,2, inserted_season.id)
 
 
 team_names = [
