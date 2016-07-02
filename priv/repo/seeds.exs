@@ -12,6 +12,24 @@
 require IEx
 defmodule SeedHelper do
 
+
+  def create_fixtures(week, fixtures, teams) do
+    Enum.each(fixtures, fn(fixture) ->
+      home_team = elem(fixture, 0)
+      away_team = elem(fixture, 1)
+      IO.puts "home team #{ inspect home_team }"
+      IO.puts "away team #{ inspect away_team }"
+      create_fixture(
+        week.id,
+        teams[home_team].id,
+        teams[away_team].id,
+        week.start_date.year,
+        week.start_date.month,
+        week.start_date.day
+      )
+    end)
+  end
+
   def create_fixture(week_id, home_team_id, away_team_id, year, month, day) do
     fixture = %Underdog.Fixture{
       week_id: week_id,
@@ -104,19 +122,18 @@ team_names = [
 
 teams = SeedHelper.create_teams(team_names)
 
-#week 1
-SeedHelper.create_fixture(week_1.id, teams[:hull].id, teams[:leicester].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:arsenal].id, teams[:liverpool].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:crystal_palace].id, teams[:west_brom].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:man_city].id, teams[:sunderland].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:middlesbrough].id, teams[:stoke].id, 2016, 8, 13)
-
-SeedHelper.create_fixture(week_1.id, teams[:chelsea].id, teams[:west_ham].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:bournemouth].id, teams[:man_utd].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:burnley].id, teams[:swansea].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:everton].id, teams[:tottenham].id, 2016, 8, 13)
-SeedHelper.create_fixture(week_1.id, teams[:southampton].id, teams[:watford].id, 2016, 8, 13)
-
+SeedHelper.create_fixtures(week_1, [
+  {:hull, :leicester},
+  {:arsenal, :liverpool},
+  {:crystal_palace, :west_brom},
+  {:man_city, :sunderland},
+  {:middlesbrough, :stoke},
+  {:chelsea, :west_ham},
+  {:bournemouth, :man_utd},
+  {:burnley, :swansea},
+  {:everton, :tottenham},
+  {:southampton, :watford}
+], teams)
 #week 2
 
 
