@@ -17,8 +17,6 @@ defmodule SeedHelper do
     Enum.each(fixtures, fn(fixture) ->
       home_team = elem(fixture, 0)
       away_team = elem(fixture, 1)
-      IO.puts "home team #{ inspect home_team }"
-      IO.puts "away team #{ inspect away_team }"
       create_fixture(
         week.id,
         teams[home_team].id,
@@ -83,8 +81,6 @@ Underdog.Repo.delete_all(Underdog.Team)
 
 Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
-
-
 
 
 league = %Underdog.League{name: "Premier League"}
