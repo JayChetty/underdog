@@ -3,6 +3,7 @@ defmodule Underdog.League do
 
   schema "leagues" do
     field :name, :string
+    has_many :seasons, Underdog.Season
 
     timestamps
   end

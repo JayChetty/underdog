@@ -3,8 +3,9 @@ defmodule Underdog.Fixture do
 
   schema "fixtures" do
     field :start_time, Ecto.DateTime
-    belongs_to :home_team, Underdog.HomeTeam
-    belongs_to :away_team, Underdog.AwayTeam
+    belongs_to :home_team, Underdog.Team
+    belongs_to :away_team, Underdog.Team
+    belongs_to :week, Underdog.Week
 
     timestamps
   end

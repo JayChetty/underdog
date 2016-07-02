@@ -1,4 +1,5 @@
 defmodule Underdog.FixtureController do
+  require Logger
   use Underdog.Web, :controller
 
   alias Underdog.Fixture
@@ -6,7 +7,11 @@ defmodule Underdog.FixtureController do
   plug :scrub_params, "fixture" when action in [:create, :update]
 
   def index(conn, _params) do
-    fixtures = Repo.all(Fixture)
+    Logger.debug "Logging this text! #{ inspect _params["week_id"]}"
+    query = from f in Fixture,
+      where: f.week_id == ^_params["week_id"]
+
+    fixtures = Repo.all(query)
     render(conn, "index.json", fixtures: fixtures)
   end
 

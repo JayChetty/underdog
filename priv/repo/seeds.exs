@@ -12,8 +12,9 @@
 require IEx
 defmodule SeedHelper do
 
-  def create_fixture(home_team_id, away_team_id, year, month, day) do
+  def create_fixture(week_id, home_team_id, away_team_id, year, month, day) do
     fixture = %Underdog.Fixture{
+      week_id: week_id,
       start_time: %Ecto.DateTime{
         year: year,
         month: month,
@@ -30,13 +31,22 @@ defmodule SeedHelper do
   end
 
   def create_teams(team_names) do
-    # Enum.map( team_names, fn { k, v } -> { k, create_team(v) } end )
-    keys = Map.keys(team_names)
-    teams = []
-    Enum.each(keys, fn(key) ->
-      teams = Map.update(team_names, key, nil, fn(name) -> create_team(name) end)
-    end)
-    teams
+    #How can we do this nicely with hashmap
+    Enum.map( team_names, fn( name_tuple ) -> { elem(name_tuple,0), create_team(elem(name_tuple,1)) } end )
+  end
+
+  def create_week(year,month,day,number,season_id) do
+    week = %Underdog.Week{
+      start_date: %Ecto.Date{
+        year: year,
+        month: month,
+        day: day
+      },
+      season_id: season_id,
+      number: number
+    }
+    {:ok, inserted_week} = Underdog.Repo.insert(week)
+    inserted_week
   end
 
   def create_team(name) do
@@ -46,11 +56,17 @@ defmodule SeedHelper do
   end
 end
 
-Underdog.Repo.delete_all(Underdog.Week)
-Underdog.Repo.delete_all(Underdog.Season)
+
+
 Underdog.Repo.delete_all(Underdog.Fixture)
+
+Underdog.Repo.delete_all(Underdog.Week)
 Underdog.Repo.delete_all(Underdog.Team)
+
+Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
+
+
 
 
 league = %Underdog.League{name: "Premier League"}
@@ -59,19 +75,11 @@ league = %Underdog.League{name: "Premier League"}
 season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id }
 {:ok, inserted_season} = Underdog.Repo.insert(season)
 
-week = %Underdog.Week{
-  start_date: %Ecto.Date{
-    year: 2016,
-    month: 8,
-    day: 1
-  },
-  season_id: inserted_season.id,
-  number: 1
-}
-{:ok, inserted_week} = Underdog.Repo.insert(week)
+week_1 = SeedHelper.create_week(2016,08,01,1, season.id)
+week_2 = SeedHelper.create_week(2016,08,08,2, season.id)
 
 
-team_names = %{
+team_names = [
   arsenal: "Arsenal FC",
   bournemouth: "Bournemouth AFC",
   burnley: "Burnley FC",
@@ -92,13 +100,14 @@ team_names = %{
   watford: "Watford FC",
   west_brom: "West Bromwich Albion",
   west_ham: "West Ham United"
-}
+]
 
 teams = SeedHelper.create_teams(team_names)
 
-IEx.pry
+# IEx.pry
 
-IO.puts teams.arsenal.name
+# IO.puts teams[:arsenal].name
 
 
-# SeedHelper.create_fixture(teams.arsenal.id, teams.burnley.id, 2016, 8, 1)
+SeedHelper.create_fixture(week_1.id, teams[:arsenal].id, teams[:hull].id, 2016, 8, 1)
+SeedHelper.create_fixture(week_2.id, teams[:everton].id, teams[:hull].id, 2016, 8, 9)
