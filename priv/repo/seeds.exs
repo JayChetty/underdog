@@ -75,8 +75,8 @@ league = %Underdog.League{name: "Premier League"}
 season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id }
 {:ok, inserted_season} = Underdog.Repo.insert(season)
 
-week_1 = SeedHelper.create_week(2016,08,01,1, inserted_season.id)
-week_2 = SeedHelper.create_week(2016,08,08,2, inserted_season.id)
+week_1 = SeedHelper.create_week(2016,08,13,1, inserted_season.id)
+week_2 = SeedHelper.create_week(2016,08,20,2, inserted_season.id)
 
 
 team_names = [
@@ -104,10 +104,20 @@ team_names = [
 
 teams = SeedHelper.create_teams(team_names)
 
-# IEx.pry
+#week 1
+SeedHelper.create_fixture(week_1.id, teams[:hull].id, teams[:leicester].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:arsenal].id, teams[:liverpool].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:crystal_palace].id, teams[:west_brom].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:man_city].id, teams[:sunderland].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:middlesbrough].id, teams[:stoke].id, 2016, 8, 13)
 
-# IO.puts teams[:arsenal].name
+SeedHelper.create_fixture(week_1.id, teams[:chelsea].id, teams[:west_ham].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:bournemouth].id, teams[:man_utd].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:burnley].id, teams[:swansea].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:everton].id, teams[:tottenham].id, 2016, 8, 13)
+SeedHelper.create_fixture(week_1.id, teams[:southampton].id, teams[:watford].id, 2016, 8, 13)
+
+#week 2
 
 
-SeedHelper.create_fixture(week_1.id, teams[:arsenal].id, teams[:hull].id, 2016, 8, 1)
 SeedHelper.create_fixture(week_2.id, teams[:everton].id, teams[:hull].id, 2016, 8, 9)
