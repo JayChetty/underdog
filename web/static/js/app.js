@@ -13,6 +13,9 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 
+import _ from "lodash"
+
+import something from "./tester"
 // Import local files
 //
 // Local files can be imported directly using relative
