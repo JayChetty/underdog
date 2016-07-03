@@ -13,8 +13,6 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 
-import _ from "lodash"
-
 import something from "./tester"
 // Import local files
 //
@@ -22,16 +20,25 @@ import something from "./tester"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-console.log("gotta be starting something")
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import PredictorApp from './reducers/reducer';
+import PredictionBox from './components/PredictionBox';
 
+let store = createStore( PredictorApp );
 
-window.onload = ()=>{
-  console.log('starting')
+window.onload = () => {
+
+  console.log( 'Hello world' );
+
   ReactDOM.render(
-    <h1> Hello </h1>,
-    document.getElementById('app')
+    <Provider store={store}>
+      <PredictionBox />
+    </Provider>,
+    document.getElementById( 'app' )
   )
-}
+
+};
