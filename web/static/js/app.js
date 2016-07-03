@@ -23,3 +23,15 @@ import something from "./tester"
 
 // import socket from "./socket"
 console.log("gotta be starting something")
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
+window.onload = ()=>{
+  console.log('starting')
+  ReactDOM.render(
+    <h1> Hello </h1>,
+    document.getElementById('app')
+  )
+}
