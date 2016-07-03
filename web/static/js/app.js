@@ -27,12 +27,33 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import PredictorApp from './reducers/reducer';
 import PredictionBox from './components/PredictionBox';
+import actions  from './actions/action'
 
 let store = createStore( PredictorApp );
 
 window.onload = () => {
 
-  console.log( 'Hello world' );
+  var XHR = (url, callback) => {
+    var request = new XMLHttpRequest();
+    request.open( "GET", url );
+    request.onload = () => {
+      if( request.status === 200 ) {
+        let receivedJson = JSON.parse( request.responseText )
+        console.log('got data', receivedJson)
+        // store.dispatch( actions.setFixtures( receivedJson.data ) )
+        callback( receivedJson.data )
+      }
+    }
+    request.send( null );
+  }
+
+  XHR("/api/weeks/1/fixtures", (data)=>{
+    store.dispatch( actions.setFixtures( data ) )
+  });
+
+  XHR("/api/teams", (data)=>{
+    store.dispatch( actions.setTeams( data ) )
+  });
 
   ReactDOM.render(
     <Provider store={store}>
