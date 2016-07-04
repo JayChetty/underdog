@@ -11,4 +11,8 @@ defmodule Underdog.SessionView do
   def render("error.json", _) do
     %{error: "Invalid email or password"}
   end
+
+  def render("forbidden.json", _) do
+      %{error: "No Permission"}
+  end
 end

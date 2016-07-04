@@ -2,6 +2,7 @@ defmodule Underdog.PredictionController do
   use Underdog.Web, :controller
 
   alias Underdog.Prediction
+  plug Guardian.Plug.EnsureAuthenticated, handler: Underdog.SessionController
 
   plug :scrub_params, "prediction" when action in [:create, :update]
 
