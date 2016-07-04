@@ -32,7 +32,7 @@ config :guardian, Guardian,
   allowed_algos: ["HS512", "HS384"],
   issuer: "MyApp",
   ttl: { 30, :days },
-  serializer: MyApp.GuardianSerializer,
+  serializer: Underdog.GuardianSerializer,
   secret_key: "lksjdlkjsdflkjsdf"
 
 # config :guardian, Guardian,

@@ -19,7 +19,7 @@ defmodule Underdog.Mixfile do
   def application do
     [mod: {Underdog, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +37,9 @@ defmodule Underdog.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:guardian, "~> 0.12.0"}]
+     {:guardian, "~> 0.12.0"},
+     {:comeonin, "~> 2.0"},
+   ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
