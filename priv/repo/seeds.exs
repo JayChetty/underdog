@@ -10,6 +10,7 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 require IEx
+require Logger
 defmodule SeedHelper do
 
   # def create_fixtures(week, fixtures, teams, true) do
@@ -18,7 +19,7 @@ defmodule SeedHelper do
 
 
   def create_fixtures(week, fixtures, teams, home_team_score \\ nil, away_team_score \\ nil) do
-    Enum.each(fixtures, fn(fixture) ->
+    Enum.map(fixtures, fn(fixture) ->
       home_team = elem(fixture, 0)
       away_team = elem(fixture, 1)
       create_fixture(
@@ -52,6 +53,7 @@ defmodule SeedHelper do
     }
 
     {:ok, inserted_fixture} = Underdog.Repo.insert(fixture)
+    inserted_fixture
   end
 
   def create_teams(team_details) do
@@ -91,6 +93,10 @@ Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
 
 
+Underdog.Repo.delete_all(Underdog.Prediction)
+Underdog.Repo.delete_all(Underdog.User)
+
+
 league = %Underdog.League{name: "Premier League"}
 {:ok, inserted_league} = Underdog.Repo.insert(league)
 
@@ -126,7 +132,7 @@ team_names = [
 
 teams = SeedHelper.create_teams(team_names)
 
-SeedHelper.create_fixtures(week_1, [
+week_1_fixtures = SeedHelper.create_fixtures(week_1, [
   {:hull, :leicester},
   {:arsenal, :liverpool},
   {:crystal_palace, :west_brom},
@@ -154,3 +160,22 @@ SeedHelper.create_fixtures(week_2, [
 
 
 SeedHelper.create_fixture(week_2.id, teams[:everton].id, teams[:hull].id, 2016, 8, 9)
+
+user_params = %{name: "jaychetty", email: "jay@email.com", password: "password"}
+
+user = Underdog.User.changeset( %Underdog.User{}, user_params )
+
+
+{:ok, inserted_user} =  Underdog.Repo.insert(user)
+
+
+Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
+prediction = %Underdog.Prediction{
+  type: "upset",
+  user_id: inserted_user.id,
+  fixture_id: hd(week_1_fixtures).id
+}
+
+
+
+{:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )

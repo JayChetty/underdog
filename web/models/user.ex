@@ -1,4 +1,5 @@
 defmodule Underdog.User do
+  require Logger
   use Underdog.Web, :model
 
   schema "users" do
@@ -9,7 +10,7 @@ defmodule Underdog.User do
     timestamps
   end
 
-  @required_fields ~w(name email)
+  @required_fields ~w(name email password)
   @optional_fields ~w(encrypted_password)
 
   @doc """

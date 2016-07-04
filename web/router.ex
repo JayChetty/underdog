@@ -23,8 +23,9 @@ defmodule Underdog.Router do
   # Other scopes may use custom stacks.
   scope "/api", Underdog do
     pipe_through :api
-    
+
     post "/registrations", RegistrationController, :create
+    resources "/predictions", PredictionController, except: [:new, :edit]
 
     resources "/leagues", LeagueController, except: [:new, :edit] do
       resources "/seasons", SeasonController, except: [:new, :edit]
