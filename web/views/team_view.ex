@@ -11,6 +11,7 @@ defmodule Underdog.TeamView do
 
   def render("team.json", %{team: team}) do
     %{id: team.id,
-      name: team.name}
+      name: team.name,
+      image: team.image}
   end
 end

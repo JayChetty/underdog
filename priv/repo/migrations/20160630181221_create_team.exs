@@ -4,6 +4,7 @@ defmodule Underdog.Repo.Migrations.CreateTeam do
   def change do
     create table(:teams) do
       add :name, :string
+      add :image, :string
 
       timestamps
     end

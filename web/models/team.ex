@@ -3,12 +3,13 @@ defmodule Underdog.Team do
 
   schema "teams" do
     field :name, :string
+    field :image, :string
 
     timestamps
   end
 
   @required_fields ~w(name)
-  @optional_fields ~w()
+  @optional_fields ~w(image)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
