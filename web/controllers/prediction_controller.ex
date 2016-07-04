@@ -7,7 +7,11 @@ defmodule Underdog.PredictionController do
   plug :scrub_params, "prediction" when action in [:create, :update]
 
   def index(conn, _params) do
-    predictions = Repo.all(Prediction)
+    user = Guardian.Plug.current_resource(conn)
+    predictions = Repo.all(
+      from p in Prediction,
+        where: p.user_id == ^user.id
+    )
     render(conn, "index.json", predictions: predictions)
   end
 
