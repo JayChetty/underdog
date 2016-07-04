@@ -29,7 +29,9 @@ import PredictorApp from './reducers/reducer';
 import PredictionBox from './components/PredictionBox';
 import actions  from './actions/action'
 
-let store = createStore( PredictorApp );
+// let store = createStore( PredictorApp );
+
+let store = createStore(PredictorApp, window.devToolsExtension && window.devToolsExtension());
 
 window.onload = () => {
 
@@ -47,7 +49,7 @@ window.onload = () => {
     request.send( null );
   }
 
-  XHR("/api/weeks/2/fixtures", (data)=>{
+  XHR("/api/seasons/1/fixtures", (data)=>{
     store.dispatch( actions.setFixtures( data ) )
   });
 

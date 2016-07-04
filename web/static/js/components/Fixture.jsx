@@ -10,8 +10,8 @@ class Fixture extends Component {
     return(
       <div>
         <img src={fixture.homeTeam.image} width="30"/>
-        <span>{ fixture.homeTeam.name }</span> V
-        <span>{ fixture.awayTeam.name }</span>
+        <span>{ fixture.homeTeam.name } { fixture.home_team_score }</span> V
+        <span>{ fixture.awayTeam.name } { fixture.away_team_score } </span>
         <img src={fixture.awayTeam.image} width="30"/>
         <form>
           <label>Upset?</label>
