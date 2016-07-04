@@ -6,12 +6,26 @@ defmodule Underdog.FixtureController do
 
   plug :scrub_params, "fixture" when action in [:create, :update]
 
-  def index(conn, _params) do
-    Logger.debug "Logging this text! #{ inspect _params["week_id"]}"
-    query = from f in Fixture,
-      where: f.week_id == ^_params["week_id"]
+  defp fixtures_query( %{"week_id" => week_id} ) do
+    from f in Fixture,
+      where: f.week_id == ^week_id
+  end
 
-    fixtures = Repo.all(query)
+  defp fixtures_query( %{"season_id" => season_id} ) do
+    from f in Fixture,
+      join: w in Underdog.Week,
+      where:
+        w.id == f.week_id and w.season_id == ^season_id
+  end
+
+  defp fixtures_query(params) do
+    Fixture
+  end
+
+
+  def index(conn, params) do
+    Logger.debug "Logging this text! #{ inspect params["week_id"]}"
+    fixtures = Repo.all( fixtures_query( params ) )
     render(conn, "index.json", fixtures: fixtures)
   end
 

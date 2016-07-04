@@ -47,7 +47,7 @@ window.onload = () => {
     request.send( null );
   }
 
-  XHR("/api/weeks/1/fixtures", (data)=>{
+  XHR("/api/weeks/2/fixtures", (data)=>{
     store.dispatch( actions.setFixtures( data ) )
   });
 

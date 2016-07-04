@@ -12,8 +12,12 @@
 require IEx
 defmodule SeedHelper do
 
+  # def create_fixtures(week, fixtures, teams, true) do
+  #   create_fixtures(week, fixtures, teams, 2, 1)
+  # end
 
-  def create_fixtures(week, fixtures, teams) do
+
+  def create_fixtures(week, fixtures, teams, home_team_score \\ nil, away_team_score \\ nil) do
     Enum.each(fixtures, fn(fixture) ->
       home_team = elem(fixture, 0)
       away_team = elem(fixture, 1)
@@ -23,12 +27,14 @@ defmodule SeedHelper do
         teams[away_team].id,
         week.start_date.year,
         week.start_date.month,
-        week.start_date.day
+        week.start_date.day,
+        home_team_score,
+        away_team_score
       )
     end)
   end
 
-  def create_fixture(week_id, home_team_id, away_team_id, year, month, day) do
+  def create_fixture(week_id, home_team_id, away_team_id, year, month, day, home_team_score \\ nil, away_team_score \\ nil) do
     fixture = %Underdog.Fixture{
       week_id: week_id,
       start_time: %Ecto.DateTime{
@@ -40,7 +46,9 @@ defmodule SeedHelper do
         sec: 0
       },
       home_team_id: home_team_id,
-      away_team_id: away_team_id
+      away_team_id: away_team_id,
+      home_team_score: home_team_score,
+      away_team_score: away_team_score
     }
 
     {:ok, inserted_fixture} = Underdog.Repo.insert(fixture)
@@ -129,8 +137,20 @@ SeedHelper.create_fixtures(week_1, [
   {:burnley, :swansea},
   {:everton, :tottenham},
   {:southampton, :watford}
-], teams)
+], teams, 2, 1)
 #week 2
+SeedHelper.create_fixtures(week_2, [
+  {:west_ham, :bournemouth},
+  {:man_utd, :southampton},
+  {:west_brom, :everton},
+  {:swansea, :hull},
+  {:liverpool, :burnley},
+  {:tottenham, :crystal_palace},
+  {:watford, :chelsea},
+  {:sunderland, :middlesbrough},
+  {:leicester, :arsenal},
+  {:stoke, :man_city}
+], teams)
 
 
 SeedHelper.create_fixture(week_2.id, teams[:everton].id, teams[:hull].id, 2016, 8, 9)

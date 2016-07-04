@@ -5,7 +5,7 @@ class Fixture extends Component {
   render() {
     const { fixture } = this.props
     if(!fixture.homeTeam){
-      return <div> ...loading Team Data </div>
+      return <div> ...loading Team Data ß</div>
     }
     return(
       <div>

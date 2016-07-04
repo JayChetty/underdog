@@ -28,6 +28,7 @@ defmodule Underdog.Router do
     end
     resources "/seasons", SeasonController, except: [:new, :edit] do
       resources "/weeks", WeekController, except: [:new, :edit]
+      resources "/fixtures", FixtureController, except: [:new, :edit]
     end
     resources "/weeks", WeekController, except: [:new, :edit] do
       resources "/fixtures", FixtureController, except: [:new, :edit]
