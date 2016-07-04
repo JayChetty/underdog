@@ -2,6 +2,8 @@ defmodule Underdog.User do
   require Logger
   use Underdog.Web, :model
 
+  @derive {Poison.Encoder, only: [:id, :name, :email]}
+
   schema "users" do
     field :name, :string
     field :email, :string

@@ -173,7 +173,7 @@ Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
 prediction = %Underdog.Prediction{
   type: "upset",
   user_id: inserted_user.id,
-  fixture_id: hd(week_1_fixtures).id
+  fixture_id: hd(week_1_fixtures).id  
 }
 
 
