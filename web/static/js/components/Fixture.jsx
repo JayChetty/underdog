@@ -4,6 +4,9 @@ class Fixture extends Component {
 
   render() {
     const { fixture } = this.props
+    if(!fixture.homeTeam){
+      return <div> ...loading Team Data</div>
+    }
     return(
       <div className="split-list-view">
         <div className="split-list-view-left bg-green">
@@ -14,10 +17,6 @@ class Fixture extends Component {
           <img src="http://www.promatica.co.uk/sites/default/pagecontent/getpageimage/3244" />
           <span>{ fixture.awayTeam.name }</span>
         </div>
-        {/*<form>
-          <label>Upset?</label>
-          <input type="checkbox" />
-        </form>*/}
       </div>
     )
   }

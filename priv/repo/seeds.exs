@@ -10,11 +10,16 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 require IEx
+require Logger
 defmodule SeedHelper do
 
+  # def create_fixtures(week, fixtures, teams, true) do
+  #   create_fixtures(week, fixtures, teams, 2, 1)
+  # end
 
-  def create_fixtures(week, fixtures, teams) do
-    Enum.each(fixtures, fn(fixture) ->
+
+  def create_fixtures(week, fixtures, teams, home_team_score \\ nil, away_team_score \\ nil) do
+    Enum.map(fixtures, fn(fixture) ->
       home_team = elem(fixture, 0)
       away_team = elem(fixture, 1)
       create_fixture(
@@ -23,12 +28,14 @@ defmodule SeedHelper do
         teams[away_team].id,
         week.start_date.year,
         week.start_date.month,
-        week.start_date.day
+        week.start_date.day,
+        home_team_score,
+        away_team_score
       )
     end)
   end
 
-  def create_fixture(week_id, home_team_id, away_team_id, year, month, day) do
+  def create_fixture(week_id, home_team_id, away_team_id, year, month, day, home_team_score \\ nil, away_team_score \\ nil) do
     fixture = %Underdog.Fixture{
       week_id: week_id,
       start_time: %Ecto.DateTime{
@@ -40,15 +47,18 @@ defmodule SeedHelper do
         sec: 0
       },
       home_team_id: home_team_id,
-      away_team_id: away_team_id
+      away_team_id: away_team_id,
+      home_team_score: home_team_score,
+      away_team_score: away_team_score
     }
 
     {:ok, inserted_fixture} = Underdog.Repo.insert(fixture)
+    inserted_fixture
   end
 
-  def create_teams(team_names) do
+  def create_teams(team_details) do
     #How can we do this nicely with hashmap
-    Enum.map( team_names, fn( name_tuple ) -> { elem(name_tuple,0), create_team(elem(name_tuple,1)) } end )
+    Enum.map( team_details, fn( name_tuple ) -> { elem(name_tuple,0), create_team( elem(name_tuple,1) ) } end )
   end
 
   def create_week(year,month,day,number,season_id) do
@@ -65,8 +75,8 @@ defmodule SeedHelper do
     inserted_week
   end
 
-  def create_team(name) do
-    team = %Underdog.Team{name: name}
+  def create_team(details) do
+    team = %Underdog.Team{name: elem(details,0), image: elem(details,1)}
     {:ok, inserted_team} = Underdog.Repo.insert(team)
     inserted_team
   end
@@ -83,6 +93,10 @@ Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
 
 
+Underdog.Repo.delete_all(Underdog.Prediction)
+Underdog.Repo.delete_all(Underdog.User)
+
+
 league = %Underdog.League{name: "Premier League"}
 {:ok, inserted_league} = Underdog.Repo.insert(league)
 
@@ -94,31 +108,31 @@ week_2 = SeedHelper.create_week(2016,08,20,2, inserted_season.id)
 
 
 team_names = [
-  arsenal: "Arsenal FC",
-  bournemouth: "Bournemouth AFC",
-  burnley: "Burnley FC",
-  chelsea: "Chelsea FC",
-  crystal_palace: "Crystal Palace",
-  everton: "Everton FC",
-  hull: "Hull City",
-  leicester: "Leicester City",
-  liverpool: "Liverpool FC",
-  man_city: "Manchester City",
-  man_utd: "Manchester United",
-  middlesbrough: "Middlesbrough FC",
-  southampton: "Southampton FC",
-  stoke: "Stoke City",
-  sunderland: "Sunderland AFC",
-  swansea: "Swansea City",
-  tottenham: "Tottenham Hotspur",
-  watford: "Watford FC",
-  west_brom: "West Bromwich Albion",
-  west_ham: "West Ham United"
+  arsenal: {"Arsenal FC", "http://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"},
+  bournemouth: {"Bournemouth AFC", "https://upload.wikimedia.org/wikipedia/de/4/41/Afc_bournemouth.svg"},
+  burnley: {"Burnley FC","http://upload.wikimedia.org/wikipedia/de/thumb/4/49/FC_Burnley.svg/376px-FC_Burnley.svg.png"},
+  chelsea: {"Chelsea FC", "http://upload.wikimedia.org/wikipedia/de/5/5c/Chelsea_crest.svg"},
+  crystal_palace: {"Crystal Palace", "http://upload.wikimedia.org/wikipedia/de/b/bf/Crystal_Palace_F.C._logo_(2013).png"},
+  everton: {"Everton FC", "http://upload.wikimedia.org/wikipedia/de/f/f9/Everton_FC.svg"},
+  hull: {"Hull City", "http://upload.wikimedia.org/wikipedia/de/a/a9/Hull_City_AFC.svg"},
+  leicester: {"Leicester City","http://upload.wikimedia.org/wikipedia/en/6/63/Leicester02.png"},
+  liverpool: {"Liverpool FC", "http://upload.wikimedia.org/wikipedia/de/0/0a/FC_Liverpool.svg"},
+  man_city: {"Manchester City", "http://upload.wikimedia.org/wikipedia/de/f/fd/ManCity.svg"},
+  man_utd: {"Manchester United", "http://upload.wikimedia.org/wikipedia/de/d/da/Manchester_United_FC.svg"},
+  middlesbrough: {"Middlesbrough FC", "https://upload.wikimedia.org/wikipedia/en/3/34/Middlesbrough_crest.png"},
+  southampton: {"Southampton FC", "http://upload.wikimedia.org/wikipedia/de/c/c9/FC_Southampton.svg"},
+  stoke: {"Stoke City", "http://upload.wikimedia.org/wikipedia/de/a/a3/Stoke_City.svg"},
+  sunderland: {"Sunderland AFC", "http://upload.wikimedia.org/wikipedia/de/6/60/AFC_Sunderland.svg"},
+  swansea: {"Swansea City", "http://upload.wikimedia.org/wikipedia/de/a/ab/Swansea_City_Logo.svg"},
+  tottenham: {"Tottenham Hotspur", "http://upload.wikimedia.org/wikipedia/de/b/b4/Tottenham_Hotspur.svg"},
+  watford: {"Watford FC", "https://upload.wikimedia.org/wikipedia/en/e/e2/Watford.svg"},
+  west_brom: {"West Bromwich Albion","http://upload.wikimedia.org/wikipedia/de/8/8b/West_Bromwich_Albion.svg"},
+  west_ham: {"West Ham United", "http://upload.wikimedia.org/wikipedia/de/e/e0/West_Ham_United_FC.svg"}
 ]
 
 teams = SeedHelper.create_teams(team_names)
 
-SeedHelper.create_fixtures(week_1, [
+week_1_fixtures = SeedHelper.create_fixtures(week_1, [
   {:hull, :leicester},
   {:arsenal, :liverpool},
   {:crystal_palace, :west_brom},
@@ -129,8 +143,39 @@ SeedHelper.create_fixtures(week_1, [
   {:burnley, :swansea},
   {:everton, :tottenham},
   {:southampton, :watford}
-], teams)
+], teams, 2, 1)
 #week 2
+SeedHelper.create_fixtures(week_2, [
+  {:west_ham, :bournemouth},
+  {:man_utd, :southampton},
+  {:west_brom, :everton},
+  {:swansea, :hull},
+  {:liverpool, :burnley},
+  {:tottenham, :crystal_palace},
+  {:watford, :chelsea},
+  {:sunderland, :middlesbrough},
+  {:leicester, :arsenal},
+  {:stoke, :man_city}
+], teams)
 
 
 SeedHelper.create_fixture(week_2.id, teams[:everton].id, teams[:hull].id, 2016, 8, 9)
+
+user_params = %{name: "jaychetty", email: "jay@email.com", password: "password"}
+
+user = Underdog.User.changeset( %Underdog.User{}, user_params )
+
+
+{:ok, inserted_user} =  Underdog.Repo.insert(user)
+
+
+Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
+prediction = %Underdog.Prediction{
+  type: "upset",
+  user_id: inserted_user.id,
+  fixture_id: hd(week_1_fixtures).id  
+}
+
+
+
+{:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )

@@ -28,12 +28,19 @@ config :phoenix, :generators,
   migration: true,
   binary_id: false
 
+# config :guardian, Guardian,
+#   allowed_algos: ["HS512", "HS384"],
+#   issuer: "Underdog",
+#   ttl: { 30, :days },
+#   serializer: Underdog.GuardianSerializer,
+#   secret_key: "lksjdlkjsdflkjsdf"
+
 config :guardian, Guardian,
-  allowed_algos: ["HS512", "HS384"],
-  issuer: "MyApp",
+  issuer: "Underdog",
   ttl: { 30, :days },
-  serializer: MyApp.GuardianSerializer,
-  secret_key: "lksjdlkjsdflkjsdf"
+  verify_issuer: true,
+  secret_key: "lksjdlkjsdflkjsdf",
+  serializer: Underdog.GuardianSerializer
 
 # config :guardian, Guardian,
 #   allowed_algos: ["HS512"], # optional

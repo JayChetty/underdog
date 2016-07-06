@@ -1,15 +1,16 @@
-defmodule Underdog.Team do
+defmodule Underdog.Prediction do
   use Underdog.Web, :model
 
-  schema "teams" do
-    field :name, :string
-    field :image, :string
+  schema "predictions" do
+    field :type, :string
+    belongs_to :user, Underdog.User
+    belongs_to :fixture, Underdog.Fixture
 
     timestamps
   end
 
-  @required_fields ~w(name)
-  @optional_fields ~w(image)
+  @required_fields ~w(type)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
