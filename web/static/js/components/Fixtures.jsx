@@ -8,10 +8,12 @@ class Fixtures extends Component {
       return( <Fixture key={fixture.id} fixture={fixture} /> ) } )
 
     return (
-      <div>
-        <h2>Your Predictions</h2>
-        { fixtures }
-      </div>
+      <main className="content">
+        <div className="content-header">Your Predictions</div>
+        <div className="list-view">
+          { fixtures }
+        </div>
+      </main>
 
     )
   }

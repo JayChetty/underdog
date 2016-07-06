@@ -6,16 +6,11 @@ import _ from 'lodash';
 
 class PredictionBox extends Component {
 
-  // componentDidMount() {
-  //   this.props.dispatch( actions.getGames() );
-  // }
-
   findTeamById(teamId){
     return _.find(this.props.teams, (team)=> team.id === teamId )
   }
 
   render() {
-    // const { fixtures } = this.props
     const fixturesWithTeams = this.props.fixtures.map((fixture)=>{
       fixture.homeTeam = this.findTeamById(fixture.home_team_id);
       fixture.awayTeam = this.findTeamById(fixture.away_team_id);
@@ -23,7 +18,9 @@ class PredictionBox extends Component {
     })
     return (
       <div>
-        <h1>PredictorApp</h1>
+        <nav className="navbar">
+          <div className="navbar-header">UNDERDOG</div>
+        </nav>
         <Fixtures fixtures={fixturesWithTeams} />
       </div>
     )

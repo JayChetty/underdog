@@ -5,15 +5,19 @@ class Fixture extends Component {
   render() {
     const { fixture } = this.props
     return(
-      <div>
-        <img src={fixture.homeTeamImg} width="30"/>
-        <span>{ fixture.homeTeam.name }</span> V
-        <span>{ fixture.awayTeam.name }</span>
-        <img src={fixture.awayTeamImg} width="30"/>
-        <form>
+      <div className="split-list-view">
+        <div className="split-list-view-left bg-green">
+          <span>{ fixture.homeTeam.name }</span>
+          <img src="http://www.promatica.co.uk/sites/default/pagecontent/getpageimage/3244" />
+        </div>
+        <div className="split-list-view-right">
+          <img src="http://www.promatica.co.uk/sites/default/pagecontent/getpageimage/3244" />
+          <span>{ fixture.awayTeam.name }</span>
+        </div>
+        {/*<form>
           <label>Upset?</label>
           <input type="checkbox" />
-        </form>
+        </form>*/}
       </div>
     )
   }
