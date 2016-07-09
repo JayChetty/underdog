@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../actions/action';
 import Fixtures from './Fixtures';
+import actions from '../actions/action';
 import _ from 'lodash';
 
 class PredictionBox extends Component {
 
   findTeamById(teams, teamId){
     return _.find(teams, (team)=> team.id === teamId )
+  }
+
+  findPredictionForFixture(predictions, fixtureId){
+    return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
   }
 
   pointsForGame(goalDifference){
@@ -44,25 +48,27 @@ class PredictionBox extends Component {
   }
 
   render() {
-    // const { fixtures } = this.props
-    const dummyWeekId =2
+    const dummyWeekId = 2
     const fixturesForWeek = this.props.fixtures.filter((fixture)=>{
       return fixture.week_id === dummyWeekId
     })
     const teamsWithPoints = this.props.teams.map((team)=>{
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
-    const fixturesWithTeams = fixturesForWeek.map((fixture)=>{
+    const fixturesWithTeamsAndPredictions = fixturesForWeek.map((fixture)=>{
       fixture.homeTeam = this.findTeamById(teamsWithPoints, fixture.home_team_id);
       fixture.awayTeam = this.findTeamById(teamsWithPoints, fixture.away_team_id);
+      const prediction = this.findPredictionForFixture(this.props.predictions, fixture.id)
+      fixture.prediction = prediction;
       return fixture;
     })
     return (
       <div>
         <nav className="navbar">
-          <div className="navbar-header">UNDERDOG</div>
+          <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
-        <Fixtures fixtures={fixturesWithTeams} />
+        <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} />
+        {/*<Footer />*/}
       </div>
     )
   }

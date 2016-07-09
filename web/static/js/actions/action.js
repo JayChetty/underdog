@@ -18,6 +18,20 @@ const actions = {
     return {
       type: "GET_GAMES"
     }
+  },
+
+  addPrediction: ( prediction ) => {
+    return {
+      type: "ADD_PREDICTION",
+      prediction
+    }
+  },
+
+  removePrediction: ( fixtureId ) => {
+    return {
+      type: "REMOVE_PREDICTION",
+      fixtureId
+    }
   }
 
 }

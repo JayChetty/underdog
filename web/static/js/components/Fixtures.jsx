@@ -5,7 +5,7 @@ class Fixtures extends Component {
 
   render() {
     const fixtures = this.props.fixtures.map( ( fixture ) => {
-      return( <Fixture key={fixture.id} fixture={fixture} /> ) } )
+      return( <Fixture key={fixture.id} fixture={fixture} dispatch={this.props.dispatch} /> ) } )
 
     return (
       <main className="content">
