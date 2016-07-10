@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Fixtures from './Fixtures';
+import FixturesSummary from './FixturesSummary';
 import actions from '../actions/action';
 import _ from 'lodash';
 
@@ -15,8 +16,8 @@ class PredictionBox extends Component {
   }
 
   pointsForGame(goalDifference){
-    if(goalDifference === 0){ return 1}
-    if(goalDifference > 0){return 3}
+    if(goalDifference === 0){ return 1 }
+    if(goalDifference > 0){ return 3 }
     return 0
   }
 
@@ -47,11 +48,29 @@ class PredictionBox extends Component {
     return this.pointsForFixtureType(teamId) + this.pointsForFixtureType(teamId, false)
   }
 
+  filterFixturesByWeekId( week_id ) {
+    const fixtures = this.props.fixtures.filter((fixture)=>{
+      return fixture.week_id === week_id
+    })
+    return fixtures
+  }
+
+  calculateTotalPredictedPoints() {
+    const fixtures = this.filterFixturesByWeekId( 2 )
+    const points = fixtures.map( ( fixture ) => {
+      if( fixture.prediction ) {
+        const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
+        return ( Math.abs( pointsDifference ) + 3 )
+      }
+      return 3
+    })
+    const total = points.reduce( ( prev, curr ) => prev + curr, 0 )
+    return total
+  }
+
   render() {
     const dummyWeekId = 2
-    const fixturesForWeek = this.props.fixtures.filter((fixture)=>{
-      return fixture.week_id === dummyWeekId
-    })
+    const fixturesForWeek = this.filterFixturesByWeekId( dummyWeekId )
     const teamsWithPoints = this.props.teams.map((team)=>{
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
@@ -62,13 +81,14 @@ class PredictionBox extends Component {
       fixture.prediction = prediction;
       return fixture;
     })
+
     return (
       <div>
         <nav className="navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
         <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} />
-        {/*<Footer />*/}
+        <FixturesSummary potentialPoints={ this.calculateTotalPredictedPoints() } />
       </div>
     )
   }
