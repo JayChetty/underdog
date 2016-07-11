@@ -32,6 +32,13 @@ const actions = {
       type: "REMOVE_PREDICTION",
       fixtureId
     }
+  },
+
+  addSession: (session) => {
+    return{
+      type: "ADD_SESSION",
+      session
+    }
   }
 
 }

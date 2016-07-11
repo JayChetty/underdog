@@ -6,6 +6,32 @@ import actions from '../actions/action';
 import _ from 'lodash';
 
 class PredictionBox extends Component {
+  componentDidMount(){
+    this.fetchData()
+  }
+
+  fetchData(){
+    this.get("/api/seasons/1/fixtures", (data)=>{
+      this.props.dispatch( actions.setFixtures( data ) )
+    });
+
+    this.get("/api/teams", (data)=>{
+      this.props.dispatch( actions.setTeams( data ) )
+    });
+  }
+
+  get(url, callback){
+    var request = new XMLHttpRequest();
+    request.open( "GET", url );
+    request.onload = () => {
+      if( request.status === 200 ) {
+        let receivedJson = JSON.parse( request.responseText )
+        callback( receivedJson.data )
+      }
+    }
+    request.send( null );
+  }
+
 
   findTeamById(teams, teamId){
     return _.find(teams, (team)=> team.id === teamId )

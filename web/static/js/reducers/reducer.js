@@ -3,12 +3,15 @@ import _ from 'lodash';
 const initialState = {
   fixtures: [],
   teams: [],
-  predictions: []
+  predictions: [],
+  session: null
 }
 
 const predictions = ( state = initialState, action ) => {
 
   switch( action.type ) {
+    case 'ADD_SESSION':
+      return Object.assign( {}, state, { session: action.session } )
     case 'SET_FIXTURES':
       return Object.assign( {}, state, {fixtures: action.fixtures} )
     case 'SET_TEAMS':
