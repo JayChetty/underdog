@@ -21,7 +21,7 @@ class PredictionBox extends Component {
 
     if(this.props.session){
       this.get("/api/predictions", (data)=>{
-        this.props.dispatch( actions.setTeams( data ) )
+        this.props.dispatch( actions.setPredictions( data ) )
       });
     }
 
@@ -30,6 +30,9 @@ class PredictionBox extends Component {
   get(url, callback){
     var request = new XMLHttpRequest();
     request.open( "GET", url );
+    if(this.props.session){
+      request.setRequestHeader("Authorization", this.props.session.jwt);
+    }
     request.onload = () => {
       if( request.status === 200 ) {
         let receivedJson = JSON.parse( request.responseText )

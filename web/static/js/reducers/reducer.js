@@ -14,6 +14,8 @@ const predictions = ( state = initialState, action ) => {
       return Object.assign( {}, state, { session: action.session } )
     case 'SET_FIXTURES':
       return Object.assign( {}, state, {fixtures: action.fixtures} )
+    case 'SET_PREDICTIONS':
+      return Object.assign( {}, state, {predictions: action.predictions} )
     case 'SET_TEAMS':
       return Object.assign( {}, state, {teams: action.teams} )
     case 'ADD_PREDICTION':

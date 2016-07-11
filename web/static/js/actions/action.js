@@ -7,6 +7,13 @@ const actions = {
     }
   },
 
+  setPredictions: ( predictions ) => {
+    return {
+      type: "SET_PREDICTIONS",
+      predictions
+    }
+  },
+
   setTeams: ( teams ) => {
     return {
       type: "SET_TEAMS",
