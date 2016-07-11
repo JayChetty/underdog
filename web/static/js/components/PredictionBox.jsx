@@ -18,6 +18,13 @@ class PredictionBox extends Component {
     this.get("/api/teams", (data)=>{
       this.props.dispatch( actions.setTeams( data ) )
     });
+
+    if(this.props.session){
+      this.get("/api/predictions", (data)=>{
+        this.props.dispatch( actions.setTeams( data ) )
+      });
+    }
+
   }
 
   get(url, callback){

@@ -34,7 +34,7 @@ const actions = {
     }
   },
 
-  addSession: (session) => {
+  addSession: ( session ) => {
     return{
       type: "ADD_SESSION",
       session
