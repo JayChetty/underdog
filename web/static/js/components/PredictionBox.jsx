@@ -94,7 +94,7 @@ class PredictionBox extends Component {
   calculateTotalPredictedPoints() {
     const fixtures = this.filterFixturesByWeekId( 2 )
     const points = fixtures.map( ( fixture ) => {
-      if( fixture.prediction ) {
+      if( fixture.prediction && fixture.homeTeam) {
         const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
         return ( Math.abs( pointsDifference ) + 3 )
       }
