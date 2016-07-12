@@ -1,5 +1,6 @@
 defmodule Underdog.PredictionController do
   use Underdog.Web, :controller
+  require Logger
 
   alias Underdog.Prediction
   plug Guardian.Plug.EnsureAuthenticated, handler: Underdog.SessionController
@@ -7,6 +8,7 @@ defmodule Underdog.PredictionController do
   plug :scrub_params, "prediction" when action in [:create, :update]
 
   def index(conn, _params) do
+
     user = Guardian.Plug.current_resource(conn)
     predictions = Repo.all(
       from p in Prediction,
@@ -16,7 +18,12 @@ defmodule Underdog.PredictionController do
   end
 
   def create(conn, %{"prediction" => prediction_params}) do
-    changeset = Prediction.changeset(%Prediction{}, prediction_params)
+    user = Guardian.Plug.current_resource(conn)
+    params_with_user = Map.put( prediction_params, "user_id", user.id )
+    Logger.debug inspect params_with_user
+    changeset = Prediction.changeset(%Prediction{}, params_with_user)
+
+    Logger.debug inspect changeset
 
     case Repo.insert(changeset) do
       {:ok, prediction} ->

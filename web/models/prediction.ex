@@ -9,7 +9,7 @@ defmodule Underdog.Prediction do
     timestamps
   end
 
-  @required_fields ~w(type)
+  @required_fields ~w(user_id fixture_id type)
   @optional_fields ~w()
 
   @doc """
