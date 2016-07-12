@@ -6,6 +6,42 @@ import actions from '../actions/action';
 import _ from 'lodash';
 
 class PredictionBox extends Component {
+  componentDidMount(){
+    this.fetchData()
+  }
+
+  fetchData(){
+    this.get("/api/seasons/1/fixtures", (data)=>{
+      this.props.dispatch( actions.setFixtures( data ) )
+    });
+
+    this.get("/api/teams", (data)=>{
+      this.props.dispatch( actions.setTeams( data ) )
+    });
+
+    if(this.props.session){
+      this.get("/api/predictions", (data)=>{
+        this.props.dispatch( actions.setPredictions( data ) )
+      });
+    }
+
+  }
+
+  get(url, callback){
+    var request = new XMLHttpRequest();
+    request.open( "GET", url );
+    if(this.props.session){
+      request.setRequestHeader("Authorization", this.props.session.jwt);
+    }
+    request.onload = () => {
+      if( request.status === 200 ) {
+        let receivedJson = JSON.parse( request.responseText )
+        callback( receivedJson.data )
+      }
+    }
+    request.send( null );
+  }
+
 
   findTeamById(teams, teamId){
     return _.find(teams, (team)=> team.id === teamId )
@@ -58,7 +94,7 @@ class PredictionBox extends Component {
   calculateTotalPredictedPoints() {
     const fixtures = this.filterFixturesByWeekId( 2 )
     const points = fixtures.map( ( fixture ) => {
-      if( fixture.prediction ) {
+      if( fixture.prediction && fixture.homeTeam) {
         const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
         return ( Math.abs( pointsDifference ) + 3 )
       }

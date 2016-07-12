@@ -7,6 +7,13 @@ const actions = {
     }
   },
 
+  setPredictions: ( predictions ) => {
+    return {
+      type: "SET_PREDICTIONS",
+      predictions
+    }
+  },
+
   setTeams: ( teams ) => {
     return {
       type: "SET_TEAMS",
@@ -31,6 +38,13 @@ const actions = {
     return {
       type: "REMOVE_PREDICTION",
       fixtureId
+    }
+  },
+
+  addSession: ( session ) => {
+    return{
+      type: "ADD_SESSION",
+      session
     }
   }
 
