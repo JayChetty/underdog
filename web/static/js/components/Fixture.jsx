@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import actions from '../actions/action'
+import { post } from '../rest_adapter'
 
 class Fixture extends Component {
 
@@ -13,6 +14,11 @@ class Fixture extends Component {
       type: 'upset'
     }
     this.props.dispatch( actions.addPrediction( prediction ) );
+
+    const predictionData = {
+      prediction: prediction
+    }
+    post( 'api/predictions', null, this.props.session, JSON.stringify(predictionData) )
   }
 
   homeTeamFavourite(){

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Fixtures from './Fixtures';
 import FixturesSummary from './FixturesSummary';
 import actions from '../actions/action';
+import { get } from '../rest_adapter'
 import _ from 'lodash';
 
 class PredictionBox extends Component {
@@ -11,36 +12,35 @@ class PredictionBox extends Component {
   }
 
   fetchData(){
-    this.get("/api/seasons/1/fixtures", (data)=>{
+    get("/api/seasons/1/fixtures", (data)=>{
       this.props.dispatch( actions.setFixtures( data ) )
     });
 
-    this.get("/api/teams", (data)=>{
+    get("/api/teams", (data)=>{
       this.props.dispatch( actions.setTeams( data ) )
     });
 
     if(this.props.session){
-      this.get("/api/predictions", (data)=>{
+      get("/api/predictions", (data)=>{
         this.props.dispatch( actions.setPredictions( data ) )
-      });
+      }, this.props.session);
     }
-
   }
 
-  get(url, callback){
-    var request = new XMLHttpRequest();
-    request.open( "GET", url );
-    if(this.props.session){
-      request.setRequestHeader("Authorization", this.props.session.jwt);
-    }
-    request.onload = () => {
-      if( request.status === 200 ) {
-        let receivedJson = JSON.parse( request.responseText )
-        callback( receivedJson.data )
-      }
-    }
-    request.send( null );
-  }
+  // get(url, callback){
+  //   var request = new XMLHttpRequest();
+  //   request.open( "GET", url );
+  //   if(this.props.session){
+  //     request.setRequestHeader("Authorization", this.props.session.jwt);
+  //   }
+  //   request.onload = () => {
+  //     if( request.status === 200 ) {
+  //       let receivedJson = JSON.parse( request.responseText )
+  //       callback( receivedJson.data )
+  //     }
+  //   }
+  //   request.send( null );
+  // }
 
 
   findTeamById(teams, teamId){
@@ -123,7 +123,7 @@ class PredictionBox extends Component {
         <nav className="navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
-        <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} />
+        <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} session={this.props.session} />
         <FixturesSummary potentialPoints={ this.calculateTotalPredictedPoints() } />
       </div>
     )
