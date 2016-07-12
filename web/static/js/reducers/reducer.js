@@ -4,12 +4,15 @@ const initialState = {
   fixtures: [],
   teams: [],
   predictions: [],
-  session: null
+  session: null,
+  displayWeek: null
 }
 
 const predictions = ( state = initialState, action ) => {
 
   switch( action.type ) {
+    case 'SET_DISPLAY_WEEK':
+      return Object.assign( {}, state, { displayWeek: action.displayWeek } )
     case 'ADD_SESSION':
       return Object.assign( {}, state, { session: action.session } )
     case 'SET_FIXTURES':

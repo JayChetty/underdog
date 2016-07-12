@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import actions from '../actions/action'
-import { post } from '../rest_adapter'
+import { post, deleter } from '../rest_adapter'
 
 class Fixture extends Component {
 
   predictionSelect(e) {
     if (this.props.fixture.prediction) {
+      deleter( `api/predictions/${this.props.fixture.prediction.id}`, null, this.props.session )
       this.props.dispatch( actions.removePrediction( this.props.fixture.id ) );
       return;
     }
