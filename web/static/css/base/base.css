@@ -10,8 +10,6 @@ body {
 
 footer {
   padding: 10px;
-  position: fixed;
   bottom: 0;
-  width: 100%;
-  box-sizing: border-box;
+  background-color: #FFFFFF;
 }

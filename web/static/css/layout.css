@@ -1,0 +1,17 @@
+.layout-navbar {
+  line-height: 55px;
+}
+
+.layout-content {
+  padding-bottom: 60px;
+}
+
+.layout-footer {
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+  background-color: #FFFFFF;
+  max-height: 62px;
+}

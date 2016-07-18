@@ -1,0 +1,32 @@
+.bg-green {
+  background-color: #AFDDD1;
+  color: #FFFFFF;
+}
+
+.text-skinny {
+  font-weight: 100;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.text-green {
+  color: #AFDDD1;
+}
+
+.text-medium {
+  font-size: 16px;
+}
+
+.text-large {
+  font-size: 20px;
+}
+
+.go-left {
+  float: left;
+}
+
+.go-right {
+  float: right;
+}

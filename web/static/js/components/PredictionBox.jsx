@@ -120,7 +120,7 @@ class PredictionBox extends Component {
 
     return (
       <div>
-        <nav className="navbar">
+        <nav className="layout-navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
         <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} session={this.props.session} />

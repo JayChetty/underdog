@@ -1,0 +1,17 @@
+.tag {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid transparent;
+  color: #e6e6e6;
+}
+.tag-simple {
+  background-color: #4A5D58;
+  color: #FFFFFF;
+}
+.tag-inverse {
+  background-color: transparent;
+  color: #4A5D58;
+  border: 1px solid #4A5D58;
+}
