@@ -74,10 +74,10 @@ class Fixture extends Component {
 
     if( this.homeTeamPredictedWinner() ){
       homeTeamClasses += " bg-green"
-      homeTeamPointsClasses += " tag-simple"
+      homeTeamPointsClasses += " tag-simple pulse"
     }else{
       awayTeamClasses += " bg-green"
-      awayTeamPointsClasses += " tag-simple"
+      awayTeamPointsClasses += " tag-simple pulse"
     }
 
     return(
