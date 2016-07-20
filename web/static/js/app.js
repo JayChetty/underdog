@@ -37,8 +37,6 @@ import AuthContainer from './components/auth/AuthContainer';
 
 let store = createStore(PredictorApp, window.devToolsExtension && window.devToolsExtension());
 
-
-
 window.onload = () => {
 
 
