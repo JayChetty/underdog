@@ -4,6 +4,43 @@
   animation-timing-function: ease-out;
 }
 
+.delay-slide-in-bottom {
+  position: relative;
+  animation-name: delay-slide-in-bottom;
+  animation-duration: 2.5s;
+  animation-timing-function: ease-in-out;
+}
+
+.delay-fade-in {
+  animation-name: delay-fade-in;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes delay-fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes delay-slide-in-bottom {
+  0% {
+    top: 100px;
+  }
+  50% {
+    top: 100px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
 @keyframes slide-in-left {
   0% {
     right: 100px;

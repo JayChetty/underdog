@@ -35,16 +35,21 @@ var SignIn = React.createClass({
   },
   render: function() {
     return (
-      <form onSubmit={this.signIn}>
-        <input type="text" valueLink={this.linkState('email')} placeholder="Email" />
-        <input type="password" valueLink={this.linkState('password')} placeholder="Password" />
-        <button onClick={this.signIn}> Sign In </button>
-      </form>
+      <div className="layout-flex layout-full-height layout-color-green">
+        <div className="layout-constrained">
+          <nav className="layout-navbar">
+            <div className="navbar-header text-large text-white delay-slide-in-bottom">UNDER<span className="text-bold">GOD</span></div>
+          </nav>
+          <form className="stacked-form delay-fade-in" onSubmit={this.signIn}>
+            <input className="stacked-form-input" type="text" valueLink={this.linkState('email')} placeholder="Email" />
+            <input className="stacked-form-input" type="password" valueLink={this.linkState('password')} placeholder="Password" />
+            <button className="button button-submit button-full-width" onClick={this.signIn}> Sign In </button>
+          </form>
+        </div>
+      </div>
     );
   }
 });
-
-// module.exports = SignIn;
 
 const mapStateToProps = ( state ) => {
   return state

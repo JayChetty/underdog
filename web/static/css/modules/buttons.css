@@ -1,0 +1,20 @@
+.button {
+  margin: 20px 0;
+  border: 1px solid transparent;
+  padding: 6px 0;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 100;
+  letter-spacing: 1px;
+  outline: 0;
+}
+
+.button-full-width {
+  width: 100%;
+}
+
+.button-submit {
+  display: block;
+  background-color: #4A5D58;
+  color: white;
+}
