@@ -19,8 +19,10 @@ var SignIn = React.createClass({
     request.onload = function(){
       if(request.status === 201){
         let session = JSON.parse(request.responseText)
-        // this.props.onSignIn(user);
+        console.log("signed in go", request.responseText)
+        localStorage.setItem('ud_session', request.responseText);
         this.props.dispatch( actions.addSession( session ) );
+        // this.props.onSignIn(user);
 
       }else if(request.status === 401){
       }
