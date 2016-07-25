@@ -3,7 +3,10 @@ import fetch from 'isomorphic-fetch'
 const actions = {
 
   setDisplayWeek: ( week ) => {
-
+    return {
+      type: "SET_DISPLAY_WEEK",
+      week
+    }
   },
 
   setFixtures: ( fixtures ) => {

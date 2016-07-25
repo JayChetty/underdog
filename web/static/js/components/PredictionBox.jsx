@@ -111,7 +111,8 @@ class PredictionBox extends Component {
   }
 
   render() {
-    const dummyWeekId = 2
+    const dummyWeekId = 2;
+    this.props.dispatch( actions.setDisplayWeek( dummyWeekId ) );
     const fixturesForWeek = this.filterFixturesByWeekId( dummyWeekId )
     const teamsWithPoints = this.props.teams.map((team) => {
       return Object.assign( {}, team, { points: this.points(team.id) } )

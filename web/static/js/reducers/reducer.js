@@ -12,7 +12,8 @@ const predictions = ( state = initialState, action ) => {
 
   switch( action.type ) {
     case 'SET_DISPLAY_WEEK':
-      return Object.assign( {}, state, { displayWeek: action.displayWeek } )
+      console.log( action )
+      return Object.assign( {}, state, { displayWeek: action.week } )
     case 'ADD_SESSION':
       return Object.assign( {}, state, { session: action.session } )
     case 'SET_FIXTURES':
