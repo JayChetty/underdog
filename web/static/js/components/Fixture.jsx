@@ -64,9 +64,7 @@ class Fixture extends Component {
 
   render() {
     const { fixture } = this.props
-    if(!fixture.homeTeam){
-      return <div> ...loading Team Data</div>
-    }
+    if(!fixture.homeTeam){ return; }
     let homeTeamClasses = "split-list-view-left"
     let awayTeamClasses = "split-list-view-right"
     let homeTeamPointsClasses = "tag go-left"
@@ -82,15 +80,15 @@ class Fixture extends Component {
 
     return(
       <div className="split-list-view">
-        <div className={homeTeamClasses} onClick={ this.predictionSelect.bind(this) }>
-          <span className={homeTeamPointsClasses} > {this.homeTeamPointResult()} </span>
+        <div className={ homeTeamClasses } onClick={ this.predictionSelect.bind(this) }>
+          <span className={ homeTeamPointsClasses } > { this.homeTeamPointResult() } </span>
           <span>{ fixture.homeTeam.name }</span>
           <img src={ fixture.homeTeam.image } />
         </div>
-        <div className={awayTeamClasses} onClick={ this.predictionSelect.bind(this) }>
+        <div className={ awayTeamClasses } onClick={ this.predictionSelect.bind(this) }>
           <img src={ fixture.awayTeam.image } />
           <span>{ fixture.awayTeam.name }</span>
-          <span className={awayTeamPointsClasses}> {this.awayTeamPointResult()} </span>
+          <span className={ awayTeamPointsClasses }> { this.awayTeamPointResult() } </span>
         </div>
       </div>
     )

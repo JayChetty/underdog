@@ -5,8 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import PredictorApp from './reducers/reducer';
-import thunk from 'redux-thunk'
-// import PredictionBox from './components/PredictionBox';
+import thunk from 'redux-thunk';
 import actions  from './actions/actions';
 import AuthContainer from './components/auth/AuthContainer';
 
