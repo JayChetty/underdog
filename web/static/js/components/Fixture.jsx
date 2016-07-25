@@ -64,7 +64,7 @@ class Fixture extends Component {
 
   render() {
     const { fixture } = this.props
-    if(!fixture.homeTeam){ return; }
+    if(!fixture.homeTeam){ return null; }
     let homeTeamClasses = "split-list-view-left"
     let awayTeamClasses = "split-list-view-right"
     let homeTeamPointsClasses = "tag go-left"

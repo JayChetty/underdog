@@ -8,16 +8,10 @@ class Fixtures extends Component {
       return( <Fixture key={fixture.id} fixture={fixture} dispatch={this.props.dispatch} session={this.props.session} /> )
     })
 
-    // const gameWeek = this.props.fixtures[0].week_id
-
     return (
-      <main className="layout-content">
-        <div className="content-header">WEEK </div>
-        <div className="list-view">
-          { fixtures }
-        </div>
-      </main>
-
+      <div>
+        { fixtures }
+      </div>
     )
   }
 

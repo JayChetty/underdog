@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactSwipe from 'react-swipe';
 import Fixtures from './Fixtures';
 import FixturesSummary from './FixturesSummary';
 import actions from '../actions/actions';
@@ -110,27 +111,46 @@ class PredictionBox extends Component {
     return total
   }
 
-  render() {
-    const dummyWeekId = 2;
-    this.props.dispatch( actions.setDisplayWeek( dummyWeekId ) );
-    const fixturesForWeek = this.filterFixturesByWeekId( dummyWeekId )
+  fixturesWithTeamsAndPredictions( fixtures ) {
     const teamsWithPoints = this.props.teams.map((team) => {
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
-    const fixturesWithTeamsAndPredictions = fixturesForWeek.map((fixture) => {
+    return fixtures.map( ( fixture ) => {
       fixture.homeTeam = this.findTeamById(teamsWithPoints, fixture.home_team_id);
       fixture.awayTeam = this.findTeamById(teamsWithPoints, fixture.away_team_id);
       const prediction = this.findPredictionForFixture(this.props.predictions, fixture.id)
       fixture.prediction = prediction;
       return fixture;
-    })
+    });
+  }
+
+  render() {
+    let currentWeek = 1;
+    this.props.dispatch( actions.setDisplayWeek( currentWeek ) );
+
+    const fixturesGrouped = _.groupBy( this.props.fixtures, 'week_id' );
+    const fixturesAll = _.map( fixturesGrouped, function( fixtures ) {
+      return this.fixturesWithTeamsAndPredictions( fixtures )
+    }.bind( this ));
+
+    const fixturesPresentation = fixturesAll.map( function( fixtures, index ) {
+      return( <main className="layout-content" key={index}>
+                <Fixtures
+                  fixtures={ fixtures }
+                  dispatch={ this.props.dispatch }
+                  session={this.props.session}>
+                </Fixtures>
+              </main> )
+    }.bind(this));
 
     return (
       <div>
         <nav className="layout-navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
-        <Fixtures fixtures={fixturesWithTeamsAndPredictions} dispatch={this.props.dispatch} session={this.props.session} />
+        <ReactSwipe key={ fixturesPresentation.length } className="carousel" swipeOptions={{continuous: false}}>
+          { fixturesPresentation }
+        </ReactSwipe>
         <FixturesSummary potentialPoints={ this.calculateTotalPredictedPoints() } />
       </div>
     )
