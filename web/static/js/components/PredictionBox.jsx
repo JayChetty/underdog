@@ -7,16 +7,17 @@ import { get } from '../rest_adapter'
 import _ from 'lodash';
 
 class PredictionBox extends Component {
+
   componentDidMount(){
     this.fetchData()
   }
 
   fetchData(){
-    get("/api/seasons/1/fixtures", (data)=>{
+    get("/api/seasons/1/fixtures", (data) => {
       this.props.dispatch( actions.setFixtures( data ) )
     });
 
-    get("/api/teams", (data)=>{
+    get("/api/teams", (data) => {
       this.props.dispatch( actions.setTeams( data ) )
     });
 
@@ -44,7 +45,7 @@ class PredictionBox extends Component {
 
 
   findTeamById(teams, teamId){
-    return _.find(teams, (team)=> team.id === teamId )
+    return _.find(teams, (team) => team.id === teamId )
   }
 
   findPredictionForFixture(predictions, fixtureId){
@@ -107,10 +108,10 @@ class PredictionBox extends Component {
   render() {
     const dummyWeekId = 2
     const fixturesForWeek = this.filterFixturesByWeekId( dummyWeekId )
-    const teamsWithPoints = this.props.teams.map((team)=>{
+    const teamsWithPoints = this.props.teams.map((team) => {
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
-    const fixturesWithTeamsAndPredictions = fixturesForWeek.map((fixture)=>{
+    const fixturesWithTeamsAndPredictions = fixturesForWeek.map((fixture) => {
       fixture.homeTeam = this.findTeamById(teamsWithPoints, fixture.home_team_id);
       fixture.awayTeam = this.findTeamById(teamsWithPoints, fixture.away_team_id);
       const prediction = this.findPredictionForFixture(this.props.predictions, fixture.id)

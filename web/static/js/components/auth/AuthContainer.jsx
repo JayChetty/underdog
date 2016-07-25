@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-
 import SignIn from './SignIn'
 import PredictionBox from '../PredictionBox';
 import { connect } from 'react-redux';
-// import { Provider } from 'react-redux';
 
 class AuthContainer extends Component {
 
@@ -25,7 +23,7 @@ class AuthContainer extends Component {
 export default AuthContainer
 
 const mapStateToProps = ( state ) => {
-  return state
+  return { session: state.session }
 }
 
 export default connect( mapStateToProps )( AuthContainer );
