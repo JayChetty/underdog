@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import SignIn from './SignIn'
 import PredictionBox from '../PredictionBox';
 import { connect } from 'react-redux';
-import actions from '../../actions/action';
+import actions from '../../actions/actions';
 
 class AuthContainer extends Component {
 

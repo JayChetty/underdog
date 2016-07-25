@@ -1,7 +1,7 @@
 var React = require('react');
 // var LinkedStateMixin = require('react-addons-linked-state-mixin');
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import actions from '../../actions/action';
+import actions from '../../actions/actions';
 import { connect } from 'react-redux';
 
 var SignIn = React.createClass({

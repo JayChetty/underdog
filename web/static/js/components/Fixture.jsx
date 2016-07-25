@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import actions from '../actions/action'
+import actions from '../actions/actions'
 import { post, deleter } from '../rest_adapter'
 
 class Fixture extends Component {

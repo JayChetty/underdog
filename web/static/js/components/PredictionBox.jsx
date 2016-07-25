@@ -2,31 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Fixtures from './Fixtures';
 import FixturesSummary from './FixturesSummary';
-import actions from '../actions/action';
+import actions from '../actions/actions';
 import { get } from '../rest_adapter'
 import _ from 'lodash';
 
 class PredictionBox extends Component {
 
   componentDidMount(){
-    this.fetchData()
+    // this.fetchData()
+    // Added in Async actions, rest_adapter to be deleted?
+    const dispatch = this.props.dispatch;
+    actions.getFixtures()( dispatch );
+    actions.getTeams()( dispatch );
+    actions.getPredictions()( dispatch, this.props.session );
   }
 
-  fetchData(){
-    get("/api/seasons/1/fixtures", (data) => {
-      this.props.dispatch( actions.setFixtures( data ) )
-    });
-
-    get("/api/teams", (data) => {
-      this.props.dispatch( actions.setTeams( data ) )
-    });
-
-    if(this.props.session){
-      get("/api/predictions", (data)=>{
-        this.props.dispatch( actions.setPredictions( data ) )
-      }, this.props.session);
-    }
-  }
+  // fetchData(){
+  //   // get("/api/seasons/1/fixtures", (data) => {
+  //   //   this.props.dispatch( actions.setFixtures( data ) )
+  //   // });
+  //
+  //   // get("/api/teams", (data) => {
+  //   //   this.props.dispatch( actions.setTeams( data ) )
+  //   // });
+  //
+  //   // if(this.props.session){
+  //   //   get("/api/predictions", (data)=>{
+  //   //     this.props.dispatch( actions.setPredictions( data ) )
+  //   //   }, this.props.session);
+  //   // }
+  // }
 
   // get(url, callback){
   //   var request = new XMLHttpRequest();
