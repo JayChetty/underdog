@@ -129,19 +129,16 @@ class PredictionBox extends Component {
     this.props.dispatch( actions.setDisplayWeek( currentWeek ) );
 
     const fixturesGrouped = _.groupBy( this.props.fixtures, 'week_id' );
-    const fixturesAll = _.map( fixturesGrouped, function( fixtures ) {
-      return this.fixturesWithTeamsAndPredictions( fixtures )
-    }.bind( this ));
-
-    const fixturesPresentation = fixturesAll.map( function( fixtures, index ) {
+    const fixturesPresentation = _.map( fixturesGrouped, function( fixtures, index ) {
+      const fixturesWeekly = this.fixturesWithTeamsAndPredictions( fixtures )
       return( <main className="layout-content" key={index}>
                 <Fixtures
-                  fixtures={ fixtures }
+                  fixtures={ fixturesWeekly }
                   dispatch={ this.props.dispatch }
                   session={this.props.session}>
                 </Fixtures>
               </main> )
-    }.bind(this));
+    }.bind( this ));
 
     return (
       <div>
