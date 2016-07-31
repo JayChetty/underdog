@@ -8,7 +8,6 @@ defmodule Underdog.PredictionController do
   plug :scrub_params, "prediction" when action in [:create, :update]
 
   def index(conn, _params) do
-
     user = Guardian.Plug.current_resource(conn)
     user = Repo.preload(user, :predictions)
     render(conn, "index.json", predictions: user.predictions)
@@ -16,11 +15,8 @@ defmodule Underdog.PredictionController do
 
   def create(conn, %{"prediction" => prediction_params}) do
     user = Guardian.Plug.current_resource(conn)
-    params_with_user = Map.put( prediction_params, "user_id", user.id )
-    Logger.debug inspect params_with_user
-    changeset = Prediction.changeset(%Prediction{}, params_with_user)
-
-    Logger.debug inspect changeset
+    prediction = Ecto.build_assoc( user, :predictions)
+    changeset = Prediction.changeset(prediction, prediction_params)
 
     case Repo.insert(changeset) do
       {:ok, prediction} ->
