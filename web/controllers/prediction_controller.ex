@@ -10,11 +10,8 @@ defmodule Underdog.PredictionController do
   def index(conn, _params) do
 
     user = Guardian.Plug.current_resource(conn)
-    predictions = Repo.all(
-      from p in Prediction,
-        where: p.user_id == ^user.id
-    )
-    render(conn, "index.json", predictions: predictions)
+    user = Repo.preload(user, :predictions)
+    render(conn, "index.json", predictions: user.predictions)
   end
 
   def create(conn, %{"prediction" => prediction_params}) do

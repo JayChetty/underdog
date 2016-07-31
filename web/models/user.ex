@@ -9,6 +9,7 @@ defmodule Underdog.User do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    has_many :predictions, Underdog.Prediction
     timestamps
   end
 

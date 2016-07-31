@@ -4,6 +4,7 @@ defmodule Underdog.Season do
   schema "seasons" do
     field :start_year, :integer
     belongs_to :league, Underdog.League
+    has_many :weeks, Underdog.Week
 
     timestamps
   end

@@ -5,6 +5,7 @@ defmodule Underdog.Week do
     field :start_date, Ecto.Date
     field :number, :integer
     belongs_to :season, Underdog.Season
+    has_many :fixtures, Underdog.Fixture
 
     timestamps
   end
