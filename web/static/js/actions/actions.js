@@ -16,20 +16,6 @@ const actions = {
     }
   },
 
-  setPredictions: ( predictions ) => {
-    return {
-      type: "SET_PREDICTIONS",
-      predictions
-    }
-  },
-
-  setTeams: ( teams ) => {
-    return {
-      type: "SET_TEAMS",
-      teams
-    }
-  },
-
   getPredictions: () => {
     return ( dispatch, session ) => {
 
@@ -46,31 +32,68 @@ const actions = {
     }
   },
 
+  receivePredictions: ( predictions ) => {
+    return {
+      type: "RECEIVE_PREDICTIONS",
+      predictions
+    }
+  },
+
   getTeams: () => {
     return ( dispatch ) => {
+
+      dispatch( actions.requestTeams() )
 
       fetch( "/api/teams", {
         method: 'GET'
       }).then( ( res ) => {
         return res.json();
       }).then(( teams ) => {
-        dispatch( actions.setTeams( teams.data ) )
+        dispatch( actions.receiveTeams( teams.data ) )
       })
 
+    }
+  },
+
+  requestTeams: () => {
+    return {
+      type: "REQUEST_TEAMS"
+    }
+  },
+
+  receiveTeams: ( teams ) => {
+    return {
+      type: "RECEIVE_TEAMS",
+      teams
     }
   },
 
   getFixtures: () => {
     return ( dispatch ) => {
 
+      dispatch( actions.requestFixtures() )
+
       fetch( "/api/seasons/1/fixtures", {
         method: 'GET'
       }).then( ( res ) => {
         return res.json();
       }).then( ( fixtures ) => {
-        dispatch( actions.setFixtures( fixtures.data ) )
+        dispatch( actions.receiveFixtures( fixtures.data ) )
       })
 
+    }
+  },
+
+  requestFixtures: () => {
+    return {
+      type: "REQUEST_FIXTURES"
+    }
+  },
+
+  receiveFixtures: ( fixtures ) => {
+    return {
+      type: "RECEIVE_FIXTURES",
+      fixtures
     }
   },
 

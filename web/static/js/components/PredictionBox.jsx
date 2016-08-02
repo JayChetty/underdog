@@ -12,10 +12,10 @@ class PredictionBox extends Component {
   componentDidMount(){
     // this.fetchData()
     // Added in Async actions, rest_adapter to be deleted?
-    const dispatch = this.props.dispatch;
-    actions.getFixtures()( dispatch );
-    actions.getTeams()( dispatch );
-    actions.getPredictions()( dispatch, this.props.session );
+    // const dispatch = this.props.dispatch;
+    // actions.getFixtures()( dispatch );
+    // actions.getTeams()( dispatch );
+    // actions.getPredictions()( dispatch, this.props.session );
   }
 
   // fetchData(){

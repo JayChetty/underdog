@@ -12,15 +12,20 @@ class AuthContainer extends Component {
 
   render() {
     let main = <h1> Fetching Data </h1>
+    const dispatch = this.props.dispatch
 
-    if( !this.props.session ){
+    if( !this.props.session ) {
       const cachedSession = this.getCachedSession()
       if( cachedSession ){
-        this.props.dispatch( actions.addSession( JSON.parse(cachedSession) ) );
-      }else{
+        dispatch( actions.addSession( JSON.parse(cachedSession) ) );
+      } else {
         main = <SignIn url="api/sessions"/>
       }
-    }else{
+    } else {
+      actions.getTeams()( dispatch );
+      actions.getFixtures()( dispatch );
+      // actions.getPredictions()( dispatch, this.props.session );
+
       main = <PredictionBox />
     }
     return (
