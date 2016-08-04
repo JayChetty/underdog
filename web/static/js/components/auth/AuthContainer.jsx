@@ -24,7 +24,8 @@ class AuthContainer extends Component {
     } else {
       actions.getTeams()( dispatch );
       actions.getFixtures()( dispatch );
-      // actions.getPredictions()( dispatch, this.props.session );
+      actions.getWeeks()( dispatch );
+      actions.getPredictions()( dispatch, this.props.session );
 
       main = <PredictionBox />
     }

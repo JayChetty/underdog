@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 const initialState = {
+  isFetching: false,
+  received: false,
   items: [],
   displayWeek: null
 }
@@ -11,7 +13,9 @@ export default ( state = initialState, action ) => {
     case 'SET_DISPLAY_WEEK':
       return Object.assign( {}, state, { displayWeek: action.week } )
     case 'RECEIVE_PREDICTIONS':
-      return Object.assign( {}, state, { items: action.predictions } )
+      return Object.assign( {}, state, { items: action.predictions, isFetching: false, received: true } )
+    case 'REQUEST_PREDICTIONS':
+      return Object.assign( {}, state, { isFetching: true } )
     case 'ADD_PREDICTION':
       const existingPrediction = _.find( state.items, (prediction)=>{
         return prediction.fixture_id === action.prediction.fixture_id

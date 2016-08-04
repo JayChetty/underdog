@@ -9,36 +9,6 @@ const actions = {
     }
   },
 
-  setFixtures: ( fixtures ) => {
-    return {
-      type: "SET_FIXTURES",
-      fixtures
-    }
-  },
-
-  getPredictions: () => {
-    return ( dispatch, session ) => {
-
-      fetch( "/api/predictions", {
-          method: 'GET',
-          headers: {
-            "Authorization": session.jwt
-          }
-      }).then( ( res ) => {
-        return res.json();
-      }).then( ( predictions ) => {
-        dispatch( actions.setPredictions( predictions.data ) )
-      })
-    }
-  },
-
-  receivePredictions: ( predictions ) => {
-    return {
-      type: "RECEIVE_PREDICTIONS",
-      predictions
-    }
-  },
-
   getTeams: () => {
     return ( dispatch ) => {
 
@@ -97,6 +67,37 @@ const actions = {
     }
   },
 
+  getPredictions: () => {
+    return ( dispatch, session ) => {
+
+      dispatch( actions.requestPredictions() )
+
+      fetch( "/api/predictions", {
+          method: 'GET',
+          headers: {
+            "Authorization": session.jwt
+          }
+      }).then( ( res ) => {
+        return res.json();
+      }).then( ( predictions ) => {
+        dispatch( actions.receivePredictions( predictions.data ) )
+      })
+    }
+  },
+
+  requestPredictions: () => {
+    return {
+      type: "REQUEST_PREDICTIONS"
+    }
+  },
+
+  receivePredictions: ( predictions ) => {
+    return {
+      type: "RECEIVE_PREDICTIONS",
+      predictions
+    }
+  },
+
   addPrediction: ( prediction ) => {
     return {
       type: "ADD_PREDICTION",
@@ -108,6 +109,36 @@ const actions = {
     return {
       type: "REMOVE_PREDICTION",
       fixtureId
+    }
+  },
+
+  getWeeks: () => {
+
+    return ( dispatch ) => {
+
+      dispatch( actions.requestWeeks() )
+
+      fetch( "/api/weeks", {
+          method: 'GET'
+      }).then( ( res ) => {
+        return res.json();
+      }).then( ( weeks ) => {
+        dispatch( actions.receiveWeeks( weeks.data ) )
+      })
+    }
+
+  },
+
+  requestWeeks: () => {
+    return {
+      type: "REQUEST_WEEKS"
+    }
+  },
+
+  receiveWeeks: ( weeks ) => {
+    return {
+      type: "RECEIVE_WEEKS",
+      weeks
     }
   },
 
