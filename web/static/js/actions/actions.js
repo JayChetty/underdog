@@ -124,7 +124,6 @@ const actions = {
         return res.json();
       }).then( ( weeks ) => {
         dispatch( actions.receiveWeeks( weeks.data ) )
-        dispatch( actions.allDataReceived() )
       })
     }
 

@@ -4,6 +4,7 @@ import Fixture from './Fixture'
 class Fixtures extends Component {
 
   render() {
+    if( !this.props.fixtures ) { return null }
     const fixtures = this.props.fixtures.map( ( fixture ) => {
       return( <Fixture key={fixture.id} fixture={fixture} dispatch={this.props.dispatch} session={this.props.session} /> )
     })

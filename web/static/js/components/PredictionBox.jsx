@@ -13,20 +13,20 @@ class PredictionBox extends Component {
   }
 
   fetchData(){
-    const dispatch = this.props.dispatch
-    actions.getFixtures()( dispatch )
-    actions.getTeams()( dispatch )
+    const dispatch = this.props.dispatch;
+    actions.getWeeks()( dispatch );
+    actions.getFixtures()( dispatch );
+    actions.getTeams()( dispatch );
     if(this.props.session){
-       actions.getPredictions()( dispatch, this.props.session )
+       actions.getPredictions()( dispatch, this.props.session );
     }
   }
-
 
   findTeamById(teams, teamId){
     return _.find(teams, (team) => team.id === teamId )
   }
 
-  findPredictionForFixture(predictions, fixtureId){
+  findPredictionForFixture( predictions, fixtureId ){
     return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
   }
 
@@ -41,7 +41,7 @@ class PredictionBox extends Component {
     if(!isHomeTeam){
       fixtureType = "away_team"
     }
-    const fixtures = this.props.fixtures.filter((fixture)=>{
+    const fixtures = this.props.fixtures.items.filter((fixture)=>{
       return fixture[fixtureType + '_id'] === teamId
     })
 
@@ -83,27 +83,48 @@ class PredictionBox extends Component {
     return total
   }
 
-  fixturesWithTeamsAndPredictions( fixtures ) {
+  fixturesWithTeamsAndPredictions() {
     const teamsWithPoints = this.props.teams.items.map((team) => {
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
-    return fixtures.map( ( fixture ) => {
+    return this.props.fixtures.items.map( ( fixture ) => {
       fixture.homeTeam = this.findTeamById(teamsWithPoints, fixture.home_team_id);
       fixture.awayTeam = this.findTeamById(teamsWithPoints, fixture.away_team_id);
-      const prediction = this.findPredictionForFixture(this.props.predictions, fixture.id)
+      const prediction = this.findPredictionForFixture(this.props.predictions.items, fixture.id)
       fixture.prediction = prediction;
       return fixture;
     });
   }
 
+  weeksWithFixtures( fixtures ) {
+    return this.props.weeks.items.map( (week) => {
+      week.fixtures = fixtures.filter( (f) => { return f.week_id === week.id } )
+      return week
+    })
+  }
+
   render() {
+    const fixtureWeeks = this.weeksWithFixtures( this.fixturesWithTeamsAndPredictions() );
+    const fixtures = fixtureWeeks.map( ( fixtureWeek ) => {
+      return (
+        <main className="layout-content" key={ fixtureWeek.id }>
+          <Fixtures
+            fixtures={ fixtureWeek.fixtures }
+            dispatch={ this.props.dispatch }
+            session={this.props.session}>
+          </Fixtures>
+        </main>
+      )
+    })
 
     return (
       <div>
         <nav className="layout-navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
-
+        <ReactSwipe key={ fixtures.length } className="carousel" swipeOptions={{continuous: false}}>
+          { fixtures }
+        </ReactSwipe>
         <FixturesSummary potentialPoints={ this.calculateTotalPredictedPoints() } />
       </div>
     )
