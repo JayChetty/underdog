@@ -124,6 +124,7 @@ const actions = {
         return res.json();
       }).then( ( weeks ) => {
         dispatch( actions.receiveWeeks( weeks.data ) )
+        dispatch( actions.allDataReceived() )
       })
     }
 
@@ -143,7 +144,7 @@ const actions = {
   },
 
   addSession: ( session ) => {
-    return{
+    return {
       type: "ADD_SESSION",
       session
     }

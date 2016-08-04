@@ -22,11 +22,6 @@ class AuthContainer extends Component {
         main = <SignIn url="api/sessions"/>
       }
     } else {
-      actions.getTeams()( dispatch );
-      actions.getFixtures()( dispatch );
-      actions.getWeeks()( dispatch );
-      actions.getPredictions()( dispatch, this.props.session );
-
       main = <PredictionBox />
     }
     return (

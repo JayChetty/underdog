@@ -4,50 +4,22 @@ import ReactSwipe from 'react-swipe';
 import Fixtures from './Fixtures';
 import FixturesSummary from './FixturesSummary';
 import actions from '../actions/actions';
-import { get } from '../rest_adapter'
 import _ from 'lodash';
 
 class PredictionBox extends Component {
 
   componentDidMount(){
-    // this.fetchData()
-    // Added in Async actions, rest_adapter to be deleted?
-    // const dispatch = this.props.dispatch;
-    // actions.getFixtures()( dispatch );
-    // actions.getTeams()( dispatch );
-    // actions.getPredictions()( dispatch, this.props.session );
+    this.fetchData()
   }
 
-  // fetchData(){
-  //   // get("/api/seasons/1/fixtures", (data) => {
-  //   //   this.props.dispatch( actions.setFixtures( data ) )
-  //   // });
-  //
-  //   // get("/api/teams", (data) => {
-  //   //   this.props.dispatch( actions.setTeams( data ) )
-  //   // });
-  //
-  //   // if(this.props.session){
-  //   //   get("/api/predictions", (data)=>{
-  //   //     this.props.dispatch( actions.setPredictions( data ) )
-  //   //   }, this.props.session);
-  //   // }
-  // }
-
-  // get(url, callback){
-  //   var request = new XMLHttpRequest();
-  //   request.open( "GET", url );
-  //   if(this.props.session){
-  //     request.setRequestHeader("Authorization", this.props.session.jwt);
-  //   }
-  //   request.onload = () => {
-  //     if( request.status === 200 ) {
-  //       let receivedJson = JSON.parse( request.responseText )
-  //       callback( receivedJson.data )
-  //     }
-  //   }
-  //   request.send( null );
-  // }
+  fetchData(){
+    const dispatch = this.props.dispatch
+    actions.getFixtures()( dispatch )
+    actions.getTeams()( dispatch )
+    if(this.props.session){
+       actions.getPredictions()( dispatch, this.props.session )
+    }
+  }
 
 
   findTeamById(teams, teamId){
@@ -92,7 +64,7 @@ class PredictionBox extends Component {
   }
 
   filterFixturesByWeekId( week_id ) {
-    const fixtures = this.props.fixtures.filter((fixture)=>{
+    const fixtures = this.props.fixtures.items.filter((fixture)=>{
       return fixture.week_id === week_id
     })
     return fixtures
@@ -112,7 +84,7 @@ class PredictionBox extends Component {
   }
 
   fixturesWithTeamsAndPredictions( fixtures ) {
-    const teamsWithPoints = this.props.teams.map((team) => {
+    const teamsWithPoints = this.props.teams.items.map((team) => {
       return Object.assign( {}, team, { points: this.points(team.id) } )
     })
     return fixtures.map( ( fixture ) => {
@@ -125,29 +97,13 @@ class PredictionBox extends Component {
   }
 
   render() {
-    let currentWeek = 1;
-    this.props.dispatch( actions.setDisplayWeek( currentWeek ) );
-
-    const fixturesGrouped = _.groupBy( this.props.fixtures, 'week_id' );
-    const fixturesPresentation = _.map( fixturesGrouped, function( fixtures, index ) {
-      const fixturesWeekly = this.fixturesWithTeamsAndPredictions( fixtures )
-      return( <main className="layout-content" key={index}>
-                <Fixtures
-                  fixtures={ fixturesWeekly }
-                  dispatch={ this.props.dispatch }
-                  session={this.props.session}>
-                </Fixtures>
-              </main> )
-    }.bind( this ));
 
     return (
       <div>
         <nav className="layout-navbar">
           <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
         </nav>
-        <ReactSwipe key={ fixturesPresentation.length } className="carousel" swipeOptions={{continuous: false}}>
-          { fixturesPresentation }
-        </ReactSwipe>
+
         <FixturesSummary potentialPoints={ this.calculateTotalPredictedPoints() } />
       </div>
     )
