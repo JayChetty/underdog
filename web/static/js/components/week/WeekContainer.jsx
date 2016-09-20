@@ -49,7 +49,7 @@ function currentWeek( weekFixtures ) {
     }
 
   })
-  return gameWeek
+  return gameWeek + 1
 }
 
 function findTeamById(teams, teamId){
