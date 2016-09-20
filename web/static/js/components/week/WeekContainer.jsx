@@ -22,13 +22,35 @@ function WeekContainer( props ){
       <nav className="layout-navbar">
         <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
       </nav>
-      <ReactSwipe key={ fixtures.length } className="carousel" swipeOptions={{continuous: false}}>
+      <ReactSwipe
+        key={ fixtures.length }
+        className="carousel"
+        swipeOptions={{continuous: false, startSlide: props.gameWeek }}
+      >
         { fixtures }
       </ReactSwipe>
     </div>
   )
 }
 
+function currentWeek( weekFixtures ) {
+  if ( weekFixtures.length === 0 ) { return null; }
+
+  const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
+
+    if ( index === array.length-1 ) { return true }
+
+    const dateFrom = Date.parse( weekFixture.start_date )
+    const dateTo = Date.parse( array[index+1].start_date )
+    const dateToday = Date.now();
+
+    if ( dateToday > dateFrom && dateToday < dateTo ) {
+      return true;
+    }
+
+  })
+  return gameWeek
+}
 
 function findTeamById(teams, teamId){
   return _.find(teams, (team) => team.id === teamId )
@@ -51,9 +73,11 @@ function addFixturesToWeeks( weeks, fixtures ) {
 
 function mapStateToProps( state, { params } ){
   const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items )
+  const weekFixtures = addFixturesToWeeks( state.weeks.items, fixturesWithTeams  )
   return {
-    weeksWithFixtures: addFixturesToWeeks( state.weeks.items, fixturesWithTeams  ),
-    displayWeekId: 1
+    weeksWithFixtures: weekFixtures,
+    displayWeekId: 1,
+    gameWeek: currentWeek( weekFixtures )
   }
 }
 
