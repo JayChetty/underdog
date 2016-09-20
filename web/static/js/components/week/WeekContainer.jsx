@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactSwipe from 'react-swipe';
-import _ from 'lodash'
-import Fixtures from '../Fixtures';
+import _ from 'lodash';
+import Fixtures from './Fixtures';
 
 function WeekContainer( props ){
   const fixtures = props.weeksWithFixtures.map( ( fixtureWeek ) => {
