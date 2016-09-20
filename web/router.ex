@@ -20,10 +20,7 @@ defmodule Underdog.Router do
     # plug Guardian.Plug.LoadResource
   # end
 
-  scope "/", Underdog do
-    pipe_through :browser # Use the default browser stack
-    get "/", PageController, :index
-  end
+
 
   # Other scopes may use custom stacks.
   scope "/api", Underdog do
@@ -55,7 +52,11 @@ defmodule Underdog.Router do
     #   pipe_through :restricted
     #   resources "/predictions", PredictionController, except: [:new, :edit]
     # end
+  end
 
-
+  scope "/", Underdog do
+    pipe_through :browser # Use the default browser stack
+    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 end

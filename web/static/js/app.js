@@ -22,7 +22,7 @@ window.onload = () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/' component={WeekContainer}/>
+        <Route path='/*' component={WeekContainer}/>
       </Router>
     </Provider>,
     document.getElementById( 'app' )
