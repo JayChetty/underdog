@@ -22,6 +22,8 @@ defmodule SeedHelper do
     Enum.map(fixtures, fn(fixture) ->
       home_team = elem(fixture, 0)
       away_team = elem(fixture, 1)
+      # home_team_score_input = elem(fixture,2) || home_team_score
+      # away_team_score_input = elem(fixture,3) || away_team_score
       create_fixture(
         week.id,
         teams[home_team].id,
@@ -82,7 +84,7 @@ defmodule SeedHelper do
   end
 end
 
-
+Underdog.Repo.delete_all(Underdog.Prediction)
 
 Underdog.Repo.delete_all(Underdog.Fixture)
 
@@ -93,7 +95,7 @@ Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
 
 
-Underdog.Repo.delete_all(Underdog.Prediction)
+
 Underdog.Repo.delete_all(Underdog.User)
 
 
@@ -105,6 +107,12 @@ season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id }
 
 week_1 = SeedHelper.create_week(2016,08,13,1, inserted_season.id)
 week_2 = SeedHelper.create_week(2016,08,20,2, inserted_season.id)
+week_3 = SeedHelper.create_week(2016,08,27,3, inserted_season.id)
+week_4 = SeedHelper.create_week(2016,09,10,4, inserted_season.id)
+week_5 = SeedHelper.create_week(2016,09,17,5, inserted_season.id)
+week_6 = SeedHelper.create_week(2016,09,24,6, inserted_season.id)
+week_7 = SeedHelper.create_week(2016,10,01,7, inserted_season.id)
+week_8 = SeedHelper.create_week(2016,10,15,8, inserted_season.id)
 
 
 team_names = [
@@ -133,17 +141,17 @@ team_names = [
 teams = SeedHelper.create_teams(team_names)
 
 week_1_fixtures = SeedHelper.create_fixtures(week_1, [
-  {:hull, :leicester},
-  {:arsenal, :liverpool},
-  {:crystal_palace, :west_brom},
-  {:man_city, :sunderland},
-  {:middlesbrough, :stoke},
-  {:chelsea, :west_ham},
-  {:bournemouth, :man_utd},
-  {:burnley, :swansea},
-  {:everton, :tottenham},
-  {:southampton, :watford}
-], teams, 2, 1)
+  {:hull, :leicester, 2, 1},
+  {:arsenal, :liverpool, 3, 4},
+  {:crystal_palace, :west_brom, 0,1},
+  {:man_city, :sunderland, 2,1},
+  {:middlesbrough, :stoke,1,1},
+  {:chelsea, :west_ham,2,1},
+  {:bournemouth, :man_utd,1,3},
+  {:burnley, :swansea,0,1},
+  {:everton, :tottenham,1,1},
+  {:southampton, :watford,1,1}
+], teams)
 #week 2
 week_2_fixtures = SeedHelper.create_fixtures(week_2, [
   {:west_ham, :bournemouth},
@@ -156,6 +164,88 @@ week_2_fixtures = SeedHelper.create_fixtures(week_2, [
   {:sunderland, :middlesbrough},
   {:leicester, :arsenal},
   {:stoke, :man_city}
+], teams)
+#week 3
+week_3_fixtures = SeedHelper.create_fixtures(week_3, [
+  {:tottenham, :liverpool},
+  {:chelsea, :burnley},
+  {:everton, :stoke},
+  {:southampton, :sunderland},
+  {:watford, :arsenal},
+  {:crystal_palace, :bournemouth},
+  {:leicester, :swansea},
+  {:hull, :man_utd},
+  {:west_brom, :middlesbrough},
+  {:man_city, :west_ham}
+], teams)
+#week 4
+week_4_fixtures = SeedHelper.create_fixtures(week_4, [
+  {:man_utd, :man_city},
+  {:bournemouth, :west_brom},
+  {:middlesbrough, :crystal_palace},
+  {:stoke, :tottenham},
+  {:burnley, :hull},
+  {:west_ham, :watford},
+  {:arsenal, :southampton},
+  {:liverpool, :leicester},
+  {:swansea, :chelsea},
+  {:sunderland, :everton}
+], teams)
+
+
+week_5_fixtures = SeedHelper.create_fixtures(week_5, [
+  {:chelsea, :liverpool},
+  {:hull, :arsenal},
+  {:west_brom, :west_ham},
+  {:everton, :middlesbrough},
+  {:man_city, :bournemouth},
+  {:leicester, :burnley},
+  {:watford, :man_utd},
+  {:crystal_palace, :stoke},
+  {:tottenham, :sunderland},
+  {:southampton, :swansea}
+], teams)
+
+
+week_6_fixtures = SeedHelper.create_fixtures(week_6, [
+  {:man_utd, :leicester},
+  {:bournemouth, :everton},
+  {:stoke, :west_brom},
+  {:middlesbrough, :tottenham},
+  {:west_ham, :southampton},
+  {:burnley, :watford},
+  {:liverpool, :hull},
+  {:swansea, :man_city},
+  {:sunderland, :crystal_palace},
+  {:arsenal, :chelsea}
+], teams)
+
+
+week_7_fixtures = SeedHelper.create_fixtures(week_7, [
+  {:everton, :crystal_palace},
+  {:swansea, :liverpool},
+  {:hull, :chelsea},
+  {:watford, :bournemouth},
+  {:man_utd, :stoke},
+  {:tottenham, :man_city},
+  {:west_ham, :middlesbrough},
+  {:sunderland, :west_brom},
+  {:leicester, :southampton},
+  {:burnley, :arsenal}
+], teams)
+
+#week 5
+week_8_fixtures = SeedHelper.create_fixtures(week_8, [
+  {:chelsea, :leicester},
+  {:west_brom, :tottenham},
+  {:bournemouth, :hull},
+  {:crystal_palace, :west_ham},
+  {:arsenal, :swansea},
+  {:stoke, :sunderland},
+  {:man_city, :everton},
+  {:middlesbrough, :watford},
+  {:southampton, :burnley},
+  {:liverpool, :man_utd}
 ], teams)
 
 
