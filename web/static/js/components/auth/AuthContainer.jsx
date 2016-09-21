@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SignIn from './SignIn'
-import PredictionBox from '../PredictionBox';
+import WeekContainer from '../week/WeekContainer';
 import { connect } from 'react-redux';
 import actions from '../../actions/actions';
 
@@ -22,7 +22,7 @@ class AuthContainer extends Component {
         main = <SignIn url="api/sessions"/>
       }
     } else {
-      main = <PredictionBox />
+      main = <WeekContainer />
     }
     return (
       main

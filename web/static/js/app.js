@@ -7,29 +7,31 @@ import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers/index';
 import thunk from 'redux-thunk';
 import actions  from './actions/actions';
-// import AuthContainer from './components/auth/AuthContainer';
+import SignIn from './components/auth/SignIn';
+import {Router, Route, browserHistory, IndexRedirect, IndexRoute} from 'react-router';
+
 // import PredictionBox from './components/PredictionBox';
 
 import WeekContainer from './components/week/WeekContainer';
 
-import {Router, Route, browserHistory, IndexRedirect} from 'react-router';
 
 import socket from "./socket"
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 window.onload = () => {
 
+
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/*' component={WeekContainer}/>
+        <Route path='/login' component={ SignIn }/>
+        <Route path='/weeks' component={ WeekContainer }/>
       </Router>
     </Provider>,
     document.getElementById( 'app' )
   )
 
   fetchData(store.dispatch)
-
 
 };
 

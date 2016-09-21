@@ -2,6 +2,36 @@ import fetch from 'isomorphic-fetch'
 
 const actions = {
 
+  loginUser: ( email, password, redirect="/weeks" ) => {
+    return function( dispatch ) {
+      dispatch( actions.loginUserRequest() )
+
+      return fetch( '/api/sessions', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( {
+          session:{
+            email: email,
+            password: password
+          }
+        })
+      }).then( (response) => { console.log( response ) } )
+
+
+
+    }
+  },
+
+  loginUserRequest: () => {
+    return {
+      type: "LOGIN_USER_REQUEST"
+    }
+  },
+
   setDisplayWeek: ( week ) => {
     return {
       type: "SET_DISPLAY_WEEK",
