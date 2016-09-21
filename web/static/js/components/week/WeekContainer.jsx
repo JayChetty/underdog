@@ -3,15 +3,21 @@ import { connect } from 'react-redux';
 import ReactSwipe from 'react-swipe';
 import _ from 'lodash';
 import Fixtures from './Fixtures';
+import actions from '../../actions/actions'
 
 function WeekContainer( props ){
+  const makePrediction = (prediction)=>{
+    if(!props.session){ return(null) }
+    actions.makePrediction( prediction )( props.dispatch, props.session )
+  }
+
   const fixtures = props.weeksWithFixtures.map( ( fixtureWeek ) => {
     return (
       <main className="layout-content" key={ fixtureWeek.id }>
         <Fixtures
+          makePrediction={ makePrediction }
           fixtures={ fixtureWeek.fixtures }
-          dispatch={ props.dispatch }
-          session={ props.session }>
+        >
         </Fixtures>
       </main>
     )
@@ -32,6 +38,17 @@ function WeekContainer( props ){
     </div>
   )
 }
+
+// function createMakePrediction(dispatch){
+//    return function(prediction){
+//      console.log( 'prediction clicked' )
+//      actions.makePrediction( prediction )( dispatch )
+//    }
+// }
+//
+// function makePrediction( prediction ) {
+//   actions.makePrediction( prediction )( dispatch )
+// }
 
 function currentWeek( weekFixtures ) {
   if ( weekFixtures.length === 0 ) { return null; }
@@ -77,7 +94,8 @@ function mapStateToProps( state, { params } ){
   return {
     weeksWithFixtures: weekFixtures,
     displayWeekId: 1,
-    gameWeek: currentWeek( weekFixtures )
+    gameWeek: currentWeek( weekFixtures ),
+    session: state.session
   }
 }
 

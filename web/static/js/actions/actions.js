@@ -105,6 +105,24 @@ const actions = {
     }
   },
 
+  makePrediction: ( prediction ) => {
+
+    return ( dispatch, session ) => {
+      dispatch( actions.addPrediction( prediction ) )
+
+      fetch( "/api/predictions", {
+        method: "POST",
+        body: JSON.stringify( prediction ),
+        headers: {
+          "Authorization": session.jwt
+        }
+      }).then( response => { console.log( response ) })
+      .catch( err => { console.error( err ) } )
+
+    }
+
+  },
+
   removePrediction: ( fixtureId ) => {
     return {
       type: "REMOVE_PREDICTION",
@@ -152,3 +170,22 @@ const actions = {
 }
 
 export default actions;
+
+
+// predictionSelect(e) {
+//   if (this.props.fixture.prediction) {
+//     deleter( `api/predictions/${this.props.fixture.prediction.id}`, null, this.props.session )
+//     this.props.dispatch( actions.removePrediction( this.props.fixture.id ) );
+//     return;
+//   }
+//   const prediction = {
+//     fixture_id: this.props.fixture.id,
+//     type: 'upset'
+//   }
+//   this.props.dispatch( actions.addPrediction( prediction ) );
+//
+//   const predictionData = {
+//     prediction: prediction
+//   }
+//   post( 'api/predictions', null, this.props.session, JSON.stringify(predictionData) )
+// }
