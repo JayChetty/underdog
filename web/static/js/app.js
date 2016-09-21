@@ -20,6 +20,11 @@ const store = createStore(reducer, window.devToolsExtension && window.devToolsEx
 
 window.onload = () => {
 
+  let token = localStorage.getItem('ud_session');
+  if (token !== null) {
+      store.dispatch(actions.loginUserSuccess(token));
+  }
+
 
   ReactDOM.render(
     <Provider store={store}>
@@ -39,7 +44,4 @@ function fetchData(dispatch){
   actions.getWeeks()( dispatch );
   actions.getFixtures()( dispatch );
   actions.getTeams()( dispatch );
-  // if(this.props.session){
-  //    actions.getPredictions()( dispatch, this.props.session );
-  // }
 }

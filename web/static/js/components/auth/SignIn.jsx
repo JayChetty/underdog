@@ -63,7 +63,7 @@ export class SignIn extends React.Component {
           <form className="stacked-form">
             <input className="stacked-form-input" type="text" valueLink={this.linkState('email')} placeholder="Email" />
             <input className="stacked-form-input" type="password" valueLink={this.linkState('password')} placeholder="Password" />
-            <button className="button button-submit button-full-width" onClick={this.signIn.bind(this)}> Sign In </button>
+            <button className="button button-submit button-full-width" onClick={this.signIn.bind( this )}> Sign In </button>
           </form>
         </div>
       </div>
