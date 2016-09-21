@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import actions from '../../actions/actions'
 
-function Fixture( {fixture, predictionSelect} ){
+function Fixture( {fixture, makePrediction} ){
   if(!fixture.homeTeam){ return null; }
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
@@ -18,12 +17,12 @@ function Fixture( {fixture, predictionSelect} ){
 
   return(
     <div className="split-list-view">
-      <div className={ homeTeamClasses } onClick={ predictionSelect }>
+      <div className={ homeTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
         <span className={ homeTeamPointsClasses } > { homeTeamPointResult( fixture ) } </span>
         <span>{ fixture.homeTeam.name }</span>
         <img src={ fixture.homeTeam.image } />
       </div>
-      <div className={ awayTeamClasses } onClick={ predictionSelect }>
+      <div className={ awayTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
         <img src={ fixture.awayTeam.image } />
         <span>{ fixture.awayTeam.name }</span>
         <span className={ awayTeamPointsClasses }> { awayTeamPointResult( fixture ) } </span>

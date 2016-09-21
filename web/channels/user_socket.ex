@@ -2,7 +2,7 @@ defmodule Underdog.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Underdog.RoomChannel
+  channel "group:*", Underdog.GroupChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
