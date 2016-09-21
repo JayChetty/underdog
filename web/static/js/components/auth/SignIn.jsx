@@ -55,7 +55,7 @@ export class SignIn extends React.Component {
 
   render() {
     return (
-      <div className="layout-flex layout-full-height layout-color-green">
+      <div className="layout-flex layout-full-height layout-color-blue">
         <div className="layout-constrained">
           <nav className="layout-navbar">
             <div className="navbar-header text-large text-white">UNDER<span className="text-bold">GOD</span></div>
@@ -72,8 +72,6 @@ export class SignIn extends React.Component {
 
 };
 
-
-// reactMixin(SignIn.prototype, React.addons.LinkedStateMixin);
 reactMixin(SignIn.prototype, LinkedStateMixin);
 
 const mapStateToProps = ( state ) => {

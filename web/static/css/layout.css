@@ -30,6 +30,10 @@
   background-color: #AFDDD1;
 }
 
+.layout-color-blue {
+  background-color: #5d9cec;
+}
+
 .layout-flex {
   display: -webkit-box;
   display: -moz-box;

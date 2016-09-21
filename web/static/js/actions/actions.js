@@ -35,7 +35,7 @@ const actions = {
         try {
           let decoded = jwtDecode( response.jwt );
           dispatch( actions.loginUserSuccess( response.jwt ) )
-          dispatch( push( redirect ) )
+          dispatch( push( '/weeks' ) )
         } catch( e ) {
           console.log( 'e', e )
         }

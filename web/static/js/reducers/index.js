@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { routerStateReducer } from 'redux-router';
 import teams from './teams'
 import fixtures from './fixtures'
 import predictions from './predictions'
@@ -10,5 +11,6 @@ export default combineReducers({
   predictions,
   session,
   fixtures,
-  weeks
+  weeks,
+  router: routerStateReducer
 })
