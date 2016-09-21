@@ -14,7 +14,7 @@ import WeekContainer from './components/week/WeekContainer';
 
 import {Router, Route, browserHistory, IndexRedirect} from 'react-router';
 
-
+import socket from "./socket"
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 window.onload = () => {

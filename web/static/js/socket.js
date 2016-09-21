@@ -5,6 +5,8 @@
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "phoenix"
 
+console.log('socket start')
+
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 // When you connect, you'll often need to authenticate the client.
@@ -51,12 +53,23 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
+//pass token here so can authenticate
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("group:lobby", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
+console.log('channel', channel)
+channel.push("new_msg", {body: "Hello"})
+
+channel.on("new_msg", payload => {
+  // let messageItem = document.createElement("li");
+  // messageItem.innerText = `[${Date()}] ${payload.body}`
+  // messagesContainer.appendChild(messageItem)
+  console.log("CLIENT got message", payload)
+})
 
 export default socket
