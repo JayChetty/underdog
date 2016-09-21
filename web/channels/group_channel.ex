@@ -6,6 +6,11 @@ defmodule Underdog.GroupChannel do
     {:ok, socket}
   end
 
+  def join("group:" <> group_id, _params, socket) do
+    Logger.warn "Connecting to group #{inspect group_id}"
+    {:ok, socket}
+  end
+
   def handle_in("new_msg", %{"body" => body}, socket) do
     Logger.debug "Got message! #{ inspect body }"
     broadcast! socket, "new_msg", %{body: body}
