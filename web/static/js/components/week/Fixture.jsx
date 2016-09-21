@@ -9,10 +9,10 @@ function Fixture( {fixture, predictionSelect} ){
   let awayTeamPointsClasses = "tag go-right"
 
   if( homeTeamPredictedWinner( fixture ) ){
-    homeTeamClasses += " bg-green"
+    homeTeamClasses += " bg-blue"
     homeTeamPointsClasses += " tag-simple pulse"
   }else{
-    awayTeamClasses += " bg-green"
+    awayTeamClasses += " bg-blue"
     awayTeamPointsClasses += " tag-simple pulse"
   }
 

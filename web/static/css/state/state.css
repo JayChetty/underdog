@@ -3,6 +3,11 @@
   color: #FFFFFF;
 }
 
+.bg-blue {
+  background-color: #5d9cec;
+  color: #fff;
+}
+
 .text-skinny {
   font-weight: 100;
 }
