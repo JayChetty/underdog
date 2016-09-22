@@ -34,7 +34,7 @@ function requireAuth( Component ) {
   const mapStateToProps = (state) => {
     if(!state.session){ return {} }
     return {
-        token: state.session && state.session.token,
+        token: state.session.token,
         isAuthenticated: state.session.isAuthenticated
     }
   };

@@ -16,7 +16,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers/index';
 import thunk from 'redux-thunk';
 
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 
 
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
@@ -25,14 +25,15 @@ window.onload = () => {
 
   let token = localStorage.getItem('ud_session');
   if (token !== null) {
-      store.dispatch(actions.loginUserSuccess(token));
+      store.dispatch(actions.loginUserSuccess( token ));
+      actions.fetchData( store.dispatch )
   }
 
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path='/'>
-            {/*<IndexRoute component={HomeView}/>*/}
+            <IndexRedirect to='/weeks'/>
             <Route path='/login' component={ SignIn }/>
             <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
         </Route>
@@ -41,12 +42,4 @@ window.onload = () => {
     document.getElementById( 'app' )
   )
 
-  fetchData(store.dispatch)
-
 };
-
-function fetchData(dispatch){
-  actions.getWeeks()( dispatch );
-  actions.getFixtures()( dispatch );
-  actions.getTeams()( dispatch );
-}

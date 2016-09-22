@@ -35,6 +35,7 @@ const actions = {
         try {
           let decoded = jwtDecode( response.jwt );
           dispatch( actions.loginUserSuccess( response.jwt ) )
+          actions.fetchData(dispatch)
           browserHistory.push('/weeks');
         } catch( e ) {
           console.log( 'e', e )
@@ -139,6 +140,12 @@ const actions = {
         dispatch( actions.receivePredictions( predictions.data ) )
       })
     }
+  },
+
+  fetchData:( dispatch )=>{
+    actions.getWeeks()(dispatch)
+    actions.getFixtures()(dispatch)
+    actions.getTeams()(dispatch)
   },
 
   requestPredictions: () => {
