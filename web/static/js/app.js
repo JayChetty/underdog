@@ -3,31 +3,14 @@ import "phoenix_html"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
-import { createHistory } from 'history';
-import reducer from './reducers/index';
-import thunk from 'redux-thunk';
 import actions  from './actions/actions';
-import SignIn from './components/auth/SignIn';
-import { Router, Route, browserHistory, IndexRedirect, IndexRoute } from 'react-router';
+import routes from './routes'
 import requireAuth from './components/auth/RequireAuth';
-import WeekContainer from './components/week/WeekContainer';
 import socket from "./socket";
+import configureStore from './store/configureStore'
 
-const routes = <div>
-                <Route path='/login' component={ SignIn }/>
-                <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
-              </div>
-
-const store = compose(
-                applyMiddleware( thunk ),
-                reduxReactRouter({
-                  routes,
-                  createHistory
-                }),
-                window.devToolsExtension && window.devToolsExtension()
-              )( createStore )( reducer )
+const store = configureStore();
 // const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 window.onload = () => {
