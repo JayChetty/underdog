@@ -14,15 +14,17 @@ function Fixture( {fixture, makePrediction} ){
     awayTeamClasses += " bg-blue"
     awayTeamPointsClasses += " tag-simple pulse"
   }
-
+  console.log('fixture', fixture)
   return(
     <div className="split-list-view">
       <div className={ homeTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
         <span className={ homeTeamPointsClasses } > { homeTeamPointResult( fixture ) } </span>
         <span>{ fixture.homeTeam.name }</span>
         <img src={ fixture.homeTeam.image } />
+        <span> { fixture.home_team_score } </span>
       </div>
       <div className={ awayTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
+        <span> { fixture.away_team_score } </span>
         <img src={ fixture.awayTeam.image } />
         <span>{ fixture.awayTeam.name }</span>
         <span className={ awayTeamPointsClasses }> { awayTeamPointResult( fixture ) } </span>

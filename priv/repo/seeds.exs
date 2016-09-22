@@ -18,12 +18,14 @@ defmodule SeedHelper do
   # end
 
 
-  def create_fixtures(week, fixtures, teams, home_team_score \\ nil, away_team_score \\ nil) do
+  def create_fixtures(week, fixtures, teams ) do
+
     Enum.map(fixtures, fn(fixture) ->
-      home_team = elem(fixture, 0)
-      away_team = elem(fixture, 1)
-      # home_team_score_input = elem(fixture,2) || home_team_score
-      # away_team_score_input = elem(fixture,3) || away_team_score
+      fixture_data = Tuple.to_list(fixture)
+      home_team = Enum.at(fixture_data, 0)
+      away_team = Enum.at(fixture_data, 1)
+      home_team_score_input = Enum.at(fixture_data, 2)
+      away_team_score_input = Enum.at(fixture_data, 3)
       create_fixture(
         week.id,
         teams[home_team].id,
@@ -31,8 +33,8 @@ defmodule SeedHelper do
         week.start_date.year,
         week.start_date.month,
         week.start_date.day,
-        home_team_score,
-        away_team_score
+        home_team_score_input,
+        away_team_score_input
       )
     end)
   end
@@ -154,16 +156,16 @@ week_1_fixtures = SeedHelper.create_fixtures(week_1, [
 ], teams)
 #week 2
 week_2_fixtures = SeedHelper.create_fixtures(week_2, [
-  {:west_ham, :bournemouth},
-  {:man_utd, :southampton},
-  {:west_brom, :everton},
-  {:swansea, :hull},
-  {:liverpool, :burnley},
-  {:tottenham, :crystal_palace},
-  {:watford, :chelsea},
-  {:sunderland, :middlesbrough},
-  {:leicester, :arsenal},
-  {:stoke, :man_city}
+  {:west_ham, :bournemouth,1, 0},
+  {:man_utd, :southampton,2,0},
+  {:west_brom, :everton,1,2},
+  {:swansea, :hull,0,2},
+  {:burnley, :liverpool,2,0},
+  {:tottenham, :crystal_palace,1,0},
+  {:watford, :chelsea,1,2},
+  {:sunderland, :middlesbrough,1,2},
+  {:leicester, :arsenal,0,0},
+  {:stoke, :man_city,1,4}
 ], teams)
 #week 3
 week_3_fixtures = SeedHelper.create_fixtures(week_3, [
@@ -258,12 +260,12 @@ user = Underdog.User.changeset( %Underdog.User{}, user_params )
 
 
 Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
-prediction = %Underdog.Prediction{
-  type: "upset",
-  user_id: inserted_user.id,
-  fixture_id: hd(week_2_fixtures).id
-}
+# prediction = %Underdog.Prediction{
+#   type: "upset",
+#   user_id: inserted_user.id,
+#   fixture_id: hd(week_2_fixtures).id
+# }
 
 
 
-{:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
+# {:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
