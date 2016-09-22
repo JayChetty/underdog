@@ -168,22 +168,23 @@ const actions = {
     }
   },
 
-  makePrediction: ( prediction ) => {
 
+  makePrediction: ( prediction, fixture ) => {
     return ( dispatch, session ) => {
-      dispatch( actions.addPrediction( prediction ) )
-
-      fetch( "/api/predictions", {
-        method: "POST",
-        body: JSON.stringify( prediction ),
-        headers: {
-          "Authorization": session.jwt
-        }
-      }).then( response => { console.log( response ) })
-      .catch( err => { console.error( err ) } )
-
+      if(!fixture.prediction){
+        dispatch( actions.addPrediction( prediction ) )
+        // fetch( "/api/predictions", {
+        //   method: "POST",
+        //   body: JSON.stringify( prediction ),
+        //   headers: {
+        //     "Authorization": session.jwt
+        //   }
+        // }).then( response => { console.log( response ) })
+        // .catch( err => { console.error( err ) } )
+      }else{
+        dispatch( actions.removePrediction( fixture.id ) )
+      }
     }
-
   },
 
   removePrediction: ( fixtureId ) => {

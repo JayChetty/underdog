@@ -6,9 +6,9 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions'
 
 function WeekContainer( props ){
-  const makePrediction = (prediction)=>{
-    if(!props.session){ return(null) }
-    actions.makePrediction( prediction )( props.dispatch, props.session )
+  const makePrediction = (prediction, fixture)=>{
+    console.log("making prediction", fixture)
+    actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
   const fixtures = props.weeksWithFixtures.map( ( fixtureWeek ) => {
@@ -17,6 +17,7 @@ function WeekContainer( props ){
         <Fixtures
           makePrediction={ makePrediction }
           fixtures={ fixtureWeek.fixtures }
+          gameWeekId={ props.gameWeekId}
         >
         </Fixtures>
       </main>
@@ -31,7 +32,7 @@ function WeekContainer( props ){
       <ReactSwipe
         key={ fixtures.length }
         className="carousel"
-        swipeOptions={{continuous: false, startSlide: props.gameWeek }}
+        swipeOptions={{continuous: false, startSlide: props.gameWeekIndex }}
       >
         { fixtures }
       </ReactSwipe>
@@ -73,10 +74,53 @@ function findTeamById(teams, teamId){
   return _.find(teams, (team) => team.id === teamId )
 }
 
-function addTeamsToFixtures( fixtures, teams ){
+//POINTS CALCULATING LIBRARY
+
+function pointsForGame(goalDifference){
+  if(goalDifference === 0){ return 1 }
+  if(goalDifference > 0){ return 3 }
+  return 0
+}
+
+function pointsForFixtureType(fixtures, teamId, isHomeTeam = true){
+  let fixtureType = "home_team"
+  if(!isHomeTeam){
+    fixtureType = "away_team"
+  }
+  const teamFixtures = fixtures.filter((fixture)=>{
+    return fixture[fixtureType + '_id'] === teamId
+  })
+
+  const points = teamFixtures.reduce((totalPoints, fixture)=>{
+    if(fixture["home_team_score"] === null){//game not completed don't add points
+      return totalPoints + 0
+    }
+    let goalDifference = fixture["home_team_score"] - fixture["away_team_score"]
+    if( !isHomeTeam ){
+      goalDifference = goalDifference * -1
+    }
+    return totalPoints + pointsForGame(goalDifference)
+  },0)
+  return points
+}
+
+
+function calculatePoints(teamId, fixtures){
+  return pointsForFixtureType(fixtures, teamId) + pointsForFixtureType(fixtures, teamId, false)
+}
+
+//END POINTS CALCULATING LIBRARY
+
+function addTeamsToFixtures( fixtures, teams, predictions ){
+  const teamsWithPoints = teams.map((team) => {
+    return Object.assign( {}, team, { points: calculatePoints(team.id, fixtures) } )
+  })
+
   return fixtures.map( ( fixture ) => {
-    fixture.homeTeam = findTeamById(teams, fixture.home_team_id);
-    fixture.awayTeam = findTeamById(teams, fixture.away_team_id);
+    fixture.homeTeam = findTeamById(teamsWithPoints, fixture.home_team_id);
+    fixture.awayTeam = findTeamById(teamsWithPoints, fixture.away_team_id);
+    const prediction = findPredictionForFixture(predictions, fixture.id)
+    fixture.prediction = prediction;
     return fixture;
   });
 }
@@ -88,13 +132,21 @@ function addFixturesToWeeks( weeks, fixtures ) {
   })
 }
 
+function findPredictionForFixture( predictions, fixtureId ){
+  return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
+}
+
+
 function mapStateToProps( state, { params } ){
-  const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items )
+  const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items, state.predictions.items )
   const weekFixtures = addFixturesToWeeks( state.weeks.items, fixturesWithTeams  )
+  const gameWeekIndex = currentWeek( weekFixtures )
+  const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   return {
     weeksWithFixtures: weekFixtures,
     displayWeekId: 1,
-    gameWeek: currentWeek( weekFixtures ),
+    gameWeekIndex: gameWeekIndex,
+    gameWeekId: gameWeekId,
     session: state.session
   }
 }
