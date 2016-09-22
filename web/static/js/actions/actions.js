@@ -173,14 +173,14 @@ const actions = {
     return ( dispatch, session ) => {
       dispatch( actions.addPrediction( prediction ) )
 
-      fetch( "/api/predictions", {
-        method: "POST",
-        body: JSON.stringify( prediction ),
-        headers: {
-          "Authorization": session.jwt
-        }
-      }).then( response => { console.log( response ) })
-      .catch( err => { console.error( err ) } )
+      // fetch( "/api/predictions", {
+      //   method: "POST",
+      //   body: JSON.stringify( prediction ),
+      //   headers: {
+      //     "Authorization": session.jwt
+      //   }
+      // }).then( response => { console.log( response ) })
+      // .catch( err => { console.error( err ) } )
 
     }
 

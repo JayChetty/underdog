@@ -74,10 +74,12 @@ function findTeamById(teams, teamId){
   return _.find(teams, (team) => team.id === teamId )
 }
 
-function addTeamsToFixtures( fixtures, teams ){
+function addTeamsToFixtures( fixtures, teams, predictions ){
   return fixtures.map( ( fixture ) => {
     fixture.homeTeam = findTeamById(teams, fixture.home_team_id);
     fixture.awayTeam = findTeamById(teams, fixture.away_team_id);
+    const prediction = findPredictionForFixture(predictions, fixture.id)
+    fixture.prediction = prediction;
     return fixture;
   });
 }
@@ -89,8 +91,13 @@ function addFixturesToWeeks( weeks, fixtures ) {
   })
 }
 
+function findPredictionForFixture( predictions, fixtureId ){
+  return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
+}
+
+
 function mapStateToProps( state, { params } ){
-  const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items )
+  const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items, state.predictions.items )
   const weekFixtures = addFixturesToWeeks( state.weeks.items, fixturesWithTeams  )
   const gameWeekIndex = currentWeek( weekFixtures )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id

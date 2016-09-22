@@ -1,22 +1,24 @@
 import React, { Component } from 'react'
 
 function Fixture( {fixture, makePrediction, isInGameWeek} ){
+  // console.log('rendering fixture', fixture)
   if(!fixture.homeTeam){ return null; }
+
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
   let homeTeamPointsClasses = "tag go-left"
   let awayTeamPointsClasses = "tag go-right"
 
-  if( homeTeamPredictedWinner( fixture ) ){
-    homeTeamClasses += " bg-blue"
-    homeTeamPointsClasses += " tag-simple pulse"
-  }else{
-    awayTeamClasses += " bg-blue"
-    awayTeamPointsClasses += " tag-simple pulse"
-  }
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
   if( isInGameWeek ){
     clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
+    if( homeTeamPredictedWinner( fixture ) ){
+      homeTeamClasses += " bg-blue"
+      homeTeamPointsClasses += " tag-simple pulse"
+    }else{
+      awayTeamClasses += " bg-blue"
+      awayTeamPointsClasses += " tag-simple pulse"
+    }
   }
   return(
     <div className="split-list-view">
