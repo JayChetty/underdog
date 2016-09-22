@@ -11,7 +11,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek} ){
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
   if( isInGameWeek ){
-    clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
+    clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' }, fixture ) }
     if( homeTeamPredictedWinner( fixture ) ){
       homeTeamClasses += " bg-blue"
       homeTeamPointsClasses += " tag-simple pulse"

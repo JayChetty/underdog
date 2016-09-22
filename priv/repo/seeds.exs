@@ -169,43 +169,43 @@ week_2_fixtures = SeedHelper.create_fixtures(week_2, [
 ], teams)
 #week 3
 week_3_fixtures = SeedHelper.create_fixtures(week_3, [
-  {:tottenham, :liverpool},
-  {:chelsea, :burnley},
-  {:everton, :stoke},
-  {:southampton, :sunderland},
-  {:watford, :arsenal},
-  {:crystal_palace, :bournemouth},
-  {:leicester, :swansea},
-  {:hull, :man_utd},
-  {:west_brom, :middlesbrough},
-  {:man_city, :west_ham}
+  {:tottenham, :liverpool,1,1},
+  {:chelsea, :burnley,3,0},
+  {:everton, :stoke,1,0},
+  {:southampton, :sunderland,1,1},
+  {:watford, :arsenal,1,3},
+  {:crystal_palace, :bournemouth,1,1},
+  {:leicester, :swansea,2,1},
+  {:hull, :man_utd,0,1},
+  {:west_brom, :middlesbrough,0,0},
+  {:man_city, :west_ham,3,1}
 ], teams)
 #week 4
 week_4_fixtures = SeedHelper.create_fixtures(week_4, [
-  {:man_utd, :man_city},
-  {:bournemouth, :west_brom},
-  {:middlesbrough, :crystal_palace},
-  {:stoke, :tottenham},
-  {:burnley, :hull},
-  {:west_ham, :watford},
-  {:arsenal, :southampton},
-  {:liverpool, :leicester},
-  {:swansea, :chelsea},
-  {:sunderland, :everton}
+  {:man_utd, :man_city,1,2},
+  {:bournemouth, :west_brom,1,0},
+  {:middlesbrough, :crystal_palace,1,2},
+  {:stoke, :tottenham,0,4},
+  {:burnley, :hull,1,1},
+  {:west_ham, :watford,2,4},
+  {:arsenal, :southampton,2,1},
+  {:liverpool, :leicester,4,1},
+  {:swansea, :chelsea,2,2},
+  {:sunderland, :everton,0,3}
 ], teams)
 
 
 week_5_fixtures = SeedHelper.create_fixtures(week_5, [
-  {:chelsea, :liverpool},
-  {:hull, :arsenal},
-  {:west_brom, :west_ham},
-  {:everton, :middlesbrough},
-  {:man_city, :bournemouth},
-  {:leicester, :burnley},
-  {:watford, :man_utd},
-  {:crystal_palace, :stoke},
-  {:tottenham, :sunderland},
-  {:southampton, :swansea}
+  {:chelsea, :liverpool,1,2},
+  {:hull, :arsenal,1,4},
+  {:west_brom, :west_ham,4,2},
+  {:everton, :middlesbrough,3,1},
+  {:man_city, :bournemouth,4,0},
+  {:leicester, :burnley,3,0},
+  {:watford, :man_utd,3,1},
+  {:crystal_palace, :stoke,4,1},
+  {:tottenham, :sunderland,1,0},
+  {:southampton, :swansea,1,0}
 ], teams)
 
 

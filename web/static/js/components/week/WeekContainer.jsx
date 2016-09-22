@@ -6,9 +6,9 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions'
 
 function WeekContainer( props ){
-  const makePrediction = (prediction)=>{
-    if(!props.session){ return(null) }
-    actions.makePrediction( prediction )( props.dispatch, props.session )
+  const makePrediction = (prediction, fixture)=>{
+    console.log("making prediction", fixture)
+    actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
   const fixtures = props.weeksWithFixtures.map( ( fixtureWeek ) => {
