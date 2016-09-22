@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {push} from 'redux-router';
+import {browserHistory} from 'react-router';
 
 
 function requireAuth( Component ) {
@@ -17,7 +17,7 @@ function requireAuth( Component ) {
 
     checkAuth( isAuthenticated ) {
       if (!isAuthenticated) {
-        this.props.dispatch(pushState(null, `/login`));
+        browserHistory.push('/login')
       }
     }
 
@@ -31,10 +31,13 @@ function requireAuth( Component ) {
 
   }
 
-  const mapStateToProps = (state) => ({
-      token: state.session.token,
-      isAuthenticated: state.session.isAuthenticated
-  });
+  const mapStateToProps = (state) => {
+    if(!state.session){ return {} }
+    return {
+        token: state.session && state.session.token,
+        isAuthenticated: state.session.isAuthenticated
+    }
+  };
 
   return connect(mapStateToProps)(AuthenticatedComponent);
 
