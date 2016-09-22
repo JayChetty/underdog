@@ -74,10 +74,51 @@ function findTeamById(teams, teamId){
   return _.find(teams, (team) => team.id === teamId )
 }
 
+//POINTS CALCULATING LIBRARY
+
+function pointsForGame(goalDifference){
+  if(goalDifference === 0){ return 1 }
+  if(goalDifference > 0){ return 3 }
+  return 0
+}
+
+function pointsForFixtureType(fixtures, teamId, isHomeTeam = true){
+  let fixtureType = "home_team"
+  if(!isHomeTeam){
+    fixtureType = "away_team"
+  }
+  const teamFixtures = fixtures.filter((fixture)=>{
+    return fixture[fixtureType + '_id'] === teamId
+  })
+
+  const points = teamFixtures.reduce((totalPoints, fixture)=>{
+    if(fixture["home_team_score"] === null){//game not completed don't add points
+      return totalPoints + 0
+    }
+    let goalDifference = fixture["home_team_score"] - fixture["away_team_score"]
+    if( !isHomeTeam ){
+      goalDifference = goalDifference * -1
+    }
+    return totalPoints + pointsForGame(goalDifference)
+  },0)
+  return points
+}
+
+
+function calculatePoints(teamId, fixtures){
+  return pointsForFixtureType(fixtures, teamId) + pointsForFixtureType(fixtures, teamId, false)
+}
+
+//END POINTS CALCULATING LIBRARY
+
 function addTeamsToFixtures( fixtures, teams, predictions ){
+  const teamsWithPoints = teams.map((team) => {
+    return Object.assign( {}, team, { points: calculatePoints(team.id, fixtures) } )
+  })
+
   return fixtures.map( ( fixture ) => {
-    fixture.homeTeam = findTeamById(teams, fixture.home_team_id);
-    fixture.awayTeam = findTeamById(teams, fixture.away_team_id);
+    fixture.homeTeam = findTeamById(teamsWithPoints, fixture.home_team_id);
+    fixture.awayTeam = findTeamById(teamsWithPoints, fixture.away_team_id);
     const prediction = findPredictionForFixture(predictions, fixture.id)
     fixture.prediction = prediction;
     return fixture;
