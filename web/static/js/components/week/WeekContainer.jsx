@@ -17,6 +17,7 @@ function WeekContainer( props ){
         <Fixtures
           makePrediction={ makePrediction }
           fixtures={ fixtureWeek.fixtures }
+          gameWeekId={ props.gameWeekId}
         >
         </Fixtures>
       </main>
@@ -31,7 +32,7 @@ function WeekContainer( props ){
       <ReactSwipe
         key={ fixtures.length }
         className="carousel"
-        swipeOptions={{continuous: false, startSlide: props.gameWeek }}
+        swipeOptions={{continuous: false, startSlide: props.gameWeekIndex }}
       >
         { fixtures }
       </ReactSwipe>
@@ -91,10 +92,13 @@ function addFixturesToWeeks( weeks, fixtures ) {
 function mapStateToProps( state, { params } ){
   const fixturesWithTeams = addTeamsToFixtures( state.fixtures.items, state.teams.items )
   const weekFixtures = addFixturesToWeeks( state.weeks.items, fixturesWithTeams  )
+  const gameWeekIndex = currentWeek( weekFixtures )
+  const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   return {
     weeksWithFixtures: weekFixtures,
     displayWeekId: 1,
-    gameWeek: currentWeek( weekFixtures ),
+    gameWeekIndex: gameWeekIndex,
+    gameWeekId: gameWeekId,
     session: state.session
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-function Fixture( {fixture, makePrediction} ){
+function Fixture( {fixture, makePrediction, isInGameWeek} ){
   if(!fixture.homeTeam){ return null; }
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
@@ -14,16 +14,19 @@ function Fixture( {fixture, makePrediction} ){
     awayTeamClasses += " bg-blue"
     awayTeamPointsClasses += " tag-simple pulse"
   }
-  console.log('fixture', fixture)
+  let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
+  if( isInGameWeek ){
+    clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
+  }
   return(
     <div className="split-list-view">
-      <div className={ homeTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
+      <div className={ homeTeamClasses } onClick={ clickHandler }>
         <span className={ homeTeamPointsClasses } > { homeTeamPointResult( fixture ) } </span>
         <span>{ fixture.homeTeam.name }</span>
         <img src={ fixture.homeTeam.image } />
         <span> { fixture.home_team_score } </span>
       </div>
-      <div className={ awayTeamClasses } onClick={ () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) } }>
+      <div className={ awayTeamClasses } onClick={ clickHandler }>
         <span> { fixture.away_team_score } </span>
         <img src={ fixture.awayTeam.image } />
         <span>{ fixture.awayTeam.name }</span>
