@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
-// import { push } from 'redux-router';
 import { browserHistory } from 'react-router';
 
 const actions = {
@@ -37,8 +36,6 @@ const actions = {
           let decoded = jwtDecode( response.jwt );
           dispatch( actions.loginUserSuccess( response.jwt ) )
           browserHistory.push('/weeks');
-          // dispatch( push( '/weeks' ) )
-          // Router.transitionTo('/weeks')
         } catch( e ) {
           console.log( 'e', e )
         }

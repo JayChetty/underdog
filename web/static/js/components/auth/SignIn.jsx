@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import React from 'react';
 import reactMixin from 'react-mixin';
@@ -9,7 +8,6 @@ export class SignIn extends React.Component {
 
   constructor(props) {
     super(props);
-    // const redirectRoute = this.props.location.query.next || '/login';
     this.state = {
       email: '',
       password: ''
