@@ -16,38 +16,6 @@ export class SignIn extends React.Component {
     };
   }
 
-  // mixins: [LinkedStateMixin],
-
-  // getInitialState: function(){
-  //   return {email:"", password:""};
-  // },
-
-  // signIn:function(e){
-  //   e.preventDefault();
-  //   var request = new XMLHttpRequest();
-  //   request.open("POST", "/api/sessions");
-  //   request.setRequestHeader("Content-Type", "application/json");
-  //   request.withCredentials = true;
-  //   request.onload = function(){
-  //     if(request.status === 201){
-  //       let session = JSON.parse(request.responseText)
-  //       console.log("signed in go", request.responseText)
-  //       localStorage.setItem('ud_session', request.responseText);
-  //       this.props.dispatch( actions.addSession( session ) );
-  //       // this.props.onSignIn(user);
-  //
-  //     }else if(request.status === 401){
-  //     }
-  //   }.bind(this)
-  //   var data = {
-  //     session:{
-  //       email:this.state.email,
-  //       password:this.state.password
-  //     }
-  //   }
-  //   request.send(JSON.stringify(data));
-  // }
-
   signIn(e) {
     e.preventDefault();
     actions.loginUser( this.state.email, this.state.password )( this.props.dispatch );
