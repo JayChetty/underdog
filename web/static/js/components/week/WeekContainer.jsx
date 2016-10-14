@@ -19,6 +19,7 @@ function WeekContainer( props ){
           makePrediction={ makePrediction }
           fixtures={ fixtureWeek.fixtures }
           weekNumber={ fixtureWeek.number }
+          gameWeekNumber={props.gameWeekNumber}
           gameWeekId={ props.gameWeekId}
           teams={ props.teams}
         >
@@ -141,11 +142,13 @@ function mapStateToProps( state, { params } ){
   const teamsWithPoints = addPointsToTeams( state.teams.items, fixtureWeeks)
   const gameWeekIndex = currentWeek( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
+  const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
     weeksWithFixtures: fixtureWeeks,
     teams: teamsWithPoints,
     gameWeekIndex: gameWeekIndex,
     gameWeekId: gameWeekId,
+    gameWeekNumber: gameWeekNumber,
     session: state.session,
     predictions: state.predictions
   }

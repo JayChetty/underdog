@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
-  // console.log('rendering fixture', fixture)
+function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNumber} ){
   if(!fixture.homeTeam){ return null; }
 
   let homeTeamClasses = "split-list-view-left"
@@ -11,6 +10,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
   let awayTeamPointsClasses = "tag go-right"
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
+
   if( isInGameWeek ){
     clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' }, fixture ) }
     if( homeTeamPredictedWinner( fixture, weekNumber ) ){
@@ -20,7 +20,19 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
       awayTeamClasses += " bg-blue"
       awayTeamPointsClasses += " tag-simple pulse"
     }
+  }else {
+    const isInPast = weekNumber < gameWeekNumber
+    if(isInPast){
+      if( homeTeamPredictedWinner( fixture, weekNumber ) ){
+        homeTeamClasses += " bg-gray"
+        homeTeamPointsClasses += " tag-simple pulse"
+      }else{
+        awayTeamClasses += " bg-gray"
+        awayTeamPointsClasses += " tag-simple pulse"
+      }
+    }
   }
+
   return(
     <div className="split-list-view">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
@@ -45,7 +57,7 @@ function cumulativePoints(points, weekNumber){
 }
 
 function homeTeamPredictedWinner(fixture, weekNumber){
-  const output = homeTeamPointDifference(fixture, weekNumber) > 0
+  const output = homeTeamPointDifference(fixture, weekNumber) >= 0
   return predictsUpset(fixture.prediction) ? !output : output;
 }
 

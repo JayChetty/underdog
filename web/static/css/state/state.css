@@ -8,6 +8,11 @@
   color: #fff;
 }
 
+.bg-gray {
+  background-color: #e5e5e5;
+  color: #a1a1a1;
+}
+
 .text-skinny {
   font-weight: 100;
 }
