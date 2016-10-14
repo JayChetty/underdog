@@ -116,6 +116,36 @@ week_6 = SeedHelper.create_week(2016,09,24,6, inserted_season.id)
 week_7 = SeedHelper.create_week(2016,10,01,7, inserted_season.id)
 week_8 = SeedHelper.create_week(2016,10,15,8, inserted_season.id)
 week_9 = SeedHelper.create_week(2016,10,22,9, inserted_season.id)
+week_10 = SeedHelper.create_week(2016,10,29,10, inserted_season.id)
+week_11 = SeedHelper.create_week(2016,11,05,11, inserted_season.id)
+week_12 = SeedHelper.create_week(2016,11,19,12, inserted_season.id)
+week_13 = SeedHelper.create_week(2016,11,26,13, inserted_season.id)
+week_14 = SeedHelper.create_week(2016,12,03,14, inserted_season.id)
+week_15 = SeedHelper.create_week(2016,12,10,15, inserted_season.id)
+week_16 = SeedHelper.create_week(2016,12,13,16, inserted_season.id)
+week_17 = SeedHelper.create_week(2016,12,17,17, inserted_season.id)
+week_18 = SeedHelper.create_week(2016,10,26,18, inserted_season.id)
+week_19 = SeedHelper.create_week(2016,10,31,19, inserted_season.id)
+week_20 = SeedHelper.create_week(2017,01,02,20, inserted_season.id)
+week_21 = SeedHelper.create_week(2017,01,14,21, inserted_season.id)
+week_22 = SeedHelper.create_week(2017,01,21,22, inserted_season.id)
+week_23 = SeedHelper.create_week(2017,01,31,23, inserted_season.id)
+week_24 = SeedHelper.create_week(2017,02,03,24, inserted_season.id)
+week_25 = SeedHelper.create_week(2017,02,11,25, inserted_season.id)
+week_26 = SeedHelper.create_week(2017,02,25,26, inserted_season.id)
+week_27 = SeedHelper.create_week(2017,03,04,27, inserted_season.id)
+week_28 = SeedHelper.create_week(2017,03,11,28, inserted_season.id)
+week_29 = SeedHelper.create_week(2017,03,18,29, inserted_season.id)
+week_30 = SeedHelper.create_week(2017,04,01,30, inserted_season.id)
+week_31 = SeedHelper.create_week(2017,04,04,31, inserted_season.id)
+week_32 = SeedHelper.create_week(2017,04,08,32, inserted_season.id)
+week_33 = SeedHelper.create_week(2017,04,15,33, inserted_season.id)
+week_34 = SeedHelper.create_week(2017,04,22,34, inserted_season.id)
+week_35 = SeedHelper.create_week(2017,04,29,35, inserted_season.id)
+week_36 = SeedHelper.create_week(2017,05,06,36, inserted_season.id)
+week_37 = SeedHelper.create_week(2017,05,13,37, inserted_season.id)
+week_38 = SeedHelper.create_week(2017,05,21,38, inserted_season.id)
+
 
 
 team_names = [
@@ -252,6 +282,19 @@ week_8_fixtures = SeedHelper.create_fixtures(week_8, [
 ], teams)
 
 week_9_fixtures = SeedHelper.create_fixtures(week_9, [
+  {:bournemouth, :tottenham},
+  {:leicester, :crystal_palace},
+  {:hull, :stoke},
+  {:burnley, :everton},
+  {:man_city, :southampton},
+  {:arsenal, :middlesbrough},
+  {:west_ham, :sunderland},
+  {:swansea, :watford},
+  {:liverpool, :west_brom},
+  {:chelsea, :man_utd}
+], teams)
+
+week_10_fixtures = SeedHelper.create_fixtures(week_9, [
   {:bournemouth, :tottenham},
   {:leicester, :crystal_palace},
   {:hull, :stoke},
