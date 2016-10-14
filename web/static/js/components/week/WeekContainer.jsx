@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import ReactSwipe from 'react-swipe';
 import _ from 'lodash';
 import Fixtures from './Fixtures';
-import actions from '../../actions/actions'
+import actions from '../../actions/actions';
+import FixturesSummary from './FixturesSummary';
 
 function WeekContainer( props ){
+
   const makePrediction = (prediction, fixture)=>{
-    console.log("making prediction", fixture)
     actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
@@ -36,6 +37,7 @@ function WeekContainer( props ){
       >
         { fixtures }
       </ReactSwipe>
+      <FixturesSummary potentialPoints={ calculateTotalPredictedPoints( props.weeksWithFixtures[ props.gameWeekIndex ] ) } />
     </div>
   )
 }
@@ -75,6 +77,22 @@ function findTeamById(teams, teamId){
 }
 
 //POINTS CALCULATING LIBRARY
+
+function calculateTotalPredictedPoints( weekFixtures ) {
+  if (!weekFixtures) { return 0 }
+
+
+  // const weekFixtures = filterFixturesByWeekId( weekId, fixtures )
+  const points = weekFixtures.fixtures.map( ( fixture ) => {
+    if( fixture.prediction && fixture.homeTeam) {
+      const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
+      return ( Math.abs( pointsDifference ) + 3 )
+    }
+    return 3
+  })
+  const total = points.reduce( ( prev, curr ) => prev + curr, 0 )
+  return total
+}
 
 function pointsForGame(goalDifference){
   if(goalDifference === 0){ return 1 }
@@ -147,7 +165,8 @@ function mapStateToProps( state, { params } ){
     displayWeekId: 1,
     gameWeekIndex: gameWeekIndex,
     gameWeekId: gameWeekId,
-    session: state.session
+    session: state.session,
+    predictions: state.predictions
   }
 }
 
