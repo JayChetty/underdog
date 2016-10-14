@@ -32,7 +32,7 @@
     "jest-cli": "^15.1.1"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "start": "mix phoenix.server"
   }
 }
