@@ -210,33 +210,33 @@ week_5_fixtures = SeedHelper.create_fixtures(week_5, [
 
 
 week_6_fixtures = SeedHelper.create_fixtures(week_6, [
-  {:man_utd, :leicester},
-  {:bournemouth, :everton},
-  {:stoke, :west_brom},
-  {:middlesbrough, :tottenham},
-  {:west_ham, :southampton},
-  {:burnley, :watford},
-  {:liverpool, :hull},
-  {:swansea, :man_city},
-  {:sunderland, :crystal_palace},
-  {:arsenal, :chelsea}
+  {:man_utd, :leicester,4,1},
+  {:bournemouth, :everton,1,0},
+  {:stoke, :west_brom,1,1},
+  {:middlesbrough, :tottenham,1,2},
+  {:west_ham, :southampton,0,3},
+  {:burnley, :watford,2,0},
+  {:liverpool, :hull,5,1},
+  {:swansea, :man_city,1,3},
+  {:sunderland, :crystal_palace,2,3},
+  {:arsenal, :chelsea,3,0}
 ], teams)
 
 
 week_7_fixtures = SeedHelper.create_fixtures(week_7, [
-  {:everton, :crystal_palace},
-  {:swansea, :liverpool},
-  {:hull, :chelsea},
-  {:watford, :bournemouth},
-  {:man_utd, :stoke},
-  {:tottenham, :man_city},
-  {:west_ham, :middlesbrough},
-  {:sunderland, :west_brom},
-  {:leicester, :southampton},
-  {:burnley, :arsenal}
+  {:everton, :crystal_palace,1,1},
+  {:swansea, :liverpool,1,2},
+  {:hull, :chelsea,0,2},
+  {:watford, :bournemouth,2,2},
+  {:man_utd, :stoke,1,1},
+  {:tottenham, :man_city,2,0},
+  {:west_ham, :middlesbrough,1,1},
+  {:sunderland, :west_brom,1,1},
+  {:leicester, :southampton,0,0},
+  {:burnley, :arsenal,0,1}
 ], teams)
 
-#week 5
+
 week_8_fixtures = SeedHelper.create_fixtures(week_8, [
   {:chelsea, :leicester},
   {:west_brom, :tottenham},
@@ -250,22 +250,38 @@ week_8_fixtures = SeedHelper.create_fixtures(week_8, [
   {:liverpool, :man_utd}
 ], teams)
 
+week_9_fixtures = SeedHelper.create_fixtures(week_9, [
+  {:bournemouth, :tottenham},
+  {:leicester, :crystal_palace},
+  {:hull, :stoke},
+  {:burnley, :everton},
+  {:man_city, :southampton},
+  {:arsenal, :middlesbrough},
+  {:west_ham, :sunderland},
+  {:swansea, :watford},
+  {:liverpool, :west_brom},
+  {:chelsea, :man_utd}
+], teams)
 
-user_params = %{name: "jaychetty", email: "jay@email.com", password: "password"}
 
-user = Underdog.User.changeset( %Underdog.User{}, user_params )
+user_jay_params = %{name: "jaychetty", email: "jay@email.com", password: "password"}
+user_rick_params = %{name: "rickhenry", email: "rick@email.com", password: "password"}
+
+user = Underdog.User.changeset( %Underdog.User{}, user_jay_params )
+user_rick = Underdog.User.changeset( %Underdog.User{}, user_rick_params )
 
 
 {:ok, inserted_user} =  Underdog.Repo.insert(user)
+{:ok, inserted_user_rick} =  Underdog.Repo.insert(user_rick)
 
 
-Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
-prediction = %Underdog.Prediction{
-  type: "upset",
-  user_id: inserted_user.id,
-  fixture_id: hd(week_2_fixtures).id
-}
-
-
-
-{:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
+# Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
+# prediction = %Underdog.Prediction{
+#   type: "upset",
+#   user_id: inserted_user.id,
+#   fixture_id: hd(week_2_fixtures).id
+# }
+#
+#
+#
+# {:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
