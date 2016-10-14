@@ -32,9 +32,12 @@ defmodule Underdog.ChannelCase do
   end
 
   setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Underdog.Repo, [])
-    end
+
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Underdog.Repo)
+
+     unless tags[:async] do
+       Ecto.Adapters.SQL.Sandbox.mode(Underdog.Repo, {:shared, self()})
+     end
 
     :ok
   end

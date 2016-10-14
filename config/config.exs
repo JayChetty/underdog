@@ -28,6 +28,8 @@ config :phoenix, :generators,
   migration: true,
   binary_id: false
 
+config :underdog, ecto_repos: [MyApp.Repo]
+
 # config :guardian, Guardian,
 #   allowed_algos: ["HS512", "HS384"],
 #   issuer: "Underdog",
