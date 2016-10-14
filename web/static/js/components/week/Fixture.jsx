@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+import {homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult} from '../../game_library/points_calculator'
 
 function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNumber} ){
   if(!fixture.homeTeam){ return null; }
@@ -51,41 +52,6 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNu
   )
 }
 
-function cumulativePoints(points, weekNumber){
- const pointsToWeek = points.slice(0, weekNumber-1)
- return _.sum( pointsToWeek )
-}
 
-function homeTeamPredictedWinner(fixture, weekNumber){
-  const output = homeTeamPointDifference(fixture, weekNumber) >= 0
-  return predictsUpset(fixture.prediction) ? !output : output;
-}
-
-function predictsUpset(prediction){
-  return prediction && prediction.type === "upset"
-}
-
-function predictsMauling(prediction){
-  return prediction && prediction.type === "maul"
-}
-
-function homeTeamPointDifference(fixture, weekNumber){
-  const homeTeamPoints = cumulativePoints( fixture.homeTeam.points, weekNumber )
-  const awayTeamPoints = cumulativePoints( fixture.awayTeam.points, weekNumber)
-  return homeTeamPoints - awayTeamPoints;
-}
-
-
-function gamePointsForPointDifference( pointDifference ){
-   return 3 + Math.max(0, pointDifference * -1 )
-}
-
-function homeTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) )
-}
-
-function awayTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) * -1 )
-}
 
 export default Fixture

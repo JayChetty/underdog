@@ -28,11 +28,11 @@ function WeekContainer( props ){
     )
   })
 
-  console.log('props.displayWeekIndex', props.displayWeekIndex)
 
-  const displayWeekIndex = props.displayWeekIndex || props.gameWeekIndex
-
-  console.log('LALALALAL')
+  let displayWeekIndex = props.displayWeekIndex
+  if(displayWeekIndex === undefined){
+    displayWeekIndex = props.gameWeekIndex
+  }
 
   const displayWeek = props.weeksWithFixtures[displayWeekIndex]
 
@@ -61,8 +61,8 @@ function WeekContainer( props ){
         { fixtures }
       </ReactSwipe>
       <FixturesSummary
-        potentialPoints={ calculateTotalPredictedPoints( props.weeksWithFixtures[ props.gameWeekIndex ] ) }
         displayWeek={displayWeek}
+        teams={ props.teams}
       />
     </div>
   )
@@ -90,19 +90,7 @@ function currentWeek( weekFixtures ) {
 
 
 //POINTS CALCULATING LIBRARY
-function calculateTotalPredictedPoints( weekFixtures ) {
-  if (!weekFixtures) { return 0 }
-  // const weekFixtures = filterFixturesByWeekId( weekId, fixtures )
-  const points = weekFixtures.fixtures.map( ( fixture ) => {
-    if( fixture.prediction && fixture.homeTeam) {
-      const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
-      return ( Math.abs( pointsDifference ) + 3 )
-    }
-    return 3
-  })
-  const total = points.reduce( ( prev, curr ) => prev + curr, 0 )
-  return total
-}
+
 
 
 function pointsForGame(fixture, teamId){
