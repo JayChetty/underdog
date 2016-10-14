@@ -28,6 +28,16 @@ function WeekContainer( props ){
     )
   })
 
+  console.log('props.displayWeekIndex', props.displayWeekIndex)
+
+  const displayWeekIndex = props.displayWeekIndex || props.gameWeekIndex
+
+  console.log('LALALALAL')
+
+  const displayWeek = props.weeksWithFixtures[displayWeekIndex]
+
+  console.log('displayWeek', displayWeek)
+
   return(
     <div>
       <nav className="layout-navbar">
@@ -36,11 +46,24 @@ function WeekContainer( props ){
       <ReactSwipe
         key={ fixtures.length }
         className="carousel"
-        swipeOptions={{continuous: false, startSlide: props.gameWeekIndex }}
+        swipeOptions={{
+          continuous: false,
+          startSlide: displayWeekIndex,
+          callback: (e)=>{
+            console.log("swiped do calling action", e)
+            console.log('actions', actions)
+            props.dispatch( actions.setDisplayWeek(e) )
+          }
+
+        }}
+
       >
         { fixtures }
       </ReactSwipe>
-      <FixturesSummary potentialPoints={ calculateTotalPredictedPoints( props.weeksWithFixtures[ props.gameWeekIndex ] ) } />
+      <FixturesSummary
+        potentialPoints={ calculateTotalPredictedPoints( props.weeksWithFixtures[ props.gameWeekIndex ] ) }
+        displayWeek={displayWeek}
+      />
     </div>
   )
 }
@@ -149,6 +172,7 @@ function mapStateToProps( state, { params } ){
     gameWeekIndex: gameWeekIndex,
     gameWeekId: gameWeekId,
     gameWeekNumber: gameWeekNumber,
+    displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
     predictions: state.predictions
   }
