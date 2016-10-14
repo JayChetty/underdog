@@ -3,7 +3,7 @@ defmodule Underdog.Repo.Migrations.CreateFixture do
 
   def change do
     create table(:fixtures) do
-      add :start_time, :datetime
+      add :start_time, :utc_datetime
       add :home_team_score, :integer
       add :away_team_score, :integer
       add :home_team_id, references(:teams, on_delete: :nothing)

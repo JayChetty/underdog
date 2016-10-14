@@ -115,6 +115,7 @@ week_5 = SeedHelper.create_week(2016,09,17,5, inserted_season.id)
 week_6 = SeedHelper.create_week(2016,09,24,6, inserted_season.id)
 week_7 = SeedHelper.create_week(2016,10,01,7, inserted_season.id)
 week_8 = SeedHelper.create_week(2016,10,15,8, inserted_season.id)
+week_9 = SeedHelper.create_week(2016,10,22,8, inserted_season.id)
 
 
 team_names = [
