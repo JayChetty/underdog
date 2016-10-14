@@ -62,6 +62,7 @@ function WeekContainer( props ){
       </ReactSwipe>
       <FixturesSummary
         displayWeek={displayWeek}
+        gameWeekNumber={props.gameWeekNumber}
         teams={ props.teams}
       />
     </div>

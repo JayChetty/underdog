@@ -13,13 +13,21 @@ export function awayTeamPointResult( fixture, weekNumber ){
 
 export function pointsScoredForFixture( fixture, weekNumber){
   const homeTeamPredicted = homeTeamPredictedWinner(fixture, weekNumber)
-  console.log('fixture', fixture)
   if( fixture.home_team_score > fixture.away_team_score && homeTeamPredicted  ){
     return homeTeamPointResult(fixture, weekNumber)
   }else if( fixture.home_team_score < fixture.away_team_score && !homeTeamPredicted  ){
     return awayTeamPointResult(fixture, weekNumber)
   }
   return 0
+}
+
+export function pointsPredictedForFixture( fixture, weekNumber){
+  const homeTeamPredicted = homeTeamPredictedWinner(fixture, weekNumber)
+  if(homeTeamPredicted){
+    return homeTeamPointResult(fixture, weekNumber)
+  }else{
+    return awayTeamPointResult(fixture, weekNumber)
+  }
 }
 
 function cumulativePoints(points, weekNumber){
