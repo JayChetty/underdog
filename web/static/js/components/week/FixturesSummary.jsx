@@ -6,8 +6,6 @@ function FixturesSummary(props){
   let body = null
   if(!props.displayWeek){return null}
   const displayWeekNumber = props.displayWeek.number
-  console.log('display week number', displayWeekNumber)
-  console.log('gameweeek', props.gameWeekNumber)
   if( displayWeekNumber < props.gameWeekNumber){
     body = (
       <div>
@@ -35,12 +33,8 @@ function findTeamById(teams, teamId){
 }
 
 
-
 function totalPoints( week, teams, options ) {
-  if(!week){return 0}
-  // console.log("week", week)
   const pointsForFixtures = week.fixtures.map((fixture)=>{
-    // console.log('fixture', fixture)
     const homeTeam = findTeamById(teams, fixture.home_team_id)
     const awayTeam = findTeamById(teams, fixture.away_team_id)
     const fixtureWithTeams = Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
@@ -49,19 +43,7 @@ function totalPoints( week, teams, options ) {
     }
     return pointsScoredForFixture(fixtureWithTeams, week.number)
   })
-  // console.log("pointsForFixtures", pointsForFixtures)
   return _.sum(pointsForFixtures)
-  // if (!weekFixtures) { return 0 }
-  // // const weekFixtures = filterFixturesByWeekId( weekId, fixtures )
-  // const points = weekFixtures.fixtures.map( ( fixture ) => {
-  //   if( fixture.prediction && fixture.homeTeam) {
-  //     const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
-  //     return ( Math.abs( pointsDifference ) + 3 )
-  //   }
-  //   return 3
-  // })
-  // const total = points.reduce( ( prev, curr ) => prev + curr, 0 )
-  // return total
 }
 
 export default FixturesSummary

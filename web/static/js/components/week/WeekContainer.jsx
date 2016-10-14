@@ -50,8 +50,6 @@ function WeekContainer( props ){
           continuous: false,
           startSlide: displayWeekIndex,
           callback: (e)=>{
-            console.log("swiped do calling action", e)
-            console.log('actions', actions)
             props.dispatch( actions.setDisplayWeek(e) )
           }
 
