@@ -15,6 +15,7 @@ defmodule Underdog.PredictionController do
 
   def create(conn, %{"prediction" => prediction_params}) do
     user = Guardian.Plug.current_resource(conn)
+    Logger.warn "user #{ inspect user }"
     prediction = Ecto.build_assoc( user, :predictions)
     changeset = Prediction.changeset(prediction, prediction_params)
 
@@ -51,8 +52,9 @@ defmodule Underdog.PredictionController do
   end
 
   def delete(conn, %{"id" => id}) do
+    Logger.warn "delete #{inspect id}"
     prediction = Repo.get!(Prediction, id)
-
+    Logger.warn "prediction #{inspect prediction}"
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(prediction)

@@ -12,15 +12,15 @@ class PredictionBox extends Component {
     this.fetchData()
   }
 
-  fetchData(){
-    const dispatch = this.props.dispatch;
-    actions.getWeeks()( dispatch );
-    actions.getFixtures()( dispatch );
-    actions.getTeams()( dispatch );
-    if(this.props.session){
-       actions.getPredictions()( dispatch, this.props.session );
-    }
-  }
+  // fetchData(){
+  //   const dispatch = this.props.dispatch;
+  //   actions.getWeeks()( dispatch );
+  //   actions.getFixtures()( dispatch );
+  //   actions.getTeams()( dispatch );
+  //   if(this.props.session){
+  //      actions.getPredictions()( dispatch, this.props.session );
+  //   }
+  // }
 
   findTeamById(teams, teamId){
     return _.find(teams, (team) => team.id === teamId )

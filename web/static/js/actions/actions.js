@@ -33,9 +33,10 @@ const actions = {
         return response.json()
       }).then( ( response ) => {
         try {
-          let decoded = jwtDecode( response.jwt );
+          // let decoded = jwtDecode( response.jwt );
           dispatch( actions.loginUserSuccess( response.jwt ) )
-          actions.fetchData(dispatch)
+          // console.log(' login success ', )
+          actions.fetchData(dispatch, response.jwt)
           browserHistory.push('/weeks');
         } catch( e ) {
           console.log( 'e', e )
@@ -128,11 +129,11 @@ const actions = {
     return ( dispatch, session ) => {
 
       dispatch( actions.requestPredictions() )
-
+      console.log('getting predictions', session)
       fetch( "/api/predictions", {
           method: 'GET',
           headers: {
-            "Authorization": session.jwt
+            "Authorization": session.token
           }
       }).then( ( res ) => {
         return res.json();
@@ -142,10 +143,12 @@ const actions = {
     }
   },
 
-  fetchData:( dispatch )=>{
+  fetchData:( dispatch, token )=>{
     actions.getWeeks()(dispatch)
     actions.getFixtures()(dispatch)
     actions.getTeams()(dispatch)
+    console.log('fetching data', token)
+    actions.getPredictions()(dispatch, { token: token })
   },
 
   requestPredictions: () => {
@@ -172,17 +175,27 @@ const actions = {
   makePrediction: ( prediction, fixture ) => {
     return ( dispatch, session ) => {
       if(!fixture.prediction){
+        console.log('making prediection', session)
         dispatch( actions.addPrediction( prediction ) )
-        // fetch( "/api/predictions", {
-        //   method: "POST",
-        //   body: JSON.stringify( prediction ),
-        //   headers: {
-        //     "Authorization": session.jwt
-        //   }
-        // }).then( response => { console.log( response ) })
-        // .catch( err => { console.error( err ) } )
+        fetch( "/api/predictions", {
+          method: "POST",
+          body: JSON.stringify( { prediction: prediction } ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": session.token
+          }
+        }).then( response => { console.log( response ) })
+        .catch( err => { console.error( err ) } )
       }else{
         dispatch( actions.removePrediction( fixture.id ) )
+        fetch( `/api/predictions/${fixture.prediction.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": session.token
+          }
+        }).then( response => { console.log( response ) })
+        .catch( err => { console.error( err ) } )
       }
     }
   },
