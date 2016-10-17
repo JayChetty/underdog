@@ -1,0 +1,122 @@
+[
+  {
+    "_links": {
+      "self": {
+        "href": "http://api.football-data.org/v1/fixtures/150841"
+      },
+      "competition": {
+        "href": "http://api.football-data.org/v1/competitions/426"
+      },
+      "homeTeam": {
+        "href": "http://api.football-data.org/v1/teams/322"
+      },
+      "awayTeam": {
+        "href": "http://api.football-data.org/v1/teams/338"
+      }
+    },
+    "date": "2016-08-13T11:30:00Z",
+    "status": "FINISHED",
+    "matchday": 1,
+    "homeTeamName": "Hull City FC",
+    "awayTeamName": "Leicester City FC",
+    "result": {
+      "goalsHomeTeam": 2,
+      "goalsAwayTeam": 1
+    },
+    "odds": {
+      "homeWin": 3.25,
+      "draw": 3.25,
+      "awayWin": 2.2
+    }
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "http://api.football-data.org/v1/fixtures/150837"
+      },
+      "competition": {
+        "href": "http://api.football-data.org/v1/competitions/426"
+      },
+      "homeTeam": {
+        "href": "http://api.football-data.org/v1/teams/328"
+      },
+      "awayTeam": {
+        "href": "http://api.football-data.org/v1/teams/72"
+      }
+    },
+    "date": "2016-08-13T14:00:00Z",
+    "status": "FINISHED",
+    "matchday": 1,
+    "homeTeamName": "Burnley FC",
+    "awayTeamName": "Swansea City FC",
+    "result": {
+      "goalsHomeTeam": 0,
+      "goalsAwayTeam": 1
+    },
+    "odds": {
+      "homeWin": 2.6,
+      "draw": 3.1,
+      "awayWin": 2.8
+    }
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "http://api.football-data.org/v1/fixtures/150839"
+      },
+      "competition": {
+        "href": "http://api.football-data.org/v1/competitions/426"
+      },
+      "homeTeam": {
+        "href": "http://api.football-data.org/v1/teams/354"
+      },
+      "awayTeam": {
+        "href": "http://api.football-data.org/v1/teams/74"
+      }
+    },
+    "date": "2016-08-13T14:00:00Z",
+    "status": "FINISHED",
+    "matchday": 1,
+    "homeTeamName": "Crystal Palace FC",
+    "awayTeamName": "West Bromwich Albion FC",
+    "result": {
+      "goalsHomeTeam": 0,
+      "goalsAwayTeam": 1
+    },
+    "odds": {
+      "homeWin": 2.0,
+      "draw": 3.2,
+      "awayWin": 3.8
+    }
+  },
+  {
+    "_links": {
+      "self": {
+        "href": "http://api.football-data.org/v1/fixtures/150840"
+      },
+      "competition": {
+        "href": "http://api.football-data.org/v1/competitions/426"
+      },
+      "homeTeam": {
+        "href": "http://api.football-data.org/v1/teams/62"
+      },
+      "awayTeam": {
+        "href": "http://api.football-data.org/v1/teams/73"
+      }
+    },
+    "date": "2016-08-13T14:00:00Z",
+    "status": "FINISHED",
+    "matchday": 1,
+    "homeTeamName": "Everton FC",
+    "awayTeamName": "Tottenham Hotspur FC",
+    "result": {
+      "goalsHomeTeam": 1,
+      "goalsAwayTeam": 1
+    },
+    "odds": {
+      "homeWin": 2.9,
+      "draw": 3.25,
+      "awayWin": 2.37
+    }
+  }
+]

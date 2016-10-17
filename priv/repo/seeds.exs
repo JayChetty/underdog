@@ -11,6 +11,8 @@
 # and so on) as they will fail if something goes wrong.
 require IEx
 require Logger
+
+require Underdog.FixtureJsonParser
 defmodule SeedHelper do
 
   # def create_fixtures(week, fixtures, teams, true) do
