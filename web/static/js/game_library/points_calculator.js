@@ -1,14 +1,18 @@
+import _ from 'lodash'
+
 export function homeTeamPredictedWinner(fixture, weekNumber){
-  const output = homeTeamPointDifference(fixture, weekNumber) >= 0
+  const output = pointsDifference(fixture, weekNumber) >= 0
   return predictsUpset(fixture.prediction) ? !output : output;
 }
 
 export function homeTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) )
+  const pointsDiff = pointsDifference(fixture, weekNumber)
+  return gamePointsForPointDifference( pointsDiff )
 }
 
 export function awayTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) * -1 )
+  const pointsDiff = pointsDifference(fixture, weekNumber) * -1
+  return gamePointsForPointDifference( pointsDiff )
 }
 
 export function pointsScoredForFixture( fixture, weekNumber){
@@ -43,12 +47,11 @@ function predictsMauling(prediction){
   return prediction && prediction.type === "maul"
 }
 
-function homeTeamPointDifference(fixture, weekNumber){
+function pointsDifference(fixture, weekNumber){
   const homeTeamPoints = cumulativePoints( fixture.homeTeam.points, weekNumber )
   const awayTeamPoints = cumulativePoints( fixture.awayTeam.points, weekNumber)
   return homeTeamPoints - awayTeamPoints;
 }
-
 
 function gamePointsForPointDifference( pointDifference ){
    return 3 + Math.max(0, pointDifference * -1 )
