@@ -1,5 +1,7 @@
-import * as UGPoints from "../../web/static/js/game_library/points_calculator"
+import * as UGPoints from "../../web/static/js/game_library/undergod_game_calculator"
 import { homeWinFixture, predictedFixture, awayWinFixture, predictedSuccessFixture } from "./__mocks__/fixtures"
+import { teams } from "./__mocks__/teams"
+import { week } from "./__mocks__/weeks"
 
 describe( "Underdog Points Module", () => {
 
@@ -51,6 +53,10 @@ describe( "Underdog Points Module", () => {
 
   it( "should calculate potential points for predicted upset fixture", () => {
     expect( UGPoints.pointsPredictedForFixture( predictedFixture, 6 ) ).toEqual( 13 )
+  })
+
+  it( "should return the potential number of points for current week", () => {
+    expect( UGPoints.totalPoints( week, teams, { predicted: true } ) ).toEqual( 30 )
   })
 
 })

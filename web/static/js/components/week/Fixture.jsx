@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import {homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult} from '../../game_library/points_calculator'
+import {homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult} from '../../game_library/undergod_game_calculator'
 
 function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNumber} ){
   if(!fixture.homeTeam){ return null; }
