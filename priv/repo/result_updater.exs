@@ -15,21 +15,17 @@ Enum.each( fixtures_list, fn( fixture_map )->
   home_team_id = Repo.get_by(Underdog.Team, [ name: home_team_name ]).id
   week_number = fixture_map["matchday"]
   week_id = Repo.get_by(Underdog.Week, number: week_number).id
-  Logger.warn " hometeam #{inspect home_team_name}"
-  Logger.warn " team id #{inspect home_team_id}"
-  Logger.warn " matchday #{inspect week_number}"
-  Logger.warn " week_id #{inspect week_id}"
   fixture = Repo.get_by(Underdog.Fixture, [ home_team_id: home_team_id, week_id: week_id ] )
-  Logger.warn " fixture #{inspect fixture}"
-
 
   new_result = fixture_map["result"]
-  if !fixture.home_team_score && new_result["homeTeamScore"] do
+  if !fixture.home_team_score && !!new_result["goalsHomeTeam"] do
+
     fixture_params = %{
-      home_team_score: new_result["homeTeamScore"],
-      away_team_score: new_result["awayTeamScore"]
+      home_team_score: new_result["goalsHomeTeam"],
+      away_team_score: new_result["goalsAwayTeam"]
     }
-    changeset = Fixture.changeset(fixture, fixture_params)
-    Repo.update(changeset)
+    changeset = Underdog.Fixture.changeset( fixture, fixture_params )
+    {:ok, _ } = Repo.update( changeset )
+    Logger.info " Added Result: week #{week_number}, home team: #{home_team_name} "
   end
 end)

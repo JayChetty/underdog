@@ -2460,8 +2460,8 @@
       "homeTeamName": "Arsenal FC",
       "awayTeamName": "Middlesbrough FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 99,
+        "goalsAwayTeam": 3
       },
       "odds": {
         "homeWin": 1.28,
@@ -2490,8 +2490,8 @@
       "homeTeamName": "Burnley FC",
       "awayTeamName": "Everton FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 12,
+        "goalsAwayTeam": 14
       },
       "odds": {
         "homeWin": 4.6,
@@ -2520,8 +2520,8 @@
       "homeTeamName": "Hull City FC",
       "awayTeamName": "Stoke City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 4,
+        "goalsAwayTeam": 5
       },
       "odds": {
         "homeWin": 2.6,
