@@ -13,7 +13,7 @@ defmodule Underdog.Fixture do
   end
 
   @required_fields ~w(start_time)
-  @optional_fields ~w()
+  @optional_fields ~w(home_team_score away_team_score)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
