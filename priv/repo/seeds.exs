@@ -153,30 +153,7 @@ weeks = Enum.map( weeks_data, fn(week_data)->
   )
 end)
 
-team_names = [
-  arsenal: {"Arsenal", "http://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"},
-  bournemouth: {"Bournemouth", "https://upload.wikimedia.org/wikipedia/de/4/41/Afc_bournemouth.svg"},
-  burnley: {"Burnley","http://upload.wikimedia.org/wikipedia/de/thumb/4/49/FC_Burnley.svg/376px-FC_Burnley.svg.png"},
-  chelsea: {"Chelsea", "http://upload.wikimedia.org/wikipedia/de/5/5c/Chelsea_crest.svg"},
-  crystal_palace: {"Crystal Palace", "http://upload.wikimedia.org/wikipedia/de/b/bf/Crystal_Palace_F.C._logo_(2013).png"},
-  everton: {"Everton", "http://upload.wikimedia.org/wikipedia/de/f/f9/Everton_FC.svg"},
-  hull: {"Hull City", "http://upload.wikimedia.org/wikipedia/de/a/a9/Hull_City_AFC.svg"},
-  leicester: {"Leicester City","http://upload.wikimedia.org/wikipedia/en/6/63/Leicester02.png"},
-  liverpool: {"Liverpool", "http://upload.wikimedia.org/wikipedia/de/0/0a/FC_Liverpool.svg"},
-  man_city: {"Man City", "http://upload.wikimedia.org/wikipedia/de/f/fd/ManCity.svg"},
-  man_utd: {"Man Utd", "http://upload.wikimedia.org/wikipedia/de/d/da/Manchester_United_FC.svg"},
-  middlesbrough: {"Middlesbrough", "https://upload.wikimedia.org/wikipedia/en/3/34/Middlesbrough_crest.png"},
-  southampton: {"Southampton", "http://upload.wikimedia.org/wikipedia/de/c/c9/FC_Southampton.svg"},
-  stoke: {"Stoke City", "http://upload.wikimedia.org/wikipedia/de/a/a3/Stoke_City.svg"},
-  sunderland: {"Sunderland", "http://upload.wikimedia.org/wikipedia/de/6/60/AFC_Sunderland.svg"},
-  swansea: {"Swansea", "http://upload.wikimedia.org/wikipedia/de/a/ab/Swansea_City_Logo.svg"},
-  tottenham: {"Tottenham", "http://upload.wikimedia.org/wikipedia/de/b/b4/Tottenham_Hotspur.svg"},
-  watford: {"Watford", "https://upload.wikimedia.org/wikipedia/en/e/e2/Watford.svg"},
-  west_brom: {"West Brom","http://upload.wikimedia.org/wikipedia/de/8/8b/West_Bromwich_Albion.svg"},
-  west_ham: {"West Ham", "http://upload.wikimedia.org/wikipedia/de/e/e0/West_Ham_United_FC.svg"}
-]
-
-teams = SeedHelper.create_teams(team_names)
+teams = SeedHelper.create_teams( Enum.to_list( Underdog.FixtureJsonParser.team_symbol_to_data ) )
 
 {:ok, json_file} = File.read "priv/repo/fixtures_new.json"
 fixtures_data = Poison.decode!(json_file)

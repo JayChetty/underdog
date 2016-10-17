@@ -41,7 +41,7 @@ defmodule Underdog.FixtureParserTest do
   test "give symbol of name" do
     name = "Hull City FC"
     symbol = :hull
-    assert symbol == FixtureJsonParser.name_to_symbol( "Hull City FC" )
+    assert symbol == FixtureJsonParser.api_name_to_symbol( "Hull City FC" )
   end
 
   test "can produce a minismised fixture tuple" do
@@ -106,8 +106,10 @@ defmodule Underdog.FixtureParserTest do
     }
 
     assert target == FixtureJsonParser.minimise_fixtures( inputs )
+  end
 
-
+  test "can map the api name to db name" do
+    assert "Man Utd" == FixtureJsonParser.api_name_to_name( "Manchester United FC")
   end
 
 
