@@ -6,7 +6,21 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-function WeekContainer( props ){
+import { pointsScoredForFixture, pointsPredictedForFixture } from '../../game_library/points_calculator'
+
+function WeekContainer( props ) {
+
+  let displayWeekIndex = props.displayWeekIndex
+  if(displayWeekIndex === undefined){
+    displayWeekIndex = props.gameWeekIndex
+  }
+
+  const displayWeek = props.weeksWithFixtures[displayWeekIndex]
+
+  let isPreviousWeek;
+  if ( displayWeek ) {
+    isPreviousWeek = displayWeek.number < props.gameWeekNumber
+  }
 
   const makePrediction = (prediction, fixture) => {
     actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
@@ -28,14 +42,6 @@ function WeekContainer( props ){
     )
   })
 
-
-  let displayWeekIndex = props.displayWeekIndex
-  if(displayWeekIndex === undefined){
-    displayWeekIndex = props.gameWeekIndex
-  }
-
-  const displayWeek = props.weeksWithFixtures[displayWeekIndex]
-
   return(
     <div>
       <nav className="layout-navbar">
@@ -47,7 +53,7 @@ function WeekContainer( props ){
         swipeOptions={{
           continuous: false,
           startSlide: displayWeekIndex,
-          callback: (e)=>{
+          callback: (e) => {
             props.dispatch( actions.setDisplayWeek(e) )
           }
         }}
@@ -55,20 +61,37 @@ function WeekContainer( props ){
         { fixtures }
       </ReactSwipe>
       <FixturesSummary
-        displayWeek={displayWeek}
-        gameWeekNumber={props.gameWeekNumber}
-        teams={ props.teams}
+        isPreviousWeek={ isPreviousWeek }
+        points={ () => {
+          if ( !displayWeek ) { return "calculating points..." }
+          return totalPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
+        } }
       />
     </div>
   )
 }
 
+function findTeamById(teams, teamId){
+  return _.find(teams, (team) => team.id === teamId )
+}
+
+function totalPoints( week, teams, options ) {
+  const pointsForFixtures = week.fixtures.map((fixture)=>{
+    const homeTeam = findTeamById(teams, fixture.home_team_id)
+    const awayTeam = findTeamById(teams, fixture.away_team_id)
+    const fixtureWithTeams = Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
+    if(options.predicted){
+      return pointsPredictedForFixture(fixtureWithTeams, week.number)
+    }
+    return pointsScoredForFixture(fixtureWithTeams, week.number)
+  })
+  return _.sum(pointsForFixtures)
+}
 
 function currentWeek( weekFixtures ) {
   if ( weekFixtures.length === 0 ) { return null; }
 
   const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
-
     if ( index === array.length-1 ) { return true }
 
     const dateFrom = Date.parse( weekFixture.start_date )
@@ -83,10 +106,7 @@ function currentWeek( weekFixtures ) {
   return gameWeek + 1
 }
 
-
 //POINTS CALCULATING LIBRARY
-
-
 
 function pointsForGame(fixture, teamId){
   const homeTeamWon = fixture.home_team_score > fixture.away_team_score
