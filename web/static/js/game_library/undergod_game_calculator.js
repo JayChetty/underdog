@@ -25,6 +25,19 @@ export function pointsScoredForFixture( fixture, weekNumber){
   return 0
 }
 
+export function totalPoints( week, teams, options ) {
+  const pointsForFixtures = week.fixtures.map((fixture)=>{
+    const homeTeam = findTeamById(teams, fixture.home_team_id)
+    const awayTeam = findTeamById(teams, fixture.away_team_id)
+    const fixtureWithTeams = Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
+    if(options.predicted){
+      return pointsPredictedForFixture(fixtureWithTeams, week.number)
+    }
+    return pointsScoredForFixture(fixtureWithTeams, week.number)
+  })
+  return _.sum(pointsForFixtures)
+}
+
 export function pointsPredictedForFixture( fixture, weekNumber){
   const homeTeamPredicted = homeTeamPredictedWinner(fixture, weekNumber)
   if(homeTeamPredicted){
@@ -32,6 +45,10 @@ export function pointsPredictedForFixture( fixture, weekNumber){
   }else{
     return awayTeamPointResult(fixture, weekNumber)
   }
+}
+
+function findTeamById(teams, teamId){
+  return _.find(teams, (team) => team.id === teamId )
 }
 
 function cumulativePoints(points, weekNumber){
