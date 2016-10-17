@@ -135,7 +135,6 @@ function addFixturesToWeeks( weeks, fixtures ) {
 
 
 function mapStateToProps( state, { params } ){
-
   const fixturesWithPredictions = addPredictionsToFixtures( state.fixtures.items, state.predictions.items )
   const fixtureWeeks = addFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
   const teamsWithPoints = addPointsToTeams( state.teams.items, fixtureWeeks)
