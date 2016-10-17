@@ -1,8 +1,7 @@
 import * as UGPoints from "../../web/static/js/game_library/points_calculator"
-// import { homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult } from "../../web/static/js/game_library/points_calculator"
 import { homeWinFixture, predictedFixture, awayWinFixture, predictedSuccessFixture } from "./__mocks__/fixtures"
 
-describe( "Underdog Points Library", () => {
+describe( "Underdog Points Module", () => {
 
   it( "should return true for homeTeamPredictedWinner if more points than opposition", () => {
     expect( UGPoints.homeTeamPredictedWinner( homeWinFixture, 6 ) ).toEqual( true )
@@ -15,6 +14,7 @@ describe( "Underdog Points Library", () => {
   it( "should return false for homeTeamPredictedWinner if less points than opposition", () => {
     expect( UGPoints.homeTeamPredictedWinner( awayWinFixture, 6 ) ).toEqual( false )
   })
+
 
   it( "should calculate game points for home team", () => {
     expect( UGPoints.homeTeamPointResult( homeWinFixture, 6 ) ).toEqual( 3 )
@@ -38,6 +38,19 @@ describe( "Underdog Points Library", () => {
 
   it( "should score 13 points for a predicted fixture that did win", () => {
     expect( UGPoints.pointsScoredForFixture( predictedSuccessFixture, 6 ) ).toEqual( 13 )
+  })
+
+
+  it( "should calculate potential points for home win fixture", () => {
+    expect( UGPoints.pointsPredictedForFixture( homeWinFixture, 6 ) ).toEqual( 3 )
+  })
+
+  it( "should calculate potential points for away win fixture", () => {
+    expect( UGPoints.pointsPredictedForFixture( homeWinFixture, 6 ) ).toEqual( 3 )
+  })
+
+  it( "should calculate potential points for predicted upset fixture", () => {
+    expect( UGPoints.pointsPredictedForFixture( predictedFixture, 6 ) ).toEqual( 13 )
   })
 
 })
