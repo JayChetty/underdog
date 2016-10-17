@@ -1,4 +1,3 @@
-
 #loop over fixtures
 require Logger
 require Underdog.FixtureJsonParser
@@ -7,7 +6,7 @@ alias Underdog.Repo
 #get the corrosponding fixture
 
 #if have a result and the existing fixture doesn't. update the result.
-{:ok, json_file} = File.read "priv/repo/fixtures_new.json"
+{:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
 fixtures_data = Poison.decode!(json_file)
 fixtures_list = fixtures_data["fixtures"]
 
