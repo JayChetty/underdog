@@ -4,7 +4,6 @@
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 use Mix.Config
-
 # Configures the endpoint
 config :underdog, Underdog.Endpoint,
   url: [host: "localhost"],

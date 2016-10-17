@@ -19,7 +19,7 @@ defmodule Underdog.Mixfile do
   def application do
     [mod: {Underdog, []},
      applications: [:phoenix, :phoenix_html,:phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :poison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,6 +40,7 @@ defmodule Underdog.Mixfile do
      {:cowboy, "~> 1.0"},
      {:guardian, "~> 0.12.0"},
      {:comeonin, "~> 2.0"},
+     {:poison, "~> 2.1", override: true}
    ]
   end
 

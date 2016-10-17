@@ -1,0 +1,30 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://api.football-data.org/v1/fixtures/150841"
+    },
+    "competition": {
+      "href": "http://api.football-data.org/v1/competitions/426"
+    },
+    "homeTeam": {
+      "href": "http://api.football-data.org/v1/teams/322"
+    },
+    "awayTeam": {
+      "href": "http://api.football-data.org/v1/teams/338"
+    }
+  },
+  "date": "2016-08-13T11:30:00Z",
+  "status": "FINISHED",
+  "matchday": 1,
+  "homeTeamName": "Hull City FC",
+  "awayTeamName": "Leicester City FC",
+  "result": {
+    "goalsHomeTeam": 2,
+    "goalsAwayTeam": 1
+  },
+  "odds": {
+    "homeWin": 3.25,
+    "draw": 3.25,
+    "awayWin": 2.2
+  }
+}
