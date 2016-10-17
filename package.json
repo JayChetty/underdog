@@ -33,6 +33,7 @@
   },
   "scripts": {
     "test": "jest --watch",
-    "start": "mix phoenix.server"
+    "start": "mix phoenix.server",
+    "update_results": "mix run priv/repo/result_updater.exs"
   }
 }
