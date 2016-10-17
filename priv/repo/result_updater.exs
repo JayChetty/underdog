@@ -1,16 +1,20 @@
-#loop over fixtures
 require Logger
 require Underdog.FixtureJsonParser
 require Underdog.Repo
+require HTTPotion
 alias Underdog.Repo
-#get the corrosponding fixture
 
 #if have a result and the existing fixture doesn't. update the result.
-{:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
+
+# {:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
+response = HTTPotion.get "http://api.football-data.org/v1/competitions/426/fixtures"
+json_file = response.body
+
 fixtures_data = Poison.decode!(json_file)
 fixtures_list = fixtures_data["fixtures"]
 
 Enum.each( fixtures_list, fn( fixture_map )->
+  # Logger.warn "fixture_map #{ inspect fixture_map}"
   home_team_name = Underdog.FixtureJsonParser.api_name_to_name(fixture_map["homeTeamName"])
   home_team_id = Repo.get_by(Underdog.Team, [ name: home_team_name ]).id
   week_number = fixture_map["matchday"]
