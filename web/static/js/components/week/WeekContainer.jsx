@@ -8,7 +8,7 @@ import FixturesSummary from './FixturesSummary';
 
 function WeekContainer( props ){
 
-  const makePrediction = (prediction, fixture)=>{
+  const makePrediction = (prediction, fixture) => {
     actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
@@ -36,8 +36,6 @@ function WeekContainer( props ){
 
   const displayWeek = props.weeksWithFixtures[displayWeekIndex]
 
-  console.log('displayWeek', displayWeek)
-
   return(
     <div>
       <nav className="layout-navbar">
@@ -52,9 +50,7 @@ function WeekContainer( props ){
           callback: (e)=>{
             props.dispatch( actions.setDisplayWeek(e) )
           }
-
         }}
-
       >
         { fixtures }
       </ReactSwipe>

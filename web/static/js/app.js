@@ -22,8 +22,8 @@ window.onload = () => {
 
   let token = localStorage.getItem('ud_session');
   if (token !== null) {
-      store.dispatch(actions.loginUserSuccess( token ));
-      actions.fetchData( store.dispatch, token )
+    store.dispatch(actions.loginUserSuccess( token ));
+    actions.fetchData( store.dispatch, token )
   }
 
   ReactDOM.render(
