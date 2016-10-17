@@ -19,6 +19,7 @@ function WeekContainer( props ){
           makePrediction={ makePrediction }
           fixtures={ fixtureWeek.fixtures }
           weekNumber={ fixtureWeek.number }
+          gameWeekNumber={props.gameWeekNumber}
           gameWeekId={ props.gameWeekId}
           teams={ props.teams}
         >
@@ -26,6 +27,16 @@ function WeekContainer( props ){
       </main>
     )
   })
+
+
+  let displayWeekIndex = props.displayWeekIndex
+  if(displayWeekIndex === undefined){
+    displayWeekIndex = props.gameWeekIndex
+  }
+
+  const displayWeek = props.weeksWithFixtures[displayWeekIndex]
+
+  console.log('displayWeek', displayWeek)
 
   return(
     <div>
@@ -35,11 +46,23 @@ function WeekContainer( props ){
       <ReactSwipe
         key={ fixtures.length }
         className="carousel"
-        swipeOptions={{continuous: false, startSlide: props.gameWeekIndex }}
+        swipeOptions={{
+          continuous: false,
+          startSlide: displayWeekIndex,
+          callback: (e)=>{
+            props.dispatch( actions.setDisplayWeek(e) )
+          }
+
+        }}
+
       >
         { fixtures }
       </ReactSwipe>
-      <FixturesSummary potentialPoints={ calculateTotalPredictedPoints( props.weeksWithFixtures[ props.gameWeekIndex ] ) } />
+      <FixturesSummary
+        displayWeek={displayWeek}
+        gameWeekNumber={props.gameWeekNumber}
+        teams={ props.teams}
+      />
     </div>
   )
 }
@@ -66,19 +89,7 @@ function currentWeek( weekFixtures ) {
 
 
 //POINTS CALCULATING LIBRARY
-function calculateTotalPredictedPoints( weekFixtures ) {
-  if (!weekFixtures) { return 0 }
-  // const weekFixtures = filterFixturesByWeekId( weekId, fixtures )
-  const points = weekFixtures.fixtures.map( ( fixture ) => {
-    if( fixture.prediction && fixture.homeTeam) {
-      const pointsDifference = fixture.homeTeam.points - fixture.awayTeam.points
-      return ( Math.abs( pointsDifference ) + 3 )
-    }
-    return 3
-  })
-  const total = points.reduce( ( prev, curr ) => prev + curr, 0 )
-  return total
-}
+
 
 
 function pointsForGame(fixture, teamId){
@@ -140,11 +151,14 @@ function mapStateToProps( state, { params } ){
   const teamsWithPoints = addPointsToTeams( state.teams.items, fixtureWeeks)
   const gameWeekIndex = currentWeek( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
+  const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
     weeksWithFixtures: fixtureWeeks,
     teams: teamsWithPoints,
     gameWeekIndex: gameWeekIndex,
     gameWeekId: gameWeekId,
+    gameWeekNumber: gameWeekNumber,
+    displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
     predictions: state.predictions
   }

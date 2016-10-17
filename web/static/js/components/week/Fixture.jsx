@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+import {homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult} from '../../game_library/points_calculator'
 
-function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
-  // console.log('rendering fixture', fixture)
+function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNumber} ){
   if(!fixture.homeTeam){ return null; }
 
   let homeTeamClasses = "split-list-view-left"
@@ -11,6 +11,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
   let awayTeamPointsClasses = "tag go-right"
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
+
   if( isInGameWeek ){
     clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' }, fixture ) }
     if( homeTeamPredictedWinner( fixture, weekNumber ) ){
@@ -20,7 +21,19 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
       awayTeamClasses += " bg-blue"
       awayTeamPointsClasses += " tag-simple pulse"
     }
+  }else {
+    const isInPast = weekNumber < gameWeekNumber
+    if(isInPast){
+      if( homeTeamPredictedWinner( fixture, weekNumber ) ){
+        homeTeamClasses += " bg-gray"
+        homeTeamPointsClasses += " tag-simple pulse"
+      }else{
+        awayTeamClasses += " bg-gray"
+        awayTeamPointsClasses += " tag-simple pulse"
+      }
+    }
   }
+
   return(
     <div className="split-list-view">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
@@ -39,41 +52,6 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber} ){
   )
 }
 
-function cumulativePoints(points, weekNumber){
- const pointsToWeek = points.slice(0, weekNumber-1)
- return _.sum( pointsToWeek )
-}
 
-function homeTeamPredictedWinner(fixture, weekNumber){
-  const output = homeTeamPointDifference(fixture, weekNumber) > 0
-  return predictsUpset(fixture.prediction) ? !output : output;
-}
-
-function predictsUpset(prediction){
-  return prediction && prediction.type === "upset"
-}
-
-function predictsMauling(prediction){
-  return prediction && prediction.type === "maul"
-}
-
-function homeTeamPointDifference(fixture, weekNumber){
-  const homeTeamPoints = cumulativePoints( fixture.homeTeam.points, weekNumber )
-  const awayTeamPoints = cumulativePoints( fixture.awayTeam.points, weekNumber)
-  return homeTeamPoints - awayTeamPoints;
-}
-
-
-function gamePointsForPointDifference( pointDifference ){
-   return 3 + Math.max(0, pointDifference * -1 )
-}
-
-function homeTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) )
-}
-
-function awayTeamPointResult( fixture, weekNumber ){
-  return gamePointsForPointDifference( homeTeamPointDifference(fixture, weekNumber) * -1 )
-}
 
 export default Fixture

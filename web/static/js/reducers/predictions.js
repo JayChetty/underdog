@@ -11,7 +11,7 @@ export default ( state = initialState, action ) => {
 
   switch( action.type ) {
     case 'SET_DISPLAY_WEEK':
-      return Object.assign( {}, state, { displayWeek: action.week } )
+      return Object.assign( {}, state, { displayWeekIndex: action.week } )
     case 'RECEIVE_PREDICTIONS':
       return Object.assign( {}, state, { items: action.predictions, isFetching: false, received: true } )
     case 'REQUEST_PREDICTIONS':
