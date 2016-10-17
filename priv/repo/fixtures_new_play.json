@@ -2400,8 +2400,8 @@
       "homeTeamName": "Liverpool FC",
       "awayTeamName": "Manchester United FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 9,
+        "goalsAwayTeam": 1
       },
       "odds": {
         "homeWin": 2.15,
