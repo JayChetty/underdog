@@ -54,6 +54,24 @@ export function calcPointsPredictedForFixture( fixture, weekNumber){
   }
 }
 
+export function calcGameWeekIndex( weekFixtures ) {
+  if ( weekFixtures.length === 0 ) { return null; }
+
+  const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
+    if ( index === array.length-1 ) { return true }
+
+    const dateFrom = Date.parse( weekFixture.start_date )
+    const dateTo = Date.parse( array[index+1].start_date )
+    const dateToday = Date.now();
+
+    if ( dateToday > dateFrom && dateToday < dateTo ) {
+      return true;
+    }
+
+  })
+  return gameWeek + 1
+}
+
 function calcCumulativePoints(points, weekNumber){
  const pointsToWeek = points.slice(0, weekNumber-1)
  return _.sum( pointsToWeek )

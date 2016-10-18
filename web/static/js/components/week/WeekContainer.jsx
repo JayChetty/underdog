@@ -6,8 +6,12 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-import { calcPointsScoredForFixture, calcPointsPredictedForFixture, calcTotalWeekUserPoints, calcTotalUserPoints } from '../../libs/undergod_game'
-import { calcPointsForTeam } from '../../libs/league'
+import {  calcGameWeekIndex,
+          calcPointsScoredForFixture,
+          calcPointsPredictedForFixture,
+          calcTotalWeekUserPoints,
+          calcTotalUserPoints } from '../../libs/undergod_game'
+import { calcPointsForTeam, findTeamById } from '../../libs/league'
 
 function WeekContainer( props ) {
 
@@ -27,16 +31,18 @@ function WeekContainer( props ) {
     actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
-  const fixtures = props.weeksWithFixtures.map( ( fixtureWeek ) => {
+  const fixtures = props.weeksWithFixtures.map( ( week ) => {
+    const fixturesWithTeams = mapTeamsToFixtures( week.fixtures, props.teams )
+
     return (
-      <main className="layout-content" key={ fixtureWeek.id }>
+      <main className="layout-content" key={ week.id }>
         <Fixtures
           makePrediction={ makePrediction }
-          fixtures={ fixtureWeek.fixtures }
-          weekNumber={ fixtureWeek.number }
+          fixtures={ fixturesWithTeams }
+          weekNumber={ week.number }
           gameWeekNumber={props.gameWeekNumber}
-          gameWeekId={ props.gameWeekId}
-          teams={ props.teams}
+          gameWeekId={ props.gameWeekId }
+          teams={ props.teams }
         >
         </Fixtures>
       </main>
@@ -73,29 +79,19 @@ function WeekContainer( props ) {
   )
 }
 
-function calcGameWeekIndex( weekFixtures ) {
-  if ( weekFixtures.length === 0 ) { return null; }
-
-  const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
-    if ( index === array.length-1 ) { return true }
-
-    const dateFrom = Date.parse( weekFixture.start_date )
-    const dateTo = Date.parse( array[index+1].start_date )
-    const dateToday = Date.now();
-
-    if ( dateToday > dateFrom && dateToday < dateTo ) {
-      return true;
-    }
-
+function mapTeamsToFixtures( fixtures, teams ) {
+  return fixtures.map( ( fixture ) => {
+    const homeTeam = findTeamById(teams, fixture.home_team_id)
+    const awayTeam = findTeamById(teams, fixture.away_team_id)
+    return Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
   })
-  return gameWeek + 1
 }
 
 function findPredictionForFixture( predictions, fixtureId ){
   return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
 }
 
-function mapPredictionsToFixtures( fixtures, predictions  ){
+function mapPredictionsToFixtures( fixtures, predictions ){
   return fixtures.map( ( fixture ) => {
     const prediction = findPredictionForFixture(predictions, fixture.id)
     fixture.prediction = prediction;

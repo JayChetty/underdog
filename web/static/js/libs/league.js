@@ -18,16 +18,16 @@ function isNotPlayed( fixture ) {
 }
 
 function calcPointsForGame(fixture, teamId){
+  if ( isNotPlayed( fixture ) ) { return 0 }
   const homeTeamWon = fixture.home_team_score > fixture.away_team_score
   const awayTeamWon = fixture.away_team_score > fixture.home_team_score
   const isHomeTeam = fixture.home_team_id === teamId
   const isAwayTeam = fixture.away_team_id === teamId
-  if( !isHomeTeam && !isAwayTeam){return false}
 
   if( (isHomeTeam && homeTeamWon) || (isAwayTeam && awayTeamWon) ){
     return 3
   }
-  if( isNotPlayed( fixture ) || (isHomeTeam && awayTeamWon) || (isAwayTeam && homeTeamWon) ){
+  if( (isHomeTeam && awayTeamWon) || (isAwayTeam && homeTeamWon) ){
     return 0
   }
   return 1
