@@ -45,9 +45,6 @@ function WeekContainer( props ) {
 
   return(
     <div>
-      <nav className="layout-navbar">
-        <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
-      </nav>
       <ReactSwipe
         key={ fixtures.length }
         className="carousel"
