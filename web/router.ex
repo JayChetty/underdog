@@ -47,6 +47,8 @@ defmodule Underdog.Router do
     resources "/predictions", PredictionController, except: [:new, :edit]
 
     get "/current_user", CurrentUserController, :show
+    resources "/groups", GroupController, except: [:new, :edit]
+    resources "/memberships", MembershipController, except: [:new, :edit]
 
     # scope "/", Underdog do
     #   pipe_through :restricted
