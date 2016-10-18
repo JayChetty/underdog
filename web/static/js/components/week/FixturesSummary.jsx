@@ -6,7 +6,7 @@ function FixturesSummary( { isPreviousWeek, points, totalPoints } ){
     <footer className="layout-footer">
       <div className="go-left">
         <div className="text-blue">TOTAL POINTS</div>
-        <div className="text-bold text-large">{ totalPoints() }</div>
+        <div className="text-bold text-large">{ totalPoints }</div>
       </div>
       <div className="go-right">
         <div className="text-blue">{ isPreviousWeek ? "TOTAL POINTS" : "POTENTIAL POINTS" }</div>

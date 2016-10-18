@@ -6,7 +6,7 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-import { pointsScoredForFixture, pointsPredictedForFixture, totalWeekUserPoints, totalUserPoints } from '../../game_library/undergod_game_calculator'
+import { calcPointsScoredForFixture, calcPointsPredictedForFixture, calcTotalWeekUserPoints, calcTotalUserPoints } from '../../game_library/undergod_game_calculator'
 import { calculatePoints } from '../../game_library/league_points_calculator'
 
 function WeekContainer( props ) {
@@ -63,10 +63,10 @@ function WeekContainer( props ) {
       </ReactSwipe>
       <FixturesSummary
         isPreviousWeek={ isPreviousWeek }
-        totalPoints={ () => { return totalUserPoints( props.weeksWithFixtures, props.teams, isPreviousWeek ) } }
+        totalPoints={ props.totalUserPoints }
         points={ () => {
           if ( !displayWeek ) { return "calculating points..." }
-          return totalWeekUserPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
+          return calcTotalWeekUserPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
         } }
       />
     </div>
@@ -119,8 +119,8 @@ function mapFixturesToWeeks( weeks, fixtures ) {
 function mapStateToProps( state, { params } ){
   const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
   const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
-  const teamsWithPoints = mapPointsToTeams( state.teams.items, fixtureWeeks)
-  const totalUserPoints = calcTotalUserPoints( fixtureWeeks, teamsWithPoints, isPreviousWeek )
+  const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)
+  const totalUserPoints = calcTotalUserPoints( weeksWithFixtures, teamsWithPoints )
   const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
@@ -129,6 +129,7 @@ function mapStateToProps( state, { params } ){
     gameWeekIndex,
     gameWeekId,
     gameWeekNumber,
+    totalUserPoints,
     teams: teamsWithPoints,
     displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
