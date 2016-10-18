@@ -6,7 +6,7 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-import { pointsScoredForFixture, pointsPredictedForFixture, totalPoints } from '../../game_library/undergod_game_calculator'
+import { calcPointsScoredForFixture, calcPointsPredictedForFixture, calcTotalWeekUserPoints, calcTotalUserPoints } from '../../game_library/undergod_game_calculator'
 import { calculatePoints } from '../../game_library/league_points_calculator'
 
 function WeekContainer( props ) {
@@ -60,16 +60,17 @@ function WeekContainer( props ) {
       </ReactSwipe>
       <FixturesSummary
         isPreviousWeek={ isPreviousWeek }
+        totalPoints={ props.totalUserPoints }
         points={ () => {
           if ( !displayWeek ) { return "calculating points..." }
-          return totalPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
+          return calcTotalWeekUserPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
         } }
       />
     </div>
   )
 }
 
-function currentWeek( weekFixtures ) {
+function calcGameWeekIndex( weekFixtures ) {
   if ( weekFixtures.length === 0 ) { return null; }
 
   const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
@@ -91,7 +92,7 @@ function findPredictionForFixture( predictions, fixtureId ){
   return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
 }
 
-function addPredictionsToFixtures( fixtures, predictions  ){
+function mapPredictionsToFixtures( fixtures, predictions  ){
   return fixtures.map( ( fixture ) => {
     const prediction = findPredictionForFixture(predictions, fixture.id)
     fixture.prediction = prediction;
@@ -99,13 +100,13 @@ function addPredictionsToFixtures( fixtures, predictions  ){
   });
 }
 
-function addPointsToTeams(teams, weeksWithFixtures){
+function mapPointsToTeams(teams, weeksWithFixtures){
   return teams.map((team) => {
     return Object.assign( {}, team, { points: calculatePoints(team.id, weeksWithFixtures) } )
   })
 }
 
-function addFixturesToWeeks( weeks, fixtures ) {
+function mapFixturesToWeeks( weeks, fixtures ) {
   return weeks.map( (week) => {
     week.fixtures = fixtures.filter( (f) => { return f.week_id === week.id } )
     return week
@@ -113,18 +114,20 @@ function addFixturesToWeeks( weeks, fixtures ) {
 }
 
 function mapStateToProps( state, { params } ){
-  const fixturesWithPredictions = addPredictionsToFixtures( state.fixtures.items, state.predictions.items )
-  const fixtureWeeks = addFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
-  const teamsWithPoints = addPointsToTeams( state.teams.items, fixtureWeeks)
-  const gameWeekIndex = currentWeek( state.weeks.items )
+  const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
+  const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
+  const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)
+  const totalUserPoints = calcTotalUserPoints( weeksWithFixtures, teamsWithPoints )
+  const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
-    weeksWithFixtures: fixtureWeeks,
+    weeksWithFixtures,
+    gameWeekIndex,
+    gameWeekId,
+    gameWeekNumber,
+    totalUserPoints,
     teams: teamsWithPoints,
-    gameWeekIndex: gameWeekIndex,
-    gameWeekId: gameWeekId,
-    gameWeekNumber: gameWeekNumber,
     displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
     predictions: state.predictions

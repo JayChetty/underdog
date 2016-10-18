@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import {homeTeamPredictedWinner, homeTeamPointResult, awayTeamPointResult} from '../../game_library/undergod_game_calculator'
+import { isHomeTeamPredictedWinner, calcHomeTeamPointResult, calcAwayTeamPointResult} from '../../game_library/undergod_game_calculator'
 
 function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNumber} ){
   if(!fixture.homeTeam){ return null; }
@@ -14,7 +14,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNu
 
   if( isInGameWeek ){
     clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' }, fixture ) }
-    if( homeTeamPredictedWinner( fixture, weekNumber ) ){
+    if( isHomeTeamPredictedWinner( fixture, weekNumber ) ){
       homeTeamClasses += " bg-blue"
       homeTeamPointsClasses += " tag-simple pulse"
     }else{
@@ -24,7 +24,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNu
   }else {
     const isInPast = weekNumber < gameWeekNumber
     if(isInPast){
-      if( homeTeamPredictedWinner( fixture, weekNumber ) ){
+      if( isHomeTeamPredictedWinner( fixture, weekNumber ) ){
         homeTeamClasses += " bg-gray"
         homeTeamPointsClasses += " tag-simple pulse"
       }else{
@@ -37,7 +37,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNu
   return(
     <div className="split-list-view">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
-        <span className={ homeTeamPointsClasses } > { homeTeamPointResult( fixture, weekNumber ) } </span>
+        <span className={ homeTeamPointsClasses } > { calcHomeTeamPointResult( fixture, weekNumber ) } </span>
         <span>{ fixture.homeTeam.name }</span>
         <img src={ fixture.homeTeam.image } />
         <span> { fixture.home_team_score } </span>
@@ -46,7 +46,7 @@ function Fixture( {fixture, makePrediction, isInGameWeek, weekNumber, gameWeekNu
         <span> { fixture.away_team_score } </span>
         <img src={ fixture.awayTeam.image } />
         <span>{ fixture.awayTeam.name }</span>
-        <span className={ awayTeamPointsClasses }> { awayTeamPointResult( fixture, weekNumber ) } </span>
+        <span className={ awayTeamPointsClasses }> { calcAwayTeamPointResult( fixture, weekNumber ) } </span>
       </div>
     </div>
   )
