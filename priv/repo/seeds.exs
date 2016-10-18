@@ -169,12 +169,25 @@ end)
 user_jay_params = %{name: "jaychetty", email: "jay@email.com", password: "password"}
 user_rick_params = %{name: "rickhenry", email: "rick@email.com", password: "password"}
 
-user = Underdog.User.changeset( %Underdog.User{}, user_jay_params )
-user_rick = Underdog.User.changeset( %Underdog.User{}, user_rick_params )
+user_jay_changeset = Underdog.User.changeset( %Underdog.User{}, user_jay_params )
+user_rick_changeset = Underdog.User.changeset( %Underdog.User{}, user_rick_params )
 
+{:ok, jay} =  Underdog.Repo.insert( user_jay_changeset )
+{:ok, rick} =  Underdog.Repo.insert( user_rick_changeset )
 
-{:ok, inserted_user} =  Underdog.Repo.insert(user)
-{:ok, inserted_user_rick} =  Underdog.Repo.insert(user_rick)
+group_params = %{ name: "Creators" }
+group_changeset = Underdog.Group.changeset( %Underdog.Group{}, group_params )
+{:ok, creators} = Underdog.Repo.insert( group_changeset )
+
+jay_creators_params = %{ user_id: jay.id, group_id: creators.id }
+rick_creators_params = %{ user_id: rick.id, group_id: creators.id }
+
+jay_creators_changeset = Underdog.Membership.changeset( %Underdog.Membership{}, jay_creators_params )
+rick_creators_changeset = Underdog.Membership.changeset( %Underdog.Membership{}, rick_creators_params )
+
+{ :ok, _ } =  Underdog.Repo.insert( jay_creators_changeset )
+{ :ok, _ } =  Underdog.Repo.insert( rick_creators_changeset )
+
 
 
 # Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
