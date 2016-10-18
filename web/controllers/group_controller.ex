@@ -6,10 +6,11 @@ defmodule Underdog.GroupController do
   def index(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
     user = Repo.preload(user, :groups)
-    Logger.warn("user #{inspect user}")
-    render(conn, "index.json", groups: user.groups)
+    groups = Repo.preload( user.groups, [ { :users, :predictions } ] )
+    render(conn, "index.json", groups: groups)
 
     # groups = Repo.all(Group)
+    # groups = Repo.preload( groups, [ { :users, :predictions } ] )
     # render(conn, "index.json", groups: groups)
   end
 

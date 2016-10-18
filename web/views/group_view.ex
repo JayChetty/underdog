@@ -11,6 +11,16 @@ defmodule Underdog.GroupView do
 
   def render("group.json", %{group: group}) do
     %{id: group.id,
-      name: group.name}
+      name: group.name,
+      users: render_many(group.users, Underdog.GroupView, "user_with_predictions.json", as: :user)
+    }
+  end
+
+  def render("user_with_predictions.json", %{user: user}) do
+    %{
+      id: user.id,
+      email: user.email,
+      predictions: user.predictions
+    }
   end
 end
