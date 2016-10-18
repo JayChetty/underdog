@@ -98,9 +98,7 @@ const actions = {
 
   getFixtures: () => {
     return ( dispatch ) => {
-
       dispatch( actions.requestFixtures() )
-
       fetch( "/api/seasons/1/fixtures", {
         method: 'GET'
       }).then( ( res ) => {
@@ -122,6 +120,36 @@ const actions = {
     return {
       type: "RECEIVE_FIXTURES",
       fixtures
+    }
+  },
+
+  getGroups: () => {
+    return ( dispatch, session ) => {
+      dispatch( actions.requestGroups() )
+      fetch( "/api/groups", {
+        method: 'GET',
+        headers: {
+          "Authorization": session.token
+        }
+      }).then( ( res ) => {
+        return res.json();
+      }).then( ( groups ) => {
+        dispatch( actions.receiveGroups( groups.data ) )
+      })
+
+    }
+  },
+
+  requestGroups: () => {
+    return {
+      type: "REQUEST_GROUPS"
+    }
+  },
+
+  receiveGroups: ( groups ) => {
+    return {
+      type: "RECEIVE_GROUPS",
+      groups
     }
   },
 
@@ -149,6 +177,7 @@ const actions = {
     actions.getTeams()(dispatch)
     console.log('fetching data', token)
     actions.getPredictions()(dispatch, { token: token })
+    actions.getGroups()(dispatch, { token: token })
   },
 
   requestPredictions: () => {
