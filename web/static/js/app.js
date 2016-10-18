@@ -31,9 +31,9 @@ window.onload = () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
+        <Route path='/login' component={SignIn}/>
         <Route path='/' component={AppContainer}>
           <IndexRedirect to='/weeks'/>
-          <Route path='/login' component={ SignIn }/>
           <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
           <Route path='/players' component={ requireAuth( WeekContainer ) }/>
         </Route>
