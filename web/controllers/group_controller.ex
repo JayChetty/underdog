@@ -1,15 +1,16 @@
 defmodule Underdog.GroupController do
   use Underdog.Web, :controller
-
+  require Logger
   alias Underdog.Group
 
   def index(conn, _params) do
-    # user = Guardian.Plug.current_resource(conn)
-    # user = Repo.preload(user, :predictions)
-    # render(conn, "index.json", predictions: user.predictions)
+    user = Guardian.Plug.current_resource(conn)
+    user = Repo.preload(user, :groups)
+    Logger.warn("user #{inspect user}")
+    render(conn, "index.json", groups: user.groups)
 
-    groups = Repo.all(Group)
-    render(conn, "index.json", groups: groups)
+    # groups = Repo.all(Group)
+    # render(conn, "index.json", groups: groups)
   end
 
   def create(conn, %{"group" => group_params}) do

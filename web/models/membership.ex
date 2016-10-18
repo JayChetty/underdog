@@ -13,7 +13,7 @@ defmodule Underdog.Membership do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [])
-    |> validate_required([])
+    |> cast(params, [:user_id, :group_id])
+    |> validate_required([:user_id, :group_id])
   end
 end

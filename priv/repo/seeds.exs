@@ -98,6 +98,10 @@ Underdog.Repo.delete_all(Underdog.League)
 
 Underdog.Repo.delete_all(Underdog.User)
 
+Underdog.Repo.delete_all(Underdog.Group)
+Underdog.Repo.delete_all(Underdog.Membership)
+
+
 
 league = %Underdog.League{name: "Premier League"}
 {:ok, inserted_league} = Underdog.Repo.insert(league)
@@ -182,8 +186,11 @@ group_changeset = Underdog.Group.changeset( %Underdog.Group{}, group_params )
 jay_creators_params = %{ user_id: jay.id, group_id: creators.id }
 rick_creators_params = %{ user_id: rick.id, group_id: creators.id }
 
-jay_creators_changeset = Underdog.Membership.changeset( %Underdog.Membership{}, jay_creators_params )
-rick_creators_changeset = Underdog.Membership.changeset( %Underdog.Membership{}, rick_creators_params )
+jay_membership = Ecto.build_assoc( jay, :memberships)
+rick_membership = Ecto.build_assoc( rick, :memberships)
+
+jay_creators_changeset = Underdog.Membership.changeset( jay_membership, jay_creators_params )
+rick_creators_changeset = Underdog.Membership.changeset( rick_membership, rick_creators_params )
 
 { :ok, _ } =  Underdog.Repo.insert( jay_creators_changeset )
 { :ok, _ } =  Underdog.Repo.insert( rick_creators_changeset )
