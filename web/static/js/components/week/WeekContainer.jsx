@@ -6,7 +6,7 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-import { pointsScoredForFixture, pointsPredictedForFixture, weekPoints, totalPoints } from '../../game_library/undergod_game_calculator'
+import { pointsScoredForFixture, pointsPredictedForFixture, totalWeekUserPoints, totalUserPoints } from '../../game_library/undergod_game_calculator'
 import { calculatePoints } from '../../game_library/league_points_calculator'
 
 function WeekContainer( props ) {
@@ -63,10 +63,10 @@ function WeekContainer( props ) {
       </ReactSwipe>
       <FixturesSummary
         isPreviousWeek={ isPreviousWeek }
-        totalPoints={ () => { return totalPoints( props.weeksWithFixtures, props.teams, isPreviousWeek ) } }
+        totalPoints={ () => { return totalUserPoints( props.weeksWithFixtures, props.teams, isPreviousWeek ) } }
         points={ () => {
           if ( !displayWeek ) { return "calculating points..." }
-          return weekPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
+          return totalWeekUserPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
         } }
       />
     </div>

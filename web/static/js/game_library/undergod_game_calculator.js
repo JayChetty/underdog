@@ -25,15 +25,13 @@ export function pointsScoredForFixture( fixture, weekNumber){
   return 0
 }
 
-export function totalPoints( weeks, teams ) {
-  const mapPoints = weeks.map( ( week ) => {
-    return weekPoints( week, teams, { predicted: false } )
-  })
-  const points = mapPoints.reduce((prev, curr) => { return prev + curr }, 0)
-  return points
+export function totalUserPoints( weeks, teams ) {
+  const mapPoints = weeks.map( week => totalWeekUserPoints( week, teams, { predicted: false } ))
+  const totalUserPoints = _.sum( mapPoints )
+  return totalUserPoints
 }
 
-export function weekPoints( week, teams, options ) {
+export function totalWeekUserPoints( week, teams, options ) {
   const pointsForFixtures = week.fixtures.map((fixture)=>{
     const homeTeam = findTeamById(teams, fixture.home_team_id)
     const awayTeam = findTeamById(teams, fixture.away_team_id)
