@@ -1,15 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import Nav from './Nav'
+import Nav from './nav/Nav'
 
 import actions from '../actions/actions'
 
 const AppContainer = ( props ) => {
   return(
     <div className="app-content">
-      <nav className="layout-navbar">
-        <div className="navbar-header">UNDER<span className="text-bold">GOD</span></div>
-      </nav>
+      <Nav/>
       { props.children }
     </div>
   )
