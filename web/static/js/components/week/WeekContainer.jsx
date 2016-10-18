@@ -6,8 +6,8 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 
-import { calcPointsScoredForFixture, calcPointsPredictedForFixture, calcTotalWeekUserPoints, calcTotalUserPoints } from '../../game_library/undergod_game_calculator'
-import { calculatePoints } from '../../game_library/league_points_calculator'
+import { calcPointsScoredForFixture, calcPointsPredictedForFixture, calcTotalWeekUserPoints, calcTotalUserPoints } from '../../libs/undergod_game'
+import { calcPointsForTeam } from '../../libs/league'
 
 function WeekContainer( props ) {
 
@@ -105,7 +105,7 @@ function mapPredictionsToFixtures( fixtures, predictions  ){
 
 function mapPointsToTeams(teams, weeksWithFixtures){
   return teams.map((team) => {
-    return Object.assign( {}, team, { points: calculatePoints(team.id, weeksWithFixtures) } )
+    return Object.assign( {}, team, { points: calcPointsForTeam(team.id, weeksWithFixtures) } )
   })
 }
 

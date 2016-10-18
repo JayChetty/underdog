@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { findTeamById } from './league'
 
 export function isHomeTeamPredictedWinner(fixture, weekNumber){
   const output = calcPointsDifference(fixture, weekNumber) >= 0
@@ -7,12 +8,12 @@ export function isHomeTeamPredictedWinner(fixture, weekNumber){
 
 export function calcHomeTeamPointResult( fixture, weekNumber ){
   const pointsDiff = calcPointsDifference(fixture, weekNumber)
-  return calcGamePointsForPointDifference( pointsDiff )
+  return 3 + Math.max(0, pointsDiff * -1 )
 }
 
 export function calcAwayTeamPointResult( fixture, weekNumber ){
   const pointsDiff = calcPointsDifference(fixture, weekNumber) * -1
-  return calcGamePointsForPointDifference( pointsDiff )
+  return 3 + Math.max(0, pointsDiff * -1 )
 }
 
 export function calcPointsScoredForFixture( fixture, weekNumber){
@@ -53,10 +54,6 @@ export function calcPointsPredictedForFixture( fixture, weekNumber){
   }
 }
 
-function findTeamById(teams, teamId){
-  return _.find(teams, (team) => team.id === teamId )
-}
-
 function calcCumulativePoints(points, weekNumber){
  const pointsToWeek = points.slice(0, weekNumber-1)
  return _.sum( pointsToWeek )
@@ -74,8 +71,4 @@ function calcPointsDifference(fixture, weekNumber){
   const homeTeamPoints = calcCumulativePoints( fixture.homeTeam.points, weekNumber )
   const awayTeamPoints = calcCumulativePoints( fixture.awayTeam.points, weekNumber)
   return homeTeamPoints - awayTeamPoints;
-}
-
-function calcGamePointsForPointDifference( pointDifference ){
-   return 3 + Math.max(0, pointDifference * -1 )
 }
