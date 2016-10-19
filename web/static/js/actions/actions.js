@@ -255,7 +255,7 @@ const actions = {
         return res.json();
       }).then( ( weeks ) => {
         console.log( "data", weeks.data )
-        dispatch( actions.receiveWeeks( weeks.data ) )
+        dispatch( actions.receiveWeeks( weeks.data.slice(0,10) ) )
       })
     }
 
