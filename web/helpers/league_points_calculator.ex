@@ -35,8 +35,17 @@ defmodule Underdog.LeaguePointsCalculator do
     points_list = Enum.map( team_ids, fn(team)->
       { team, points_for_team(team, weeks) }
     end)
-
     Enum.into(points_list, %{})
+  end
+
+  def points_to_week( points, week_number ) do
+    case week_number do
+      0 -> 0
+      1 -> 0
+      _ ->
+        Enum.slice( points, 0..week_number-2 )
+        |> Enum.sum
+    end
   end
 
 end
