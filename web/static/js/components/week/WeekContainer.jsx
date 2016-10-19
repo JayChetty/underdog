@@ -119,6 +119,7 @@ function mapPredictionsToFixtures( fixtures, predictions ){
 // }
 
 function mapStateToProps( state, { params } ){
+  console.log("UPDATING")
   // const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
   // const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
   // const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)

@@ -3,7 +3,7 @@ defmodule Underdog.PredictionController do
   require Logger
 
   alias Underdog.Prediction
-  plug Guardian.Plug.EnsureAuthenticated, handler: Underdog.SessionController
+  # plug Guardian.Plug.EnsureAuthenticated, handler: Underdog.SessionController
 
   plug :scrub_params, "prediction" when action in [:create, :update]
 
@@ -32,6 +32,17 @@ defmodule Underdog.PredictionController do
     end
   end
 
+  def show(conn, %{"id" => id, "fixture_id" => fixture_id}) do
+    Logger.warn "delete #{inspect id}"
+    # prediction = Repo.get!(Prediction, id)
+    # Logger.warn "prediction #{inspect prediction}"
+    # # Here we use delete! (with a bang) because we expect
+    # # it to always work (and if it does not, it will raise).
+    # Repo.delete!(prediction)
+
+    send_resp(conn, :no_content, "")
+  end
+
   def show(conn, %{"id" => id}) do
     prediction = Repo.get!(Prediction, id)
     render(conn, "show.json", prediction: prediction)
@@ -58,6 +69,22 @@ defmodule Underdog.PredictionController do
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(prediction)
+
+    send_resp(conn, :no_content, "")
+  end
+
+
+
+
+
+
+  def delete(conn, %{"id" => id, "fixture_id" => fixture_id}) do
+    Logger.warn "delete #{inspect id}"
+    # prediction = Repo.get!(Prediction, id)
+    # Logger.warn "prediction #{inspect prediction}"
+    # # Here we use delete! (with a bang) because we expect
+    # # it to always work (and if it does not, it will raise).
+    # Repo.delete!(prediction)
 
     send_resp(conn, :no_content, "")
   end

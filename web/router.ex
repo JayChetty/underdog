@@ -41,7 +41,9 @@ defmodule Underdog.Router do
     resources "/weeks", WeekController, except: [:new, :edit] do
       resources "/fixtures", FixtureController, except: [:new, :edit]
     end
-    resources "/fixtures", FixtureController, except: [:new, :edit]
+    resources "/fixtures", FixtureController, except: [:new, :edit] do
+      delete "/delete_prediction", FixtureController, :delete_prediction
+    end
     resources "/teams", TeamController, except: [:new, :edit]
 
     resources "/predictions", PredictionController, except: [:new, :edit]

@@ -73,4 +73,16 @@ defmodule Underdog.FixtureController do
 
     send_resp(conn, :no_content, "")
   end
+
+  # def play(conn, %{"fixture_id" => fixture_id}) do
+  #   Logger.warn("HIT IT LIKE THIS YO #{inspect fixture_id}")
+  #   send_resp(conn, :no_content, "")
+  # end
+
+  def delete_prediction(conn, %{"fixture_id" => fixture_id}) do
+    user = Guardian.Plug.current_resource(conn)
+    prediction = Repo.get_by(Underdog.Prediction, [user_id: user.id, fixture_id: fixture_id])
+    Repo.delete!(prediction)
+    send_resp(conn, :no_content, "")
+  end
 end

@@ -220,7 +220,7 @@ const actions = {
   deletePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
       dispatch( actions.removePrediction( prediction.fixture_id ) )
-      fetch( `/api/predictions/${prediction.id}`, {
+      fetch( `/api/fixtures/${prediction.fixture_id }/delete_prediction`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
