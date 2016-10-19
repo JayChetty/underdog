@@ -10,6 +10,10 @@ defmodule Underdog.User do
     field :encrypted_password, :string
     field :password, :string, virtual: true
     has_many :predictions, Underdog.Prediction
+    has_many :memberships, Underdog.Membership
+    has_many :groups, through: [:memberships, :group]
+
+
     timestamps
   end
 

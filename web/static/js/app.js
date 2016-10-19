@@ -12,9 +12,15 @@ import thunk from 'redux-thunk';
 import actions  from './actions/actions';
 import reducer from './reducers/index';
 
+import AppContainer from './components/AppContainer';
+
 import requireAuth from './components/auth/RequireAuth';
 import SignIn from './components/auth/SignIn';
 import WeekContainer from './components/week/WeekContainer';
+
+import GroupsList from './components/groups/GroupsList';
+
+
 
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
@@ -29,10 +35,11 @@ window.onload = () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/'>
+        <Route path='/login' component={SignIn}/>
+        <Route path='/' component={AppContainer}>
           <IndexRedirect to='/weeks'/>
-          <Route path='/login' component={ SignIn }/>
           <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
+          <Route path='/groups' component={ requireAuth( GroupsList ) }/>
         </Route>
       </Router>
     </Provider>,
