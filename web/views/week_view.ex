@@ -9,33 +9,32 @@ defmodule Underdog.WeekView do
     data = Enum.map(weeks, fn(week)->
       fixtures = Enum.map(week.fixtures, fn(fixture)->
 
-        home_team_points = team_points[ fixture.home_team.id ]
-        away_team_points = team_points[ fixture.away_team.id ]
+      home_team_points = team_points[ fixture.home_team.id ]
+      away_team_points = team_points[ fixture.away_team.id ]
 
-        total_home_team_points = LeaguePointsCalculator.points_to_week( home_team_points, week.number )
-        total_away_team_points = LeaguePointsCalculator.points_to_week( away_team_points, week.number )
+      total_home_team_points = LeaguePointsCalculator.points_to_week( home_team_points, week.number )
+      total_away_team_points = LeaguePointsCalculator.points_to_week( away_team_points, week.number )
 
-
-        %{id: fixture.id,
-          start_time: fixture.start_time,
-          week_id: fixture.week_id,
-          home_team_id: fixture.home_team_id,
-          away_team_id: fixture.away_team_id,
-          home_team_score: fixture.home_team_score,
-          away_team_score: fixture.away_team_score,
-          home_team_ug_points: UnderdogPointsCalculator.points( total_home_team_points, total_away_team_points ),
-          away_team_ug_points: UnderdogPointsCalculator.points( total_away_team_points, total_home_team_points ),
-          away_team: %{id: fixture.away_team.id,
-                name: fixture.away_team.name,
-                image: fixture.away_team.image,
-                points: away_team_points
-              },
-          home_team: %{id: fixture.home_team.id,
-              name: fixture.home_team.name,
-              image: fixture.home_team.image,
-              points: home_team_points
-          }
+      %{id: fixture.id,
+        start_time: fixture.start_time,
+        week_id: fixture.week_id,
+        home_team_id: fixture.home_team_id,
+        away_team_id: fixture.away_team_id,
+        home_team_score: fixture.home_team_score,
+        away_team_score: fixture.away_team_score,
+        home_team_ug_points: UnderdogPointsCalculator.points( total_home_team_points, total_away_team_points ),
+        away_team_ug_points: UnderdogPointsCalculator.points( total_away_team_points, total_home_team_points ),
+        away_team: %{id: fixture.away_team.id,
+              name: fixture.away_team.name,
+              image: fixture.away_team.image,
+              points: away_team_points
+            },
+        home_team: %{id: fixture.home_team.id,
+            name: fixture.home_team.name,
+            image: fixture.home_team.image,
+            points: home_team_points
         }
+      }
       end)
       %{id: week.id,
         start_date: week.start_date,

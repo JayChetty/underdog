@@ -173,9 +173,9 @@ const actions = {
 
   fetchData:( dispatch, token )=>{
     actions.getWeeks()(dispatch)
-    actions.getFixtures()(dispatch)
-    actions.getTeams()(dispatch)
-    console.log('fetching data', token)
+    // actions.getFixtures()(dispatch)
+    // actions.getTeams()(dispatch)
+    // console.log('fetching data', token)
     actions.getPredictions()(dispatch, { token: token })
     actions.getGroups()(dispatch, { token: token })
   },
@@ -243,10 +243,15 @@ const actions = {
       dispatch( actions.requestWeeks() )
 
       fetch( "/api/weeks", {
-          method: 'GET'
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json"
+          }
       }).then( ( res ) => {
+        // console.log('res', res.json())
         return res.json();
       }).then( ( weeks ) => {
+        console.log( "data", weeks.data )
         dispatch( actions.receiveWeeks( weeks.data ) )
       })
     }

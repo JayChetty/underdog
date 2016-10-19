@@ -20,7 +20,7 @@ function WeekContainer( props ) {
     displayWeekIndex = props.gameWeekIndex
   }
 
-  const displayWeek = props.weeksWithFixtures[displayWeekIndex]
+  const displayWeek = props.weeks[displayWeekIndex]
 
   let isPreviousWeek;
   if ( displayWeek ) {
@@ -31,14 +31,14 @@ function WeekContainer( props ) {
     actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
   }
 
-  const fixtures = props.weeksWithFixtures.map( ( week ) => {
-    const fixturesWithTeams = mapTeamsToFixtures( week.fixtures, props.teams )
+  const fixtures = props.weeks.map( ( week ) => {
+    // const fixturesWithTeams = mapTeamsToFixtures( week.fixtures, props.teams )
 
     return (
       <main className="layout-content" key={ week.id }>
         <Fixtures
           makePrediction={ makePrediction }
-          fixtures={ fixturesWithTeams }
+          fixtures={ week.fixtures }
           weekNumber={ week.number }
           gameWeekNumber={props.gameWeekNumber}
           gameWeekId={ props.gameWeekId }
@@ -69,20 +69,20 @@ function WeekContainer( props ) {
         totalPoints={ props.totalUserPoints }
         points={ () => {
           if ( !displayWeek ) { return "calculating points..." }
-          return calcTotalWeekUserPoints( displayWeek, props.teams, { predicted: !isPreviousWeek } )
+            return 0
         } }
       />
     </div>
   )
 }
 
-function mapTeamsToFixtures( fixtures, teams ) {
-  return fixtures.map( ( fixture ) => {
-    const homeTeam = findTeamById(teams, fixture.home_team_id)
-    const awayTeam = findTeamById(teams, fixture.away_team_id)
-    return Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
-  })
-}
+// function mapTeamsToFixtures( fixtures, teams ) {
+//   return fixtures.map( ( fixture ) => {
+//     const homeTeam = findTeamById(teams, fixture.home_team_id)
+//     const awayTeam = findTeamById(teams, fixture.away_team_id)
+//     return Object.assign( {}, fixture, {homeTeam: homeTeam, awayTeam:awayTeam} )
+//   })
+// }
 
 function findPredictionForFixture( predictions, fixtureId ){
   return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
@@ -96,37 +96,37 @@ function mapPredictionsToFixtures( fixtures, predictions ){
   });
 }
 
-function mapPointsToTeams(teams, weeksWithFixtures){
-  return teams.map((team) => {
-    return Object.assign( {}, team, { points: calcPointsForTeam(team.id, weeksWithFixtures) } )
-  })
-}
+// function mapPointsToTeams(teams, weeksWithFixtures){
+//   return teams.map((team) => {
+//     return Object.assign( {}, team, { points: calcPointsForTeam(team.id, weeksWithFixtures) } )
+//   })
+// }
 
-function mapFixturesToWeeks( weeks, fixtures ) {
-  return weeks.map( (week) => {
-    week.fixtures = fixtures.filter( (f) => { return f.week_id === week.id } )
-    return week
-  })
-}
+// function mapFixturesToWeeks( weeks, fixtures ) {
+//   return weeks.map( (week) => {
+//     week.fixtures = fixtures.filter( (f) => { return f.week_id === week.id } )
+//     return week
+//   })
+// }
 
 function mapStateToProps( state, { params } ){
-  const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
-  const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
-  const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)
-  const totalUserPoints = calcTotalUserPoints( weeksWithFixtures, teamsWithPoints )
+  // const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
+  // const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
+  // const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)
+  // const totalUserPoints = calcTotalUserPoints( state.weeks.items, teamsWithPoints )
   const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
-    weeksWithFixtures,
+    weeks: state.weeks.items,
     gameWeekIndex,
     gameWeekId,
     gameWeekNumber,
-    totalUserPoints,
-    teams: teamsWithPoints,
+    // totalUserPoints,
+    // teams: teamsWithPoints,
     displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
-    predictions: state.predictions
+    // predictions: state.predictions
   }
 }
 
