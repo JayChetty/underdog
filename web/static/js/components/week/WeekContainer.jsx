@@ -28,12 +28,10 @@ function WeekContainer( props ) {
   }
 
   const makePrediction = (prediction) => {
-    console.log( 'making prediction', prediction)
     actions.makePrediction( prediction )( props.dispatch, props.session )
   }
 
   const deletePrediction = (prediction) => {
-    console.log( 'delete prediction', prediction)
     actions.deletePrediction( prediction )( props.dispatch, props.session )
   }
 
@@ -119,7 +117,6 @@ function mapPredictionsToFixtures( fixtures, predictions ){
 // }
 
 function mapStateToProps( state, { params } ){
-  console.log("UPDATING")
   // const fixturesWithPredictions = mapPredictionsToFixtures( state.fixtures.items, state.predictions.items )
   // const weeksWithFixtures = mapFixturesToWeeks( state.weeks.items, fixturesWithPredictions  )
   // const teamsWithPoints = mapPointsToTeams( state.teams.items, weeksWithFixtures)

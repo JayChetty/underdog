@@ -203,7 +203,6 @@ const actions = {
 
   makePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
-      console.log('making prediection', session)
       dispatch( actions.addPrediction( prediction ) )
       fetch( "/api/predictions", {
         method: "POST",
@@ -242,7 +241,6 @@ const actions = {
   getWeeks: () => {
 
     return ( dispatch ) => {
-
       dispatch( actions.requestWeeks() )
 
       fetch( "/api/weeks", {
@@ -254,7 +252,6 @@ const actions = {
         // console.log('res', res.json())
         return res.json();
       }).then( ( weeks ) => {
-        console.log( "data", weeks.data )
         dispatch( actions.receiveWeeks( weeks.data.slice(0,10) ) )
       })
     }
