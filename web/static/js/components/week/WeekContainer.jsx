@@ -27,8 +27,14 @@ function WeekContainer( props ) {
     isPreviousWeek = displayWeek.number < props.gameWeekNumber
   }
 
-  const makePrediction = (prediction, fixture) => {
-    actions.makePrediction( prediction, fixture )( props.dispatch, props.session )
+  const makePrediction = (prediction) => {
+    console.log( 'making prediction', prediction)
+    actions.makePrediction( prediction )( props.dispatch, props.session )
+  }
+
+  const deletePrediction = (prediction) => {
+    console.log( 'delete prediction', prediction)
+    actions.deletePrediction( prediction )( props.dispatch, props.session )
   }
 
   const fixtures = props.weeks.map( ( week ) => {
@@ -38,11 +44,13 @@ function WeekContainer( props ) {
       <main className="layout-content" key={ week.id }>
         <Fixtures
           makePrediction={ makePrediction }
+          deletePrediction={ deletePrediction }
           fixtures={ week.fixtures }
           weekNumber={ week.number }
           gameWeekNumber={props.gameWeekNumber}
           gameWeekId={ props.gameWeekId }
           teams={ props.teams }
+          predictions={ props.predictions }
         >
         </Fixtures>
       </main>
@@ -57,9 +65,10 @@ function WeekContainer( props ) {
         swipeOptions={{
           continuous: false,
           startSlide: displayWeekIndex,
-          callback: (e) => {
-            props.dispatch( actions.setDisplayWeek(e) )
-          }
+          // callback: (e) => {
+            // console.log("moving")
+            // props.dispatch( actions.setDisplayWeek(e) )
+          // }
         }}
       >
         { fixtures }
@@ -126,7 +135,7 @@ function mapStateToProps( state, { params } ){
     // teams: teamsWithPoints,
     displayWeekIndex: state.predictions.displayWeekIndex,
     session: state.session,
-    // predictions: state.predictions
+    predictions: state.predictions.items
   }
 }
 

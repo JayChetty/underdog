@@ -201,33 +201,36 @@ const actions = {
   },
 
 
-  makePrediction: ( prediction, fixture ) => {
+  makePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
-      if(!fixture.prediction){
-        console.log('making prediection', session)
-        dispatch( actions.addPrediction( prediction ) )
-        fetch( "/api/predictions", {
-          method: "POST",
-          body: JSON.stringify( { prediction: prediction } ),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": session.token
-          }
-        }).then( response => { console.log( response ) })
-        .catch( err => { console.error( err ) } )
-      }else{
-        dispatch( actions.removePrediction( fixture.id ) )
-        fetch( `/api/predictions/${fixture.prediction.id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": session.token
-          }
-        }).then( response => { console.log( response ) })
-        .catch( err => { console.error( err ) } )
-      }
+      console.log('making prediection', session)
+      dispatch( actions.addPrediction( prediction ) )
+      fetch( "/api/predictions", {
+        method: "POST",
+        body: JSON.stringify( { prediction: prediction } ),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": session.token
+        }
+      }).then( response => { console.log( response ) })
+      .catch( err => { console.error( err ) } )
     }
   },
+
+  deletePrediction: ( prediction ) => {
+    return ( dispatch, session ) => {
+      dispatch( actions.removePrediction( prediction.fixture_id ) )
+      fetch( `/api/predictions/${prediction.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": session.token
+        }
+      }).then( response => { console.log( response ) })
+      .catch( err => { console.error( err ) } )
+    }
+  },
+
 
   removePrediction: ( fixtureId ) => {
     return {
