@@ -1,15 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import actions from '../../actions/actions';
+import {Link} from 'react-router';
 
 function GroupsList({groups}){
   console.log('groups', groups)
   const groupViews = groups.map((group)=>{
-    return( <div> { group.name } </div> )
+    return(  <Link
+                key={group.id}
+                to={ `/groups/${group.id}` }
+              >
+              { group.name }
+            </Link> )
   })
   return(
-   <div>
+   <main className="layout-content">
      { groupViews }
-   </div>
+   </main>
   )
 }
 

@@ -17,8 +17,9 @@ import AppContainer from './components/AppContainer';
 import requireAuth from './components/auth/RequireAuth';
 import SignIn from './components/auth/SignIn';
 import WeekContainer from './components/week/WeekContainer';
-
 import GroupsList from './components/groups/GroupsList';
+import Group from './components/groups/Group';
+
 
 
 
@@ -40,6 +41,7 @@ window.onload = () => {
           <IndexRedirect to='/weeks'/>
           <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
+          <Route path='/groups/:groupId' component={Group} view="detail"/>
         </Route>
       </Router>
     </Provider>,
