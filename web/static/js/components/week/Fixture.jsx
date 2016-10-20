@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { isHomeTeamPredictedWinner, calcHomeTeamPointResult, calcAwayTeamPointResult} from '../../libs/undergod_game'
 
 function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction} ){
 
@@ -10,13 +9,6 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
   let awayTeamPointsClasses = "tag go-right"
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
-
-  // console.log('prediction', prediction)
-  // if(prediction){
-  //   clickHandler = () => { deletePrediction( prediction  ) }
-  // }else{
-  //   clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
-  // }
 
   if( isGameWeek ){
     const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points

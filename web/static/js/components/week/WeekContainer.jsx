@@ -7,8 +7,6 @@ import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 import { browserHistory } from 'react-router';
 
-import { calcGameWeekIndex } from '../../libs/undergod_game'
-
 function WeekContainer( props ) {
 
   const makePrediction = ( prediction ) => {
@@ -39,25 +37,11 @@ function WeekContainer( props ) {
         weekNumber={ props.week.number }
         isGameWeek={ props.isGameWeek }
         isInPast={ props.isInPast }
-        //matchdayNumber={props.week.matchdayNumber}
-        //gameWeekId={ props.week.id }
         predictions={ props.predictions }
       >
       </Fixtures>
     </Swipeable>
   )
-}
-
-function findPredictionForFixture( predictions, fixtureId ){
-  return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
-}
-
-function mapPredictionsToFixtures( fixtures, predictions ){
-  return fixtures.map( ( fixture ) => {
-    const prediction = findPredictionForFixture(predictions, fixture.id)
-    fixture.prediction = prediction;
-    return fixture;
-  });
 }
 
 function mapStateToProps( state, { params } ){
@@ -68,16 +52,11 @@ function mapStateToProps( state, { params } ){
   const isGameWeek = displayWeekIndex === gameWeekIndex
   const isInPast = displayWeekIndex < gameWeekIndex
 
-  //
-  // const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
-  // const matchdayNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
     week,
     gameWeekIndex,
     isGameWeek,
     isInPast,
-    // gameWeekId,
-    // matchdayNumber,
     displayWeekIndex,
     session: state.session,
     predictions: state.predictions.items
