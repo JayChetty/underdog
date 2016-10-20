@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import { isHomeTeamPredictedWinner, calcHomeTeamPointResult, calcAwayTeamPointResult} from '../../libs/undergod_game'
 
-function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, prediction} ){
+function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction} ){
 
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
@@ -34,7 +34,6 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, predic
       awayTeamPointsClasses += " tag-simple pulse"
     }
   }else {
-    const isInPast = weekNumber < gameWeekNumber
     if(isInPast){
       if( fixture.home_team_ug_points < fixture.away_team_ug_points ){
         homeTeamClasses += " bg-gray"
@@ -51,12 +50,12 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, predic
       <div className={ homeTeamClasses } onClick={ clickHandler }>
         <span className={ homeTeamPointsClasses } > { fixture.home_team_ug_points } </span>
         <span>{ fixture.home_team.name }</span>
-        {/*<img src={ fixture.home_team.image } />*/}
+        <img src={ fixture.home_team.image } />
         <span> { fixture.home_team_score } </span>
       </div>
       <div className={ awayTeamClasses } onClick={ clickHandler }>
         <span> { fixture.away_team_score } </span>
-        {/*<img src={ fixture.away_team.image } />*/}
+        <img src={ fixture.away_team.image } />
         <span>{ fixture.away_team.name }</span>
         <span className={ awayTeamPointsClasses }> {  fixture.away_team_ug_points  } </span>
       </div>

@@ -24,7 +24,7 @@ const store = createStore(reducer, window.devToolsExtension && window.devToolsEx
 
 const initRender = () => {
 
-  const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex + 1
+  const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
 
   ReactDOM.render(
     <Provider store={store}>

@@ -38,6 +38,7 @@ function WeekContainer( props ) {
         fixtures={ props.week.fixtures }
         weekNumber={ props.week.number }
         isGameWeek={ props.isGameWeek }
+        isInPast={ props.isInPast }
         //matchdayNumber={props.week.matchdayNumber}
         //gameWeekId={ props.week.id }
         predictions={ props.predictions }
@@ -64,10 +65,8 @@ function mapStateToProps( state, { params } ){
   const week = state.weeks.items[ displayWeekIndex ]
   const gameWeekIndex = state.predictions.gameWeekIndex
 
-  const isGameWeek = displayWeekIndex === gameWeekIndex ? true: false
-  console.log( isGameWeek )
-  console.log( "displayWeekIndex", displayWeekIndex )
-  console.log( "gameWeekIndex", gameWeekIndex )
+  const isGameWeek = displayWeekIndex === gameWeekIndex
+  const isInPast = displayWeekIndex < gameWeekIndex
 
   //
   // const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
@@ -76,6 +75,7 @@ function mapStateToProps( state, { params } ){
     week,
     gameWeekIndex,
     isGameWeek,
+    isInPast,
     // gameWeekId,
     // matchdayNumber,
     displayWeekIndex,
