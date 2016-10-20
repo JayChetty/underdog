@@ -43,12 +43,40 @@ function WeekContainer( props ) {
         predictions={ props.predictions }
       >
       </Fixtures>
+      <FixturesSummary
+        isPreviousWeek={ props.week.number < props.matchdayNumber }
+        weeklyPoints={ calcPointsForWeek(props.week, props.predictions) }
+      />
     </Swipeable>
   )
+}
+function calcPointsForWeek( week, predictions ){
+
+  const upsetPoints = predictions.map((prediction)=>{
+    const fixture = week.fixtures.find( (fixture)=>{
+      return fixture.id === prediction.fixture_id
+    })
+    if(!fixture){
+      return 0
+    }
+    return fixture.upset_modifier
+  })
+  console.log('upsetpoints', upsetPoints)
+  const totalPredictionPoints = _.sum(upsetPoints)
+  console.log('week.week_par', week.week_par)
+  return week.week_par + totalPredictionPoints
 }
 
 function findPredictionForFixture( predictions, fixtureId ){
   return _.find( predictions, (prediction)=> prediction.fixture_id === fixtureId )
+}
+
+
+function filterPredictionsForWeek( predictions, weekId ){
+  return predictions.filter((prediction)=>{
+    return true
+    return prediction.week_id === weekId
+  })
 }
 
 function mapPredictionsToFixtures( fixtures, predictions ){
@@ -61,6 +89,7 @@ function mapPredictionsToFixtures( fixtures, predictions ){
 
 function mapStateToProps( state, { params } ){
   const displayWeekIndex = Number( params.id )
+  // const week = state.weeks.items[ displayWeekIndex ] && state.weeks.items[ displayWeekIndex - 1]
   const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   const matchdayNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number

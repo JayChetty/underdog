@@ -16,6 +16,7 @@ defmodule Underdog.WeekView do
       total_away_team_points = LeaguePointsCalculator.points_to_week( away_team_points, week.number )
 
       is_draw = fixture.away_team_score == fixture.home_team_score
+      no_result = !fixture.home_team_score
 
       home_team_favorate = total_home_team_points > total_away_team_points
       away_team_favorate = total_home_team_points < total_away_team_points
@@ -30,15 +31,17 @@ defmodule Underdog.WeekView do
 
       is_upset = away_team_upset || home_team_upset
 
-      par_score = case { is_upset, is_draw } do
-        { false, false } -> 3
-        { _, _ } -> 0
+      par_score = case { is_upset, is_draw, no_result } do
+        { _, _, true } -> 3
+        { false, false, _ } -> 3
+        { _, _, _} -> 0
       end
 
-      upset_modifier = case { is_upset, is_draw } do
-        { true, _ } -> abs( home_team_ug_points - away_team_ug_points)
-        { false, true } -> 0
-        { false, false } -> -3
+      upset_modifier = case { is_upset, is_draw, no_result } do
+        { _, _, true } -> abs( home_team_ug_points - away_team_ug_points)
+        { true, _, _ } -> abs( home_team_ug_points - away_team_ug_points)
+        { false, true, _ } -> 0
+        { false, false, _ } -> -3
       end
 
       %{id: fixture.id,
