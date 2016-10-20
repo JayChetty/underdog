@@ -38,7 +38,7 @@ window.onload = () => {
         <Route path='/login' component={SignIn}/>
         <Route path='/' component={AppContainer}>
           <IndexRedirect to='/weeks'/>
-          <Route path='/weeks' component={ requireAuth( WeekContainer ) }/>
+          <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
         </Route>
       </Router>

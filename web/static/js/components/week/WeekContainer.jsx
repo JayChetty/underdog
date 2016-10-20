@@ -14,6 +14,7 @@ import {  calcGameWeekIndex,
 import { calcPointsForTeam, findTeamById } from '../../libs/league'
 
 function WeekContainer( props ) {
+  if( !props.week ) { return null }
 
   let displayWeekIndex = props.displayWeekIndex
   if(displayWeekIndex === undefined){
@@ -35,51 +36,63 @@ function WeekContainer( props ) {
     actions.deletePrediction( prediction )( props.dispatch, props.session )
   }
 
-  const fixtures = props.weeks.map( ( week ) => {
-    // const fixturesWithTeams = mapTeamsToFixtures( week.fixtures, props.teams )
+  // const fixtures = props.weeks.map( ( week ) => {
+  //   // const fixturesWithTeams = mapTeamsToFixtures( week.fixtures, props.teams )
+  //
+  //   return (
+  //     <main className="layout-content" key={ week.id }>
+  //       <Fixtures
+  //         makePrediction={ makePrediction }
+  //         deletePrediction={ deletePrediction }
+  //         fixtures={ week.fixtures }
+  //         weekNumber={ week.number }
+  //         gameWeekNumber={props.gameWeekNumber}
+  //         gameWeekId={ props.gameWeekId }
+  //         teams={ props.teams }
+  //         predictions={ props.predictions }
+  //       >
+  //       </Fixtures>
+  //     </main>
+  //   )
+  // })
 
-    return (
-      <main className="layout-content" key={ week.id }>
-        <Fixtures
-          makePrediction={ makePrediction }
-          deletePrediction={ deletePrediction }
-          fixtures={ week.fixtures }
-          weekNumber={ week.number }
-          gameWeekNumber={props.gameWeekNumber}
-          gameWeekId={ props.gameWeekId }
-          teams={ props.teams }
-          predictions={ props.predictions }
-        >
-        </Fixtures>
-      </main>
-    )
-  })
+  // <div>
+  //   <ReactSwipe
+  //     key={ fixtures.length }
+  //     className="carousel"
+  //     swipeOptions={{
+  //       continuous: false,
+  //       startSlide: displayWeekIndex,
+  //       // callback: (e) => {
+  //         // console.log("moving")
+  //         // props.dispatch( actions.setDisplayWeek(e) )
+  //       // }
+  //     }}
+  //   >
+  //     { fixtures }
+  //   </ReactSwipe>
+  //   <FixturesSummary
+  //     isPreviousWeek={ isPreviousWeek }
+  //     totalPoints={ props.totalUserPoints }
+  //     points={ () => {
+  //       if ( !displayWeek ) { return "calculating points..." }
+  //         return 0
+  //     } }
+  //   />
+  // </div>
 
   return(
-    <div>
-      <ReactSwipe
-        key={ fixtures.length }
-        className="carousel"
-        swipeOptions={{
-          continuous: false,
-          startSlide: displayWeekIndex,
-          // callback: (e) => {
-            // console.log("moving")
-            // props.dispatch( actions.setDisplayWeek(e) )
-          // }
-        }}
-      >
-        { fixtures }
-      </ReactSwipe>
-      <FixturesSummary
-        isPreviousWeek={ isPreviousWeek }
-        totalPoints={ props.totalUserPoints }
-        points={ () => {
-          if ( !displayWeek ) { return "calculating points..." }
-            return 0
-        } }
-      />
-    </div>
+    <Fixtures
+      makePrediction={ makePrediction }
+      deletePrediction={ deletePrediction }
+      fixtures={ props.week.fixtures }
+      weekNumber={ props.week.number }
+      gameWeekNumber={props.gameWeekNumber}
+      gameWeekId={ props.gameWeekId }
+      teams={ props.teams }
+      predictions={ props.predictions }
+    >
+    </Fixtures>
   )
 }
 
@@ -124,7 +137,9 @@ function mapStateToProps( state, { params } ){
   const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
   const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
   const gameWeekNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
+  const week = state.weeks.items.find( (week) => { return week.number === Number( params.id ) } )
   return {
+    week,
     weeks: state.weeks.items,
     gameWeekIndex,
     gameWeekId,
