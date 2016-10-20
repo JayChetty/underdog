@@ -8,16 +8,12 @@ function totalPoints(user, weeks){
   const par = _.sum(parScores)
 
   const allFixtures = _.flatten( weeks.map((week)=>{ return week.fixtures }) )
-  console.log('allFixtures', allFixtures)
-  console.log('user', user)
   const upsetPoints = user.predictions.map((prediction)=>{
     const fixture = allFixtures.find( (fixture)=>{
       return fixture.id === prediction.fixture_id
     })
-    console.log('fixture', fixture)
     return fixture.upset_modifier
   })
-  console.log('upset points', upsetPoints)
   const totalPredictionPoints = _.sum(upsetPoints)
 
   return par + totalPredictionPoints
