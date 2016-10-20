@@ -31,18 +31,38 @@ defmodule Underdog.WeekView do
 
       is_upset = away_team_upset || home_team_upset
 
-      par_score = case { is_upset, is_draw, no_result } do
-        { _, _, true } -> 3
-        { false, false, _ } -> 3
-        { _, _, _} -> 0
+
+      par_score = case { is_upset, is_draw } do
+        { false, false} -> 3
+        { _, _} -> 0
       end
 
+      # upset_modifier = case { is_upset, is_draw } do
+      #   { true, _} -> abs( home_team_ug_points - away_team_ug_points)
+      #   { false, true } -> 0
+      #   { false, false } -> -3
+      # end
+
+      #if not result give predict positivly
       upset_modifier = case { is_upset, is_draw, no_result } do
         { _, _, true } -> abs( home_team_ug_points - away_team_ug_points)
         { true, _, _ } -> abs( home_team_ug_points - away_team_ug_points)
         { false, true, _ } -> 0
         { false, false, _ } -> -3
       end
+
+      # par_score = case { is_upset, is_draw, no_result } do
+      #   { _, _, true } -> 3
+      #   { false, false, _ } -> 3
+      #   { _, _, _} -> 0
+      # end
+      #
+      # upset_modifier = case { is_upset, is_draw, no_result } do
+      #   { _, _, true } -> abs( home_team_ug_points - away_team_ug_points)
+      #   { true, _, _ } -> abs( home_team_ug_points - away_team_ug_points)
+      #   { false, true, _ } -> 0
+      #   { false, false, _ } -> -3
+      # end
 
       %{id: fixture.id,
         start_time: fixture.start_time,

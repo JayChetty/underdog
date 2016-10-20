@@ -12,6 +12,9 @@ function totalPoints(user, weeks){
     const fixture = allFixtures.find( (fixture)=>{
       return fixture.id === prediction.fixture_id
     })
+    if(!fixture.home_team_score){
+      return 0 //don't add predicted scores here
+    }
     return fixture.upset_modifier
   })
   const totalPredictionPoints = _.sum(upsetPoints)

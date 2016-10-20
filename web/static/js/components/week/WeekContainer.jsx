@@ -28,6 +28,8 @@ function WeekContainer( props ) {
     browserHistory.push(`/weeks/${props.displayWeekIndex-1}`)
   }
 
+  const isGameWeek = props.week.number === props.matchdayNumber
+
   return(
     <Swipeable
       onSwipedRight={ swipeShowWeekPrev }
@@ -45,12 +47,12 @@ function WeekContainer( props ) {
       </Fixtures>
       <FixturesSummary
         isPreviousWeek={ props.week.number < props.matchdayNumber }
-        weeklyPoints={ calcPointsForWeek(props.week, props.predictions) }
+        weeklyPoints={ calcPointsForWeek(props.week, props.predictions,isGameWeek) }
       />
     </Swipeable>
   )
 }
-function calcPointsForWeek( week, predictions ){
+function calcPointsForWeek( week, predictions, isGameWeek ){
 
   const upsetPoints = predictions.map((prediction)=>{
     const fixture = week.fixtures.find( (fixture)=>{
@@ -64,6 +66,10 @@ function calcPointsForWeek( week, predictions ){
   console.log('upsetpoints', upsetPoints)
   const totalPredictionPoints = _.sum(upsetPoints)
   console.log('week.week_par', week.week_par)
+  let par = week.week_par
+  if( isGameWeek ){
+    return 30 + totalPredictionPoints
+  }
   return week.week_par + totalPredictionPoints
 }
 
