@@ -1,11 +1,11 @@
 import React from 'react'
 
-function FixturesSummary( { isPreviousWeek, weeklyPoints } ){
+function FixturesSummary( { isInPast, weeklyPoints } ){
 
   return (
     <footer className="layout-footer">
       <div className="go-right">
-        <div className="text-blue">{ isPreviousWeek ? "TOTAL POINTS" : "POTENTIAL POINTS" }</div>
+        <div className="text-blue">{ isInPast ? "TOTAL POINTS" : "POTENTIAL POINTS" }</div>
         <div className="text-bold text-large">{ weeklyPoints }</div>
       </div>
     </footer>
