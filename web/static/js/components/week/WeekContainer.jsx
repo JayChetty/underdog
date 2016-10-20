@@ -10,7 +10,6 @@ import { browserHistory } from 'react-router';
 import { calcGameWeekIndex } from '../../libs/undergod_game'
 
 function WeekContainer( props ) {
-  if( !props.week ) { return null }
 
   const makePrediction = ( prediction ) => {
     actions.makePrediction( prediction )( props.dispatch, props.session )
@@ -38,8 +37,9 @@ function WeekContainer( props ) {
         deletePrediction={ deletePrediction }
         fixtures={ props.week.fixtures }
         weekNumber={ props.week.number }
-        matchdayNumber={props.matchdayNumber}
-        gameWeekId={ props.gameWeekId }
+        isGameWeek={ props.isGameWeek }
+        //matchdayNumber={props.week.matchdayNumber}
+        //gameWeekId={ props.week.id }
         predictions={ props.predictions }
       >
       </Fixtures>
@@ -61,15 +61,23 @@ function mapPredictionsToFixtures( fixtures, predictions ){
 
 function mapStateToProps( state, { params } ){
   const displayWeekIndex = Number( params.id )
-  const gameWeekIndex = calcGameWeekIndex( state.weeks.items )
-  const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
-  const matchdayNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
-  const week = state.weeks.items.find( (week) => { return week.number === displayWeekIndex } )
+  const week = state.weeks.items[ displayWeekIndex ]
+  const gameWeekIndex = state.predictions.gameWeekIndex
+
+  const isGameWeek = displayWeekIndex === gameWeekIndex ? true: false
+  console.log( isGameWeek )
+  console.log( "displayWeekIndex", displayWeekIndex )
+  console.log( "gameWeekIndex", gameWeekIndex )
+
+  //
+  // const gameWeekId = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].id
+  // const matchdayNumber = state.weeks.items[ gameWeekIndex ] && state.weeks.items[ gameWeekIndex ].number
   return {
     week,
     gameWeekIndex,
-    gameWeekId,
-    matchdayNumber,
+    isGameWeek,
+    // gameWeekId,
+    // matchdayNumber,
     displayWeekIndex,
     session: state.session,
     predictions: state.predictions.items

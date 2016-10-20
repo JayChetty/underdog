@@ -4,12 +4,15 @@ const initialState = {
   isFetching: false,
   received: false,
   items: [],
-  displayWeekIndex: null
+  displayWeekIndex: null,
+  gameWeekIndex: null
 }
 
 export default ( state = initialState, action ) => {
 
   switch( action.type ) {
+    case "SET_GAMEWEEK_INDEX":
+      return Object.assign({}, state, { gameWeekIndex: action.index })
     case 'SET_DISPLAY_WEEK':
       return Object.assign( {}, state, { displayWeekIndex: action.week } )
     case 'RECEIVE_PREDICTIONS':

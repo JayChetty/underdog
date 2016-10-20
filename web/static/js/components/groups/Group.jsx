@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 import _ from "lodash"
 
-
 function totalPoints(user, weeks){
   const parScores = weeks.map((week)=>{ return week.week_par })
   const par = _.sum(parScores)

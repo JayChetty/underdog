@@ -15,7 +15,6 @@ const AppContainer = ( props ) => {
 
 const mapStateToProps = (state, {params, location})=>{
   return {
-    // siteId: params.siteId || null,
     view: location.pathname.split('/')[1]
   }
 }

@@ -20,25 +20,18 @@ import WeekContainer from './components/week/WeekContainer';
 import GroupsList from './components/groups/GroupsList';
 import Group from './components/groups/Group';
 
-
-
-
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
-window.onload = () => {
+const initRender = () => {
 
-  let token = localStorage.getItem('ud_session');
-  if (token !== null) {
-    store.dispatch(actions.loginUserSuccess( token ));
-    actions.fetchData( store.dispatch, token )
-  }
+  const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex + 1
 
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path='/login' component={SignIn}/>
         <Route path='/' component={AppContainer}>
-          <IndexRedirect to='/weeks/9'/>
+          <IndexRedirect to={`/weeks/${weekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
           <Route path='/groups/:groupId' component={Group} view="detail"/>
@@ -48,4 +41,14 @@ window.onload = () => {
     document.getElementById( 'app' )
   )
 
+};
+
+export default initRender;
+
+window.onload = () => {
+  let token = localStorage.getItem('ud_session');
+  if (token !== null) {
+    store.dispatch(actions.loginUserSuccess( token ));
+    actions.fetchData( store.dispatch, token )
+  }
 };

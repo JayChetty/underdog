@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
+import initRender from '../app'
+import { calcGameWeekIndex } from '../libs/undergod_game'
 
 const actions = {
 
@@ -33,9 +35,7 @@ const actions = {
         return response.json()
       }).then( ( response ) => {
         try {
-          // let decoded = jwtDecode( response.jwt );
           dispatch( actions.loginUserSuccess( response.jwt ) )
-          // console.log(' login success ', )
           actions.fetchData(dispatch, response.jwt)
           browserHistory.push('/weeks');
         } catch( e ) {
@@ -64,6 +64,13 @@ const actions = {
     return {
       type: "SET_DISPLAY_WEEK",
       week
+    }
+  },
+
+  setGameWeekIndex: ( index ) => {
+    return {
+      type: "SET_GAMEWEEK_INDEX",
+      index
     }
   },
 
@@ -249,10 +256,12 @@ const actions = {
             "Content-Type": "application/json"
           }
       }).then( ( res ) => {
-        // console.log('res', res.json())
         return res.json();
       }).then( ( weeks ) => {
         dispatch( actions.receiveWeeks( weeks.data ) )
+        const gameWeekIndex = calcGameWeekIndex( weeks.data )
+        dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
+        initRender();
       })
     }
 
@@ -281,22 +290,3 @@ const actions = {
 }
 
 export default actions;
-
-
-// predictionSelect(e) {
-//   if (this.props.fixture.prediction) {
-//     deleter( `api/predictions/${this.props.fixture.prediction.id}`, null, this.props.session )
-//     this.props.dispatch( actions.removePrediction( this.props.fixture.id ) );
-//     return;
-//   }
-//   const prediction = {
-//     fixture_id: this.props.fixture.id,
-//     type: 'upset'
-//   }
-//   this.props.dispatch( actions.addPrediction( prediction ) );
-//
-//   const predictionData = {
-//     prediction: prediction
-//   }
-//   post( 'api/predictions', null, this.props.session, JSON.stringify(predictionData) )
-// }
