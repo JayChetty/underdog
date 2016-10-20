@@ -19,7 +19,6 @@ function totalPoints(user, weeks){
   })
   const totalPredictionPoints = _.sum(upsetPoints)
 
-  console.log('total')
   return par + totalPredictionPoints
 
 }
