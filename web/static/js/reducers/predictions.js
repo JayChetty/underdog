@@ -4,7 +4,7 @@ const initialState = {
   isFetching: false,
   received: false,
   items: [],
-  displayWeek: null
+  displayWeekIndex: null
 }
 
 export default ( state = initialState, action ) => {
