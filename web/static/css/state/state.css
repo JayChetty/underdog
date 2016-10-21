@@ -3,6 +3,11 @@
   color: #FFFFFF;
 }
 
+.bg-bright_green {
+  background-color: #00FF00;
+  color: #FFFFFF;
+}
+
 .bg-blue {
   background-color: #5d9cec;
   color: #fff;
@@ -28,6 +33,7 @@
 .text-green {
   color: #AFDDD1;
 }
+
 
 .text-blue {
   color: #5d9cec;

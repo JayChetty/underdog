@@ -10,9 +10,10 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
 
+  const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
+  const predictUpset = !!prediction
+
   if( isGameWeek && !inPlay ){
-    const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
-    const predictUpset = !!prediction
     if(prediction){
       clickHandler = () => { deletePrediction( prediction  ) }
     }else{
@@ -20,19 +21,34 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
     }
     if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
       homeTeamClasses += " bg-blue"
-      homeTeamPointsClasses += " tag-simple pulse"
+      homeTeamPointsClasses += " tag-active pulse"
     }else{
       awayTeamClasses += " bg-blue"
-      awayTeamPointsClasses += " tag-simple pulse"
+      awayTeamPointsClasses += " tag-active pulse"
     }
   }else {
+    const homeTeamWon = fixture.home_team_score > fixture.away_team_score
+    const awayTeamWon = fixture.home_team_score < fixture.away_team_score
     if(isInPast || isGameWeek){
-      if( fixture.home_team_ug_points < fixture.away_team_ug_points ){
+      if( homeTeamPredictedWinner ){
         homeTeamClasses += " bg-light-blue"
         homeTeamPointsClasses += " tag-simple pulse"
-      }else{
+        if( homeTeamWon && !predictUpset  ){
+          homeTeamPointsClasses += " bg-green"
+        }
+        if( awayTeamWon && predictUpset){
+          awayTeamPointsClasses += " bg-bright_green"
+        }
+
+      }else{//away team predicted winner
         awayTeamClasses += " bg-light-blue"
         awayTeamPointsClasses += " tag-simple pulse"
+        if( awayTeamWon && !predictUpset ){
+          awayTeamPointsClasses += " bg-green"
+        }
+        if( homeTeamWon && predictUpset){
+          homeTeamPointsClasses += " bg-bright_green"
+        }
       }
     }
   }
