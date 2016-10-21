@@ -52,5 +52,7 @@ window.onload = () => {
   if (token !== null) {
     store.dispatch(actions.loginUserSuccess( token ));
     actions.fetchData( store.dispatch, token )
+  } else {
+    initRender();
   }
 };
