@@ -25,14 +25,15 @@ function totalPoints(user, weeks){
 function Group({group, weeks}){
   if(!group){ return null }
   const userViews = group.users.map((user)=>{
-    return <li key={user.id}>
-      {user.email} : {totalPoints(user, weeks)}
-    </li>
+    return <div key={user.id} className='list-item'>
+      <span className="text-medium text-bold">{user.email}</span> 
+      <span className="tag tag-simple pulse">{totalPoints(user, weeks)}</span>
+    </div>
   })
   return(
-   <ul>
+   <div className = 'list-view'>
      { userViews }
-   </ul>
+   </div>
   )
 }
 

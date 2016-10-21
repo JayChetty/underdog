@@ -6,12 +6,14 @@ import {Link} from 'react-router';
 function GroupsList({groups}){
   console.log('groups', groups)
   const groupViews = groups.map((group)=>{
-    return(  <Link
-                key={group.id}
-                to={ `/groups/${group.id}` }
-              >
-              { group.name }
-            </Link> )
+
+    return(
+      <div key={group.id} className="list-view">
+        <Link to={ `/groups/${group.id}` } activeClassName='nav-link' className='nav-link'>
+          <span className="text-large"> { group.name } </span>
+        </Link>
+      </div>
+    )
   })
   return(
    <main className="layout-content">
