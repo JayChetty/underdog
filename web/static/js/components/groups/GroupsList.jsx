@@ -8,7 +8,7 @@ function GroupsList({groups}){
   const groupViews = groups.map((group)=>{
 
     return(
-      <div key={group.id} className="list-view">
+      <div key={group.id} className="list-item">
         <Link to={ `/groups/${group.id}` } activeClassName='nav-link' className='nav-link'>
           <span className="text-large"> { group.name } </span>
         </Link>
