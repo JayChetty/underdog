@@ -7,9 +7,15 @@
   color: #e6e6e6;
 }
 .tag-simple {
+  background-color: #bbbbbb;
+  color: #FFFFFF;
+}
+
+.tag-active {
   background-color: #4a89dc;
   color: #FFFFFF;
 }
+
 .tag-inverse {
   background-color: transparent;
   color: #4A5D58;

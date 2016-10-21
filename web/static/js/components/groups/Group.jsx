@@ -29,7 +29,7 @@ function Group({group, weeks}){
       <div className="layout-flex">
         <div className="layout-flex-grow-11 text-small">{user.email}</div>
         <div className="layout-flex-grow-1 layout-flex layout-flex-center-vertical layout-justify-flex-end">
-          <div className="tag tag-simple pulse">{totalPoints(user, weeks)}</div>
+          <div className="tag tag-active pulse">{totalPoints(user, weeks)}</div>
         </div>
       </div>
     </div>

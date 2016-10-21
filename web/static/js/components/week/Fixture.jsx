@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction, inPlay} ){
+function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction, matchesInPlay} ){
 
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
@@ -10,32 +10,47 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
 
-  if( isGameWeek && !inPlay ){
-    const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
-    const predictUpset = !!prediction
-    if(prediction){
-      clickHandler = () => { deletePrediction( prediction  ) }
-    }else{
-      clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
-    }
-    if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
-      homeTeamClasses += " bg-blue"
-      homeTeamPointsClasses += " tag-simple pulse"
-    }else{
-      awayTeamClasses += " bg-blue"
-      awayTeamPointsClasses += " tag-simple pulse"
-    }
-  }else {
-    if(isInPast || isGameWeek){
-      if( fixture.home_team_ug_points < fixture.away_team_ug_points ){
-        homeTeamClasses += " bg-light-blue"
-        homeTeamPointsClasses += " tag-simple pulse"
+  const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
+  const predictUpset = !!prediction
+  const mayHavePredictions = isGameWeek || isInPast
+  const activeGameWeek = isGameWeek && !matchesInPlay
+
+
+  if( mayHavePredictions  ){
+    if(activeGameWeek){
+      if(prediction){
+        clickHandler = () => { deletePrediction( prediction  ) }
       }else{
-        awayTeamClasses += " bg-light-blue"
-        awayTeamPointsClasses += " tag-simple pulse"
+        clickHandler = () => { makePrediction( { fixture_id: fixture.id, type: 'upset' } ) }
       }
+
+      if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
+        homeTeamClasses += " bg-blue"
+        homeTeamPointsClasses += " tag-active pulse"
+      }else{
+        awayTeamClasses += " bg-blue"
+        awayTeamPointsClasses += " tag-active pulse"
+      }
+    }else{
+        const homeTeamWon = fixture.home_team_score > fixture.away_team_score
+        const awayTeamWon = fixture.home_team_score < fixture.away_team_score
+        if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
+          homeTeamClasses += " bg-light-blue"
+          homeTeamPointsClasses += " tag-simple pulse"
+          if( homeTeamWon ){
+            homeTeamPointsClasses += " bg-green"
+          }
+
+        }else{
+          awayTeamClasses += " bg-light-blue"
+          awayTeamPointsClasses += " tag-simple pulse"
+          if( awayTeamWon ){
+            awayTeamPointsClasses += " bg-green"
+          }
+        }
     }
   }
+
 
   return(
     <div className="split-list-view">

@@ -39,7 +39,7 @@ function WeekContainer( props ) {
         isGameWeek={ props.isGameWeek }
         isInPast={ props.isInPast }
         predictions={ props.predictions }
-        inPlay={props.inPlay}
+        matchesInPlay={props.inPlay}
       >
       </Fixtures>
       <FixturesSummary
@@ -64,14 +64,14 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
   console.log('upsetpoints', upsetPoints)
   const totalPredictionPoints = _.sum(upsetPoints)
   console.log('week.week_par', week.week_par)
-  let par = week.week_par
+  console.log('totalPredictionPoints', totalPredictionPoints)
   if( isGameWeek ){
     return 30 + totalPredictionPoints
   }
   return week.week_par + totalPredictionPoints
 }
 
-function calcIsInPlay(gameWeek){
+function calcMatchesInPlay(gameWeek){
   let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
   let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
   let now = moment()
@@ -97,7 +97,7 @@ function mapStateToProps( state, { params } ){
     noOfWeeks,
     session: state.session,
     predictions: state.predictions.items,
-    inPlay: calcIsInPlay(state.weeks.items[gameWeekIndex])
+    matchesInPlay: calcMatchesInPlay(state.weeks.items[gameWeekIndex])
   }
 }
 

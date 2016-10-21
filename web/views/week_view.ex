@@ -41,8 +41,8 @@ defmodule Underdog.WeekView do
 
         #if not result give predict positivly
         upset_modifier = case { is_upset, is_draw, no_result } do
-          { _, _, true } -> abs( home_team_ug_points - away_team_ug_points)
-          { true, _, _ } -> abs( home_team_ug_points - away_team_ug_points)
+          { _, _, true } -> max( home_team_ug_points, away_team_ug_points) - 3
+          { true, _, _ } -> max( home_team_ug_points, away_team_ug_points)
           { false, true, _ } -> 0
           { false, false, _ } -> -3
         end

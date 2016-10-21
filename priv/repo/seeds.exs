@@ -165,7 +165,7 @@ fixtures_list = fixtures_data["fixtures"]
 
 fixtures_map = Underdog.FixtureJsonParser.minimise_fixtures( fixtures_list )
 
-Enum.each(weeks, fn( week ) ->
+inserted_fixtures_list= Enum.map(weeks, fn( week ) ->
   Logger.warn( "Week number #{ week.number }")
   SeedHelper.create_fixtures(week, fixtures_map[week.number], teams)
 end)
@@ -200,10 +200,10 @@ rick_creators_changeset = Underdog.Membership.changeset( rick_membership, rick_c
 # Logger.debug "week_1_fixtures #{inspect hd(week_1_fixtures).id}"
 # prediction = %Underdog.Prediction{
 #   type: "upset",
-#   user_id: inserted_user.id,
+#   user_id: jay.id,
 #   fixture_id: hd(week_2_fixtures).id
 # }
-#
-#
-#
+
+
+
 # {:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
