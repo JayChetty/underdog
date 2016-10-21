@@ -59,12 +59,12 @@ defmodule Underdog.WeekView do
           away_team: %{id: fixture.away_team.id,
                 name: fixture.away_team.name,
                 image: fixture.away_team.image,
-                points: away_team_points
+                # points: away_team_points
               },
           home_team: %{id: fixture.home_team.id,
               name: fixture.home_team.name,
               image: fixture.home_team.image,
-              points: home_team_points
+              # points: home_team_points
           },
           is_upset: is_upset,
           par_score: par_score,
