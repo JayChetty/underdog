@@ -40,6 +40,7 @@ function WeekContainer( props ) {
         isGameWeek={ props.isGameWeek }
         isInPast={ props.isInPast }
         predictions={ props.predictions }
+        inPlay={props.inPlay}
       >
       </Fixtures>
       <FixturesSummary
@@ -85,7 +86,8 @@ function mapStateToProps( state, { params } ){
     isInPast,
     displayWeekIndex,
     session: state.session,
-    predictions: state.predictions.items
+    predictions: state.predictions.items,
+    inPlay: true
   }
 }
 

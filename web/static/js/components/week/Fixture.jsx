@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction} ){
+function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction, inPlay} ){
 
   let homeTeamClasses = "split-list-view-left"
   let awayTeamClasses = "split-list-view-right"
@@ -10,7 +10,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
 
-  if( isGameWeek ){
+  if( isGameWeek && !inPlay ){
     const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
     const predictUpset = !!prediction
     if(prediction){
@@ -26,7 +26,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
       awayTeamPointsClasses += " tag-simple pulse"
     }
   }else {
-    if(isInPast){
+    if(isInPast || isGameWeek){
       if( fixture.home_team_ug_points < fixture.away_team_ug_points ){
         homeTeamClasses += " bg-gray"
         homeTeamPointsClasses += " tag-simple pulse"
