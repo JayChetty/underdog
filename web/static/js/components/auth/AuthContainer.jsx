@@ -31,7 +31,7 @@ class AuthContainer extends Component {
 
 }
 
-export default AuthContainer
+// export default AuthContainer
 
 const mapStateToProps = ( state ) => {
   return { session: state.session }
