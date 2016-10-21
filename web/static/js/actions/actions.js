@@ -6,7 +6,7 @@ import { calcGameWeekIndex } from '../libs/undergod_game'
 
 const actions = {
 
-  loginUser: ( email, password, redirect="/weeks" ) => {
+  loginUser: ( email, password, redirect ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
@@ -37,7 +37,7 @@ const actions = {
         try {
           dispatch( actions.loginUserSuccess( response.jwt ) )
           actions.fetchData(dispatch, response.jwt)
-          browserHistory.push('/weeks');
+          browserHistory.push(`/weeks/${redirect }`);
         } catch( e ) {
           console.log( 'e', e )
         }
