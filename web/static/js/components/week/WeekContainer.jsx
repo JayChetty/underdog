@@ -6,6 +6,7 @@ import Fixtures from './Fixtures';
 import actions from '../../actions/actions';
 import FixturesSummary from './FixturesSummary';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
 
 function WeekContainer( props ) {
 
@@ -71,6 +72,14 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
   return week.week_par + totalPredictionPoints
 }
 
+function calcIsInPlay(gameWeek){
+  let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
+  let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
+  let now = moment()
+
+  return now.isAfter( endOfPredictions )
+}
+
 function mapStateToProps( state, { params } ){
   const displayWeekIndex = Number( params.id )
   const week = state.weeks.items[ displayWeekIndex ]
@@ -87,7 +96,7 @@ function mapStateToProps( state, { params } ){
     displayWeekIndex,
     session: state.session,
     predictions: state.predictions.items,
-    inPlay: true
+    inPlay: calcIsInPlay(state.weeks.items[gameWeekIndex])
   }
 }
 
