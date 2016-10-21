@@ -72,9 +72,12 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
   return week.week_par + totalPredictionPoints
 }
 
-function calcIsInPlay(week){
-  const startTimeOfWeek = week.fixtures.
-  return false
+function calcIsInPlay(gameWeek){
+  let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
+  let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
+  let now = moment()
+
+  return now.isAfter( endOfPredictions )
 }
 
 function mapStateToProps( state, { params } ){
@@ -93,7 +96,7 @@ function mapStateToProps( state, { params } ){
     displayWeekIndex,
     session: state.session,
     predictions: state.predictions.items,
-    inPlay: true
+    inPlay: calcIsInPlay(state.weeks.items[gameWeekIndex])
   }
 }
 
