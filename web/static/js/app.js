@@ -23,6 +23,7 @@ import Group from './components/groups/Group';
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 const initRender = () => {
+  console.log( "init rendered" )
 
   const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
 
@@ -46,6 +47,7 @@ const initRender = () => {
 export default initRender;
 
 window.onload = () => {
+  console.log( "Window loaded!" )
   let token = localStorage.getItem('ud_session');
   if (token !== null) {
     store.dispatch(actions.loginUserSuccess( token ));
