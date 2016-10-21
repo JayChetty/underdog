@@ -1,14 +1,20 @@
 import React from 'react'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 
-function Nav(props){
+function Nav( { view, gameWeekIndex } ){
+  
+  const navbarRight = {
+    weeks: <Link to={"/groups"}><i className="fa fa-users" aria-hidden="true"></i></Link>,
+    groups: <Link to={`/weeks/${ gameWeekIndex }`}><i className="fa fa-th-list" aria-hidden="true"></i></Link>
+  }
+
   return(
     <nav className="layout-navbar">
       <div className="navbar-header">
         UNDER<span className="text-bold">GOD</span>
       </div>
       <div className="layout-flex navbar-right">
-        <Link to={"/groups"}><i className="fa fa-users" aria-hidden="true"></i></Link>
+        { navbarRight[view] }
       </div>
     </nav>
   )

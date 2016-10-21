@@ -4,18 +4,19 @@ import Nav from './nav/Nav'
 
 import actions from '../actions/actions'
 
-const AppContainer = ( props ) => {
+const AppContainer = ( { view, gameWeekIndex, children } ) => {
   return(
     <div className="app-content">
-      <Nav/>
-      { props.children }
+      <Nav view={ view } gameWeekIndex={ gameWeekIndex } />
+      { children }
     </div>
   )
 }
 
 const mapStateToProps = (state, {params, location})=>{
   return {
-    view: location.pathname.split('/')[1]
+    view: location.pathname.split('/')[1],
+    gameWeekIndex: state.predictions.gameWeekIndex
   }
 }
 
