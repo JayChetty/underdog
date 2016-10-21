@@ -18,20 +18,18 @@ function WeekContainer( props ) {
     actions.deletePrediction( prediction )( props.dispatch, props.session )
   }
 
-  const swipeShowWeekNext = ( event ) => {
-    browserHistory.push(`/weeks/${props.displayWeekIndex+1}`)
+  const changeWeek = ( notEqualTo, howMany ) => {
+    const index = props.displayWeekIndex
+    if ( index === notEqualTo ) {
+      return "No more fixtures"
+    }
+    browserHistory.push(`/weeks/${index+howMany}`)
   }
-
-  const swipeShowWeekPrev = ( event ) => {
-    browserHistory.push(`/weeks/${props.displayWeekIndex-1}`)
-  }
-
-  const isGameWeek = props.week.number === props.matchdayNumber
 
   return(
     <Swipeable
-      onSwipedRight={ swipeShowWeekPrev }
-      onSwipedLeft={ swipeShowWeekNext }
+      onSwipedRight={ () => { changeWeek( 0, -1 ) } }
+      onSwipedLeft={ () => { changeWeek( props.noOfWeeks-1, 1 ) } }
     >
       <Fixtures
         makePrediction={ makePrediction }
@@ -51,6 +49,7 @@ function WeekContainer( props ) {
     </Swipeable>
   )
 }
+
 function calcPointsForWeek( week, predictions, isGameWeek ){
 
   const upsetPoints = predictions.map((prediction)=>{
@@ -83,6 +82,7 @@ function calcIsInPlay(gameWeek){
 function mapStateToProps( state, { params } ){
   const displayWeekIndex = Number( params.id )
   const week = state.weeks.items[ displayWeekIndex ]
+  const noOfWeeks = state.weeks.items.length
   const gameWeekIndex = state.predictions.gameWeekIndex
 
   const isGameWeek = displayWeekIndex === gameWeekIndex
@@ -94,6 +94,7 @@ function mapStateToProps( state, { params } ){
     isGameWeek,
     isInPast,
     displayWeekIndex,
+    noOfWeeks,
     session: state.session,
     predictions: state.predictions.items,
     inPlay: calcIsInPlay(state.weeks.items[gameWeekIndex])
