@@ -26,8 +26,12 @@ function Group({group, weeks}){
   if(!group){ return null }
   const userViews = group.users.map((user)=>{
     return <div key={user.id} className='list-item'>
-      <span className="text-medium text-bold">{user.email}</span> 
-      <span className="tag tag-simple pulse">{totalPoints(user, weeks)}</span>
+      <div className="layout-flex">
+        <div className="layout-flex-grow-11 text-small">{user.email}</div>
+        <div className="layout-flex-grow-1 layout-flex layout-flex-center-vertical layout-justify-flex-end">
+          <div className="tag tag-simple pulse">{totalPoints(user, weeks)}</div>
+        </div>
+      </div>
     </div>
   })
   return(

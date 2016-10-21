@@ -28,10 +28,10 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
   }else {
     if(isInPast || isGameWeek){
       if( fixture.home_team_ug_points < fixture.away_team_ug_points ){
-        homeTeamClasses += " bg-gray"
+        homeTeamClasses += " bg-light-blue"
         homeTeamPointsClasses += " tag-simple pulse"
       }else{
-        awayTeamClasses += " bg-gray"
+        awayTeamClasses += " bg-light-blue"
         awayTeamPointsClasses += " tag-simple pulse"
       }
     }

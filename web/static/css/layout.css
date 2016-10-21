@@ -1,5 +1,8 @@
 .layout-navbar {
+  height: 55px;
   line-height: 55px;
+  padding: 0 15px;
+  border-bottom: 1px solid #f6f6f6;
 }
 
 .layout-content {
@@ -40,8 +43,29 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+}
+
+.layout-flex-center-vertical {
   align-items: center;
   -webkit-align-items: center;
+}
+
+.layout-justify-flex-end {
+  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+}
+
+.layout-flex-center {
   justify-content: center;
   -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.layout-flex-grow-1 {
+  flex-grow: 1;
+}
+
+.layout-flex-grow-11 {
+  flex-grow: 11;
 }

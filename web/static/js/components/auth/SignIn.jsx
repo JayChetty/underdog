@@ -21,7 +21,7 @@ export class SignIn extends React.Component {
 
   render() {
     return (
-      <div className="layout-flex layout-full-height layout-color-blue">
+      <div className="layout-flex layout-flex-center layout-full-height layout-color-blue">
         <div className="layout-constrained">
           <nav className="layout-navbar">
             <div className="navbar-header text-large text-white">UNDER<span className="text-bold">GOD</span></div>

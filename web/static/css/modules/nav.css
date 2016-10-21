@@ -4,5 +4,17 @@
   font-weight: 300;
   letter-spacing: 2.7px;
   font-size: 18px;
-  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-right {
+  float: right;
+}
+
+.navbar-right a {
+  font-size: 20px;
+  color: #4a89dc;
 }

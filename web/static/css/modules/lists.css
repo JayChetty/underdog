@@ -1,22 +1,22 @@
-/*.list-view{
-  height: 20px;
-  padding: 10px;
-}*/
-
 .list-item{
-  padding: 20px;
-  display:flex;
-  justify-content: space-between;
+  border-bottom: 1px solid #f6f6f6;
+  padding: 15px;
 }
 
+.list-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.list-item i {
+  color: #c1c1c1;
+}
 
 .split-list-view {
   vertical-align: middle;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #f6f6f6;
 }
-.split-list-view:first-child {
-  border-top: 1px solid #e5e5e5;
-}
+
 .split-list-view img {
   height: 20px;
   vertical-align: middle;

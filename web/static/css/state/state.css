@@ -13,6 +13,10 @@
   color: #a1a1a1;
 }
 
+.bg-light-blue {
+  background-color: #e6f0fc;
+}
+
 .text-skinny {
   font-weight: 100;
 }
@@ -33,12 +37,27 @@
   color: #FFFFFF;
 }
 
+.text-small {
+  font-size: 13px;
+}
+
 .text-medium {
   font-size: 16px;
 }
 
 .text-large {
   font-size: 24px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+.text-second {
+  font-family: 'Lato', sans-serif;
 }
 
 .go-left {
