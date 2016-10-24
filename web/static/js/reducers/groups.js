@@ -1,3 +1,5 @@
+import R from 'ramda'
+
 const initialState = {
   isFetching: false,
   received: false,
@@ -21,7 +23,7 @@ console.log( "in redeuce" )
         }
       })
       console.log( "newGroupe", newGroups )
-      return Object.assign( {}, state, { items: newGroups } )
+      return Object.assign( {}, state, { items: R.reverse(newGroups) } )
     default:
       return state;
   }
