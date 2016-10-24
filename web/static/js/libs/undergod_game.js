@@ -72,7 +72,7 @@ export function calcGameWeekIndex( weekFixtures ) {
     }
 
   })
-  return gameWeek
+  return gameWeek + 1
 }
 
 function calcCumulativePoints(points, weekNumber){
