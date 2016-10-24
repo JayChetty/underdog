@@ -21,5 +21,6 @@ defmodule Underdog.Prediction do
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:user_id_predicition_id)
   end
 end

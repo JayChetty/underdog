@@ -22,7 +22,7 @@ function totalPoints(user, weeks){
 
 }
 
-function Group({group, weeks}){
+function GroupTable({group, weeks}){
   if(!group){ return null }
   const userViews = group.users.map((user)=>{
     return <div key={user.id} className='list-item'>
@@ -52,4 +52,4 @@ const mapStateToProps = (state, { params, route } )=>{
 }
 
 
-export default connect( mapStateToProps )( Group )
+export default connect( mapStateToProps )( GroupTable )

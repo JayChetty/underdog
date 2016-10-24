@@ -18,7 +18,10 @@ import requireAuth from './components/auth/RequireAuth';
 import SignIn from './components/auth/SignIn';
 import WeekContainer from './components/week/WeekContainer';
 import GroupsList from './components/groups/GroupsList';
-import Group from './components/groups/Group';
+import GroupTable from './components/groups/GroupTable';
+import GroupChat from './components/groups/GroupChat';
+import {Socket} from "phoenix"
+
 
 const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
@@ -26,6 +29,11 @@ const initRender = () => {
   console.log( "init rendered" )
 
   const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
+
+  let socket = new Socket("/socket", {params: {token: window.userToken}})
+  socket.connect()
+  // Now that you are connected, you can join channels with a topic:
+  let channel = socket.channel("group:6", {})
 
   ReactDOM.render(
     <Provider store={store}>
@@ -35,7 +43,7 @@ const initRender = () => {
           <IndexRedirect to={`/weeks/${weekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
-          <Route path='/groups/:groupId' component={Group} view="detail"/>
+          <Route path='/groups/:groupId' component={GroupChat} channel={channel}/>
         </Route>
       </Router>
     </Provider>,

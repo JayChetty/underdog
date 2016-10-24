@@ -54,22 +54,22 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // from connect if you don't care about authentication.
 
 //pass token here so can authenticate
-socket.connect()
-
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("group:6", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
-
-console.log('channel', channel)
-channel.push("new_msg", {body: "Hello"})
-
-channel.on("new_msg", payload => {
-  // let messageItem = document.createElement("li");
-  // messageItem.innerText = `[${Date()}] ${payload.body}`
-  // messagesContainer.appendChild(messageItem)
-  console.log("CLIENT got message", payload)
-})
+// socket.connect()
+//
+// // Now that you are connected, you can join channels with a topic:
+// let channel = socket.channel("group:6", {})
+// channel.join()
+//   .receive("ok", resp => { console.log("Joined successfully", resp) })
+//   .receive("error", resp => { console.log("Unable to join", resp) })
+//
+// console.log('channel', channel)
+// channel.push("new_msg", {body: "Hello"})
+//
+// channel.on("new_msg", payload => {
+//   // let messageItem = document.createElement("li");
+//   // messageItem.innerText = `[${Date()}] ${payload.body}`
+//   // messagesContainer.appendChild(messageItem)
+//   console.log("CLIENT got message", payload)
+// })
 
 export default socket

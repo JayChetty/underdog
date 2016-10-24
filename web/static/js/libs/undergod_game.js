@@ -57,14 +57,17 @@ export function calcPointsPredictedForFixture( fixture, weekNumber){
 export function calcGameWeekIndex( weekFixtures ) {
   if ( weekFixtures.length === 0 ) { return null; }
 
+  const dateToday = Date.now();
+
   const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
     if ( index === array.length-1 ) { return true }
 
     const dateFrom = Date.parse( weekFixture.start_date )
     const dateTo = Date.parse( array[index+1].start_date )
-    const dateToday = Date.now();
 
     if ( dateToday > dateFrom && dateToday < dateTo ) {
+      console.log("date from", weekFixture.start_date)
+      console.log("date to", array[index+1].start_date )
       return true;
     }
 
