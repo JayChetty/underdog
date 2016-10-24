@@ -23,7 +23,7 @@ console.log( "in redeuce" )
         }
       })
       console.log( "newGroupe", newGroups )
-      return Object.assign( {}, state, { items: R.reverse(newGroups) } )
+      return Object.assign( {}, state, { items: newGroups } )
     default:
       return state;
   }
