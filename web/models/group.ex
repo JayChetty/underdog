@@ -4,6 +4,8 @@ defmodule Underdog.Group do
   schema "groups" do
     field :name, :string
     has_many :memberships, Underdog.Membership
+    has_many :messages, Underdog.Message
+
     has_many :users, through: [:memberships, :user]
 
     timestamps()

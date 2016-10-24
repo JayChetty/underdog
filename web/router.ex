@@ -49,6 +49,8 @@ defmodule Underdog.Router do
     resources "/predictions", PredictionController, except: [:new, :edit]
 
     resources "/groups", GroupController, except: [:new, :edit]
+
+    resources "/messages", MessageController, except: [:new, :edit]
     resources "/memberships", MembershipController, except: [:new, :edit]
 
     get "/current_user", CurrentUserController, :show

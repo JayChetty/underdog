@@ -11,10 +11,15 @@ defmodule Underdog.GroupChannel do
     {:ok, socket}
   end
 
-  def handle_in("new_msg", %{"body" => body}, socket) do
+  def handle_in("new_msg", %{"body" => body, "group_id" => group_id}, socket) do
+    Logger.debug "Previous message! #{ inspect group_id }"
     Logger.debug "Got message! #{ inspect body }"
-    broadcast! socket, "new_msg", %{body: body}
-    {:noreply, socket}
+
+    changeset = Underdog.Message.changeset(%Underdog.Message{}, %{ group_id: group_id, body: body, user_id: 1 })
+    Underdog.Repo.insert(changeset)
+
+    broadcast! socket, "new_msg", %{ group_id: group_id, body: body, user_id: 1 }
+    {:noreply, socket }
   end
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}

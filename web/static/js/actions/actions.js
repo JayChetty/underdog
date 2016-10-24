@@ -8,6 +8,13 @@ import {Socket} from "phoenix"
 
 const actions = {
 
+  addGroupMessage: ( message ) => {
+    return {
+      type: "ADD_GROUP_MESSAGE",
+      message
+    }
+  },
+
   loginUser: ( email, password, redirect ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )

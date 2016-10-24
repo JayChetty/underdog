@@ -1,24 +1,25 @@
 import React from 'react'
 import {Socket} from "phoenix"
 import { connect } from 'react-redux';
+import actions from "../../actions/actions";
 
 export class GroupChat extends React.Component {
 
   constructor(props) {
-    console.log('props', props)
     super(props);
     this.state = {
-      msg:'',
-      msgs:[]
+      msg:''
     };
   }
 
   componentDidMount(e){
     let channel = this.props.group.channel
     channel.on("new_msg", payload => {
-      const newMsgs = this.state.msgs.concat( [ payload ] )
-      console.log( newMsgs)
-      this.setState({ msgs: newMsgs })
+      // const newMsgs = this.state.msgs.concat( [ payload ] )
+      console.log('payload', payload)
+      this.props.dispatch( actions.addGroupMessage( payload ) )
+
+      // this.setState({ msgs:  payload.body })
     })
   }
 
@@ -27,13 +28,12 @@ export class GroupChat extends React.Component {
   }
 
   sendMsg( e ) {
-    console.log( this.state )
-    this.props.group.channel.push("new_msg", {body: this.state.msg})
+    this.props.group.channel.push("new_msg", {body: this.state.msg, group_id: this.props.group.id })
   }
 
   render() {
-    console.log('rendering state', this.state)
-    const messages = this.state.msgs.map( (msg, index) => {
+    console.log('rendering props', this.props)
+    const messages = this.props.group.messages.map( (msg, index) => {
       return(
         <div key={ index }>{msg.body}</div>
       )
