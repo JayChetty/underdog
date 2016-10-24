@@ -140,10 +140,11 @@ const actions = {
   },
 
   getGroups: () => {
-    let socket = new Socket("/socket", {params: {token: window.userToken}})
-    socket.connect()
 
     return ( dispatch, session ) => {
+      let socket = new Socket("/socket")
+      socket.connect({guardian_token: session.token})
+
       dispatch( actions.requestGroups() )
       fetch( "/api/groups", {
         method: 'GET',

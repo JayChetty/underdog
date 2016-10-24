@@ -1,5 +1,7 @@
 defmodule Underdog.UserSocket do
   use Phoenix.Socket
+  use Guardian.Phoenix.Socket
+
 
   ## Channels
   channel "group:*", Underdog.GroupChannel
@@ -20,7 +22,8 @@ defmodule Underdog.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(_params, socket) do
-    {:ok, socket}
+    # if we get here, we did not authenticate
+    :error
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
