@@ -30,10 +30,13 @@ const initRender = () => {
 
   const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
 
-  let socket = new Socket("/socket", {params: {token: window.userToken}})
-  socket.connect()
-  // Now that you are connected, you can join channels with a topic:
-  let channel = socket.channel("group:6", {})
+  // let socket = new Socket("/socket", {params: {token: window.userToken}})
+  // socket.connect()
+  //
+  // let channel = socket.channel("group:6", {})
+  // channel.join()
+  //   .receive("ok", resp => { console.log("Joined successfully", resp) })
+  //   .receive("error", resp => { console.log("Unable to join", resp) })
 
   ReactDOM.render(
     <Provider store={store}>
@@ -43,7 +46,7 @@ const initRender = () => {
           <IndexRedirect to={`/weeks/${weekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
-          <Route path='/groups/:groupId' component={GroupChat} channel={channel}/>
+          <Route path='/groups/:groupId' component={ requireAuth( GroupChat ) }/>
         </Route>
       </Router>
     </Provider>,

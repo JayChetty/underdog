@@ -1,5 +1,6 @@
 import React from 'react'
 import {Socket} from "phoenix"
+import { connect } from 'react-redux';
 
 export class GroupChat extends React.Component {
 
@@ -13,19 +14,11 @@ export class GroupChat extends React.Component {
   }
 
   componentDidMount(e){
-    let channel = this.props.route.channel
-    channel.join()
-      .receive("ok", resp => { console.log("Joined successfully", resp) })
-      .receive("error", resp => { console.log("Unable to join", resp) })
-
+    let channel = this.props.group.channel
     channel.on("new_msg", payload => {
       const newMsgs = this.state.msgs.concat( [ payload ] )
       console.log( newMsgs)
-
       this.setState({ msgs: newMsgs })
-      // let messageItem = document.createElement("li");
-      // messageItem.innerText = `[${Date()}] ${payload.body}`
-      // messagesContainer.appendChild(messageItem)
     })
   }
 
@@ -35,14 +28,14 @@ export class GroupChat extends React.Component {
 
   sendMsg( e ) {
     console.log( this.state )
-    this.props.route.channel.push("new_msg", {body: this.state.msg})
+    this.props.group.channel.push("new_msg", {body: this.state.msg})
   }
 
   render() {
-    // console.log('props', this.props)
-    const messages = this.state.msgs.map( (msg) => {
+    console.log('rendering state', this.state)
+    const messages = this.state.msgs.map( (msg, index) => {
       return(
-        <div>{msg.body}</div>
+        <div key={ index }>{msg.body}</div>
       )
 
     })
@@ -59,6 +52,14 @@ export class GroupChat extends React.Component {
 
 
 
+const mapStateToProps = (state, { params, route } )=>{
+  const group = state.groups.items.find((group)=>{
+    return group.id === Number(params.groupId)
+  })
+  return {
+    group: group
+  }
+}
 
 
-export default GroupChat
+export default connect( mapStateToProps )( GroupChat )

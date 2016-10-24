@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 import initRender from '../app'
 import { calcGameWeekIndex } from '../libs/undergod_game'
 
+import {Socket} from "phoenix"
+
 const actions = {
 
   loginUser: ( email, password, redirect ) => {
@@ -131,6 +133,9 @@ const actions = {
   },
 
   getGroups: () => {
+    let socket = new Socket("/socket", {params: {token: window.userToken}})
+    socket.connect()
+
     return ( dispatch, session ) => {
       dispatch( actions.requestGroups() )
       fetch( "/api/groups", {
@@ -141,7 +146,14 @@ const actions = {
       }).then( ( res ) => {
         return res.json();
       }).then( ( groups ) => {
-        dispatch( actions.receiveGroups( groups.data ) )
+        const groupsWithChannels = groups.data.map((group)=>{
+          let channel = socket.channel(`group:${group.id}`, {})
+          channel.join()
+            .receive("ok", resp => { console.log("Joined successfully", resp) })
+            .receive("error", resp => { console.log("Unable to join", resp) })
+          return Object.assign({}, group, {channel} )
+        })
+        dispatch( actions.receiveGroups( groupsWithChannels ) )
       })
 
     }
