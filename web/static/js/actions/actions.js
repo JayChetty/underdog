@@ -142,8 +142,8 @@ const actions = {
   getGroups: () => {
 
     return ( dispatch, session ) => {
-      let socket = new Socket("/socket")
-      socket.connect({guardian_token: session.token})
+      let socket = new Socket("/socket", {params: {guardian_token: session.token}})
+      socket.connect()
 
       dispatch( actions.requestGroups() )
       fetch( "/api/groups", {
