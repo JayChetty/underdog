@@ -36,6 +36,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "mix phoenix.server",
-    "update_results": "mix run priv/repo/result_updater.exs"
+    "update_results": "mix run priv/updaters/result_updater.exs",
+    "update_dates": "mix run priv/updaters/date_updater.exs"
+
   }
 }
