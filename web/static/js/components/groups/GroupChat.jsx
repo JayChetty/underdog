@@ -36,8 +36,10 @@ export class GroupChat extends React.Component {
   render() {
     console.log('rendering props', this.props)
     const messages = this.props.group.messages.map( (msg, index) => {
+      const user = this.props.group.users.find( user => user.id = msg.user_id )
+      console.log("user", user)
       return(
-        <div key={ index }>{msg.body}</div>
+        <div key={ index }>{user.email} : {msg.body}</div>
       )
 
     })
