@@ -7,7 +7,8 @@ export class GroupChat extends React.Component {
     console.log('props', props)
     super(props);
     this.state = {
-      msg:''
+      msg:'',
+      msgs:[]
     };
   }
 
@@ -17,14 +18,14 @@ export class GroupChat extends React.Component {
       .receive("ok", resp => { console.log("Joined successfully", resp) })
       .receive("error", resp => { console.log("Unable to join", resp) })
 
-    console.log('channel', channel)
-    channel.push("new_msg", {body: "MESSAGE COMING FROM COMPONMOUNT"})
-
     channel.on("new_msg", payload => {
+      const newMsgs = this.state.msgs.concat( [ payload ] )
+      console.log( newMsgs)
+
+      this.setState({ msgs: newMsgs })
       // let messageItem = document.createElement("li");
       // messageItem.innerText = `[${Date()}] ${payload.body}`
       // messagesContainer.appendChild(messageItem)
-      console.log("CLIENT got message", payload)
     })
   }
 
@@ -39,10 +40,17 @@ export class GroupChat extends React.Component {
 
   render() {
     // console.log('props', this.props)
+    const messages = this.state.msgs.map( (msg) => {
+      return(
+        <div>{msg.body}</div>
+      )
+
+    })
     return(
      <div>
         <input type="text" onChange={ this.updateMsg.bind(this) }></input>
         <button onClick={ this.sendMsg.bind(this) }>Send</button>
+        {messages}
      </div>
     )
   }
