@@ -59,10 +59,10 @@ export default initRender;
 
 window.onload = () => {
   console.log( "Window loaded!" )
-  let token = localStorage.getItem('ud_session');
-  if (token !== null) {
-    store.dispatch(actions.loginUserSuccess( token ));
-    actions.fetchData( store.dispatch, token )
+  let session = JSON.parse( localStorage.getItem('ud_session') );
+  if (session !== null) {
+    store.dispatch(actions.loginUserSuccess( session ));
+    actions.fetchData( store.dispatch, session.jwt )
   } else {
     initRender();
   }

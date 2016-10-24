@@ -12,7 +12,8 @@ export default ( state = null, action ) => {
       return Object.assign({}, state, {
         isAuthenticating: false,
         isAuthenticated: true,
-        token: action.token,
+        token: action.session.jwt,
+        user: action.session.user,
         statusText: "Successfully logged in."
       })
     default:

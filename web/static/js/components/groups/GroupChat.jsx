@@ -37,9 +37,17 @@ export class GroupChat extends React.Component {
     console.log('rendering props', this.props)
     const messages = this.props.group.messages.map( (msg, index) => {
       const user = this.props.group.users.find( user => user.id === msg.user_id )
-      console.log("user", user)
+
+      let classes = ["layout-flex"]
+      if(user.id === this.props.current_user.id){
+        classes.push( "layout-justify-flex-end" )
+      }
       return(
-        <div key={ index }>{user.email} : {msg.body}</div>
+        <div className={ classes.join(" ") } key={ index }>
+          <div className="">
+            {user.email} : {msg.body}
+          </div>
+        </div>
       )
 
     })
@@ -65,7 +73,8 @@ const mapStateToProps = (state, { params, route } )=>{
     return group.id === Number(params.groupId)
   })
   return {
-    group: group
+    group: group,
+    current_user: state.session.user
   }
 }
 

@@ -44,7 +44,7 @@ const actions = {
         return response.json()
       }).then( ( response ) => {
         try {
-          dispatch( actions.loginUserSuccess( response.jwt ) )
+          dispatch( actions.loginUserSuccess( response ) )
           actions.fetchData(dispatch, response.jwt)
           browserHistory.push(`/weeks/${redirect }`);
         } catch( e ) {
@@ -55,11 +55,12 @@ const actions = {
     }
   },
 
-  loginUserSuccess: ( token ) => {
-    localStorage.setItem('ud_session', token);
+  loginUserSuccess: ( session ) => {
+    console.log('login user', session)
+    localStorage.setItem('ud_session', JSON.stringify( session ) );
     return {
       type: "LOGIN_USER_SUCCESS",
-      token
+      session
     }
   },
 
