@@ -42,11 +42,13 @@ export class GroupChat extends React.Component {
     })
     return(
      <div>
+        {messages}
+        <footer className="layout-footer">
         <form onSubmit={ this.sendMsg.bind(this) }>
           <input type="text" onChange={ this.updateMsg.bind(this) }></input>
-          <input type="submit" />
+          <input type="submit" value="send" />
         </form>
-        {messages}
+        </footer>
      </div>
     )
   }

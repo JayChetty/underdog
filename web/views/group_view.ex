@@ -14,7 +14,7 @@ defmodule Underdog.GroupView do
     %{id: group.id,
       name: group.name,
       users: render_many(group.users, Underdog.GroupView, "user_with_predictions.json", as: :user),
-      messages: render_many(group.messages, Underdog.MessageView, "message.json", as: :message)
+      messages: render_many(Enum.reverse( group.messages ), Underdog.MessageView, "message.json", as: :message)
     }
   end
 
