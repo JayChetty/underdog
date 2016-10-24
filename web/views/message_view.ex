@@ -13,6 +13,7 @@ defmodule Underdog.MessageView do
     %{id: message.id,
       group_id: message.group_id,
       user_id: message.user_id,
-      body: message.body}
+      body: message.body,
+      updated_at: message.updated_at}
   end
 end
