@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import {Socket} from "phoenix"
 import { connect } from 'react-redux';
 import actions from "../../actions/actions";
@@ -22,6 +23,12 @@ export class GroupChat extends React.Component {
 
       // this.setState({ msgs:  payload.body })
     })
+
+    this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
+  }
+
+  componentDidUpdate() {
+    this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
   }
 
   updateMsg(e) {
@@ -62,7 +69,9 @@ export class GroupChat extends React.Component {
     })
     return(
      <div className='layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between'>
-        <div className="scroll-y layout-flex layout-flex-direction-column">
+        <div
+          ref={(div) => this.messagesDiv = div}
+          className="scroll-y layout-flex layout-flex-direction-column">
           {messages}
         </div>
         <footer className="layout-footer">
