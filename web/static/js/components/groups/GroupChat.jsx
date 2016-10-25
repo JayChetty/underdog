@@ -38,6 +38,7 @@ export class GroupChat extends React.Component {
   sendMsg( e ) {
     e.preventDefault();
     this.props.group.channel.push("new_msg", {body: this.state.msg, group_id: this.props.group.id })
+    this.setState( { msg: '' } )
   }
 
   render() {
@@ -76,7 +77,7 @@ export class GroupChat extends React.Component {
         </div>
         <footer className="layout-footer">
           <form onSubmit={ this.sendMsg.bind(this) }>
-            <input type="text" onChange={ this.updateMsg.bind(this) }></input>
+            <input type="text" value={this.state.msg} onChange={ this.updateMsg.bind(this) }></input>
             <input type="submit" value="send" />
           </form>
         </footer>
