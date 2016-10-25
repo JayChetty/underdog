@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Socket} from "phoenix"
 import { connect } from 'react-redux';
 import actions from "../../actions/actions";
+import moment from "moment";
 
 
 export class GroupChat extends React.Component {
@@ -59,12 +60,11 @@ export class GroupChat extends React.Component {
       }
 
       return(
-
         <div className={ elementClasses.join(" ") }>
           <div className="text-bold text-blue">{userName}</div>
           {msg.body}
+          <div className="text-right">{ moment( msg.updated_at ).format( "HH:MM" ) }</div>
         </div>
-
       )
 
     })
