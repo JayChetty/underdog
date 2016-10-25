@@ -14,11 +14,7 @@
 }
 
 .layout-footer {
-  /*position: fixed;
-  width: 100%;*/
   box-sizing: border-box;
-  /*text-align: right;*/
-  /*align-self: flex-end;*/
   border-top: 1px solid #e5e5e5;
   background-color: #FFFFFF;
   max-height: 62px;
