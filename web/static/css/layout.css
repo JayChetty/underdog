@@ -95,3 +95,7 @@ main.layout-flex > div {
 .layout-flex-self-end{
   align-self: flex-end;
 }
+
+.layout-flex-self-start{
+  align-self: flex-start;
+}

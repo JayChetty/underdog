@@ -11,6 +11,7 @@
 .bg-blue {
   background-color: #5d9cec;
   color: #fff;
+  word-break: break-all;
 }
 
 .bg-gray {

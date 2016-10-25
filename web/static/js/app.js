@@ -58,7 +58,6 @@ const initRender = () => {
 export default initRender;
 
 window.onload = () => {
-  console.log( "Window loaded!" )
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
