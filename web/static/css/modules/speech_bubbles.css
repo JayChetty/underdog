@@ -1,0 +1,10 @@
+.speech_bubble{
+  background-color: #e5e5e5;
+  padding: 5px 10px;
+  margin: 5px 10px;
+  border-radius: 4px;
+  /*max-width: 60%;
+  overflow-wrap: break-word;*/
+  flex-grow:3;
+  flex-basis: 100px;
+}

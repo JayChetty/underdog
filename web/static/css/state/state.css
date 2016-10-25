@@ -73,3 +73,7 @@
 .go-right {
   float: right;
 }
+
+.scroll-y {
+  overflow-y: scroll;
+}

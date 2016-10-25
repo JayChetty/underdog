@@ -38,27 +38,36 @@ export class GroupChat extends React.Component {
     const messages = this.props.group.messages.map( (msg, index) => {
       const user = this.props.group.users.find( user => user.id === msg.user_id )
 
-      let classes = ["layout-flex"]
+      let containerClasses = []
+      let elementClasses = ["speech_bubble"]
+      let userName = null;
       if(user.id === this.props.current_user.id){
-        classes.push( "layout-justify-flex-end" )
+        // containerClasses.push( "" )
+        elementClasses.push( "bg-blue layout-flex-self-end" )
+      }else{
+        userName = user.email
       }
+
       return(
-        <div className={ classes.join(" ") } key={ index }>
-          <div className="">
-            {user.email} : {msg.body}
-          </div>
+
+        <div className={ elementClasses.join(" ") }>
+          <div className="text-bold text-blue">{userName}</div>
+          {msg.body}
         </div>
+
       )
 
     })
     return(
-     <div>
-        {messages}
+     <div className='layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between'>
+        <div className="scroll-y layout-flex layout-flex-direction-column">
+          {messages}
+        </div>
         <footer className="layout-footer">
-        <form onSubmit={ this.sendMsg.bind(this) }>
-          <input type="text" onChange={ this.updateMsg.bind(this) }></input>
-          <input type="submit" value="send" />
-        </form>
+          <form onSubmit={ this.sendMsg.bind(this) }>
+            <input type="text" onChange={ this.updateMsg.bind(this) }></input>
+            <input type="submit" value="send" />
+          </form>
         </footer>
      </div>
     )

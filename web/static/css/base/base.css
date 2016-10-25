@@ -8,8 +8,16 @@ body {
   font-size: 12px;
 }
 
+body, html {
+  height: 100%;
+}
+
 footer {
   padding: 10px;
   bottom: 0;
   background-color: #FFFFFF;
+}
+
+#app {
+  height: 100%;
 }

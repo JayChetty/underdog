@@ -1,3 +1,7 @@
+.app-content {
+  height: 100%;
+}
+
 .layout-navbar {
   height: 55px;
   line-height: 55px;
@@ -10,17 +14,18 @@
 }
 
 .layout-footer {
-  position: fixed;
-  width: 100%;
+  /*position: fixed;
+  width: 100%;*/
   box-sizing: border-box;
-  text-align: right;
+  /*text-align: right;*/
+  /*align-self: flex-end;*/
   border-top: 1px solid #e5e5e5;
   background-color: #FFFFFF;
   max-height: 62px;
 }
 
 .layout-full-height {
-  height: 100vh;
+  height: 100%;
 }
 
 .layout-constrained {
@@ -45,14 +50,31 @@
   display: flex;
 }
 
+main.layout-flex > div {
+  flex-grow: 12;
+}
+
+.layout-flex-direction-column {
+  flex-direction: column;
+}
+
 .layout-flex-center-vertical {
   align-items: center;
   -webkit-align-items: center;
 }
 
+.layout-justify-flex-space-between {
+  justify-content: space-between;
+}
+
 .layout-justify-flex-end {
   justify-content: flex-end;
   -webkit-justify-content: flex-end;
+}
+
+.layout-align-items-flex-end {
+  align-items: flex-end;
+  -webkit-align-items: flex-end;
 }
 
 .layout-flex-center {
@@ -63,9 +85,13 @@
 }
 
 .layout-flex-grow-1 {
-  flex-grow: 1;
+  flex: 1;
 }
 
 .layout-flex-grow-11 {
-  flex-grow: 11;
+  flex: 11;
+}
+
+.layout-flex-self-end{
+  align-self: flex-end;
 }

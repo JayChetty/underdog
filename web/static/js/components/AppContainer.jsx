@@ -6,9 +6,11 @@ import actions from '../actions/actions'
 
 const AppContainer = ( { view, gameWeekIndex, children } ) => {
   return(
-    <div className="app-content">
+    <div className="app-content layout-flex layout-flex-direction-column">
       <Nav view={ view } gameWeekIndex={ gameWeekIndex } />
-      { children }
+      <main className="layout-flex-grow-11 layout-flex">
+        { children }
+      </main>
     </div>
   )
 }
