@@ -40,7 +40,7 @@ function WeekContainer( props ) {
         isGameWeek={ props.isGameWeek }
         isInPast={ props.isInPast }
         predictions={ props.predictions }
-        matchesInPlay={props.inPlay}
+        matchesInPlay={props.matchesInPlay}
       >
       </Fixtures>
       <FixturesSummary
@@ -74,13 +74,14 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
 function calcEndOfPredictions(gameWeek){
   let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
   let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
-  console.log('eop', endOfPredictions)
   return endOfPredictions
 }
 
 function calcMatchesInPlay(endOfPredictions){
   let now = moment()
-  return now.isAfter( endOfPredictions )
+  // let now = moment('2016-10-29 10:40:00')//simulate matches in play
+  const matchesInPlay = now.isAfter( endOfPredictions )
+  return matchesInPlay
 }
 
 function mapStateToProps( state, { params } ){
