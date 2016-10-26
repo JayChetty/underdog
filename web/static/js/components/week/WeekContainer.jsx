@@ -48,7 +48,8 @@ function WeekContainer( props ) {
         weeklyPoints={ calcPointsForWeek(props.week, props.predictions,props.isGameWeek) }
         endOfPredictions={props.endOfPredictions}
         isGameWeek={ props.isGameWeek }
-      />
+      >
+      </FixturesSummary>
     </Swipeable>
   )
 }
@@ -79,7 +80,6 @@ function calcEndOfPredictions(gameWeek){
 
 function calcMatchesInPlay(endOfPredictions){
   let now = moment()
-  // let now = moment('2016-10-29 10:40:00')//simulate matches in play
   const matchesInPlay = now.isAfter( endOfPredictions )
   return matchesInPlay
 }
