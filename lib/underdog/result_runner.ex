@@ -19,6 +19,6 @@ defmodule Underdog.ResultRunner do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 1 * 1000) # In 2 hours
+    Process.send_after(self(), :work, 1 * 1000) # In 1 second
   end
 end
