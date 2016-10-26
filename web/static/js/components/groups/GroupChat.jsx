@@ -16,15 +16,6 @@ export class GroupChat extends React.Component {
   }
 
   componentDidMount(e){
-    let channel = this.props.group.channel
-    channel.on("new_msg", payload => {
-      // const newMsgs = this.state.msgs.concat( [ payload ] )
-      console.log('payload', payload)
-      this.props.dispatch( actions.addGroupMessage( payload ) )
-
-      // this.setState({ msgs:  payload.body })
-    })
-
     this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
   }
 

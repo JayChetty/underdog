@@ -159,6 +159,10 @@ const actions = {
           channel.join()
             .receive("ok", resp => { console.log("Joined successfully", resp) })
             .receive("error", resp => { console.log("Unable to join", resp) })
+          channel.on("new_msg", payload => {
+            console.log('payload', payload)
+            dispatch( actions.addGroupMessage( payload ) )
+          })
           return Object.assign({}, group, {channel} )
         })
         dispatch( actions.receiveGroups( groupsWithChannels ) )
