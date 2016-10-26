@@ -3,8 +3,8 @@ import _ from 'lodash'
 
 function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction, matchesInPlay} ){
 
-  let homeTeamClasses = "split-list-view-left layout-flex"
-  let awayTeamClasses = "split-list-view-right layout-flex"
+  let homeTeamClasses = "split-list-view-left"
+  let awayTeamClasses = "split-list-view-right"
   let homeTeamPointsClasses = "tag go-left"
   let awayTeamPointsClasses = "tag go-right"
 
@@ -56,14 +56,14 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
     <div className="split-list-view">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
         <span className={ homeTeamPointsClasses } > { fixture.home_team_ug_points } </span>
-        <span>{ fixture.home_team.name }</span>
+        <span className="text-x-small">{ fixture.home_team.name }</span>
         <img src={ fixture.home_team.image } />
         <span> { fixture.home_team_score } </span>
       </div>
       <div className={ awayTeamClasses } onClick={ clickHandler }>
         <span> { fixture.away_team_score } </span>
         <img src={ fixture.away_team.image } />
-        <span>{ fixture.away_team.name }</span>
+        <span className="text-x-small">{ fixture.away_team.name }</span>
         <span className={ awayTeamPointsClasses }> {  fixture.away_team_ug_points  } </span>
       </div>
     </div>

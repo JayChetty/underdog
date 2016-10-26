@@ -1,13 +1,8 @@
 .navbar-header {
   color: #999999;
   font-family: 'Lato', sans-serif;
-  font-weight: 300;
   letter-spacing: 2.7px;
   font-size: 18px;
-  display: inline-block;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .navbar-right {

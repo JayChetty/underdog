@@ -55,6 +55,10 @@
   text-transform: uppercase;
 }
 
+.text-x-small {
+  font-size: 10px;
+}
+
 .text-small {
   font-size: 12px;
 }

@@ -4,7 +4,6 @@
 
 .layout-navbar {
   height: 55px;
-  line-height: 55px;
   padding: 0 15px;
   border-bottom: 1px solid #f6f6f6;
 }
@@ -86,6 +85,14 @@ main.layout-flex > div {
 
 .layout-flex-grow-2 {
   flex: 2;
+}
+
+.layout-flex-grow-6 {
+  flex: 6;
+}
+
+.layout-flex-grow-9 {
+  flex: 9;
 }
 
 .layout-flex-grow-10 {
