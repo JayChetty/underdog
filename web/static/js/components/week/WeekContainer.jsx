@@ -46,6 +46,8 @@ function WeekContainer( props ) {
       <FixturesSummary
         isInPast={ props.isInPast }
         weeklyPoints={ calcPointsForWeek(props.week, props.predictions,props.isGameWeek) }
+        endOfPredictions={props.endOfPredictions}
+        isGameWeek={ props.isGameWeek }
       />
     </Swipeable>
   )
@@ -69,11 +71,15 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
   return week.week_par + totalPredictionPoints
 }
 
-function calcMatchesInPlay(gameWeek){
+function calcEndOfPredictions(gameWeek){
   let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
   let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
-  let now = moment()
+  console.log('eop', endOfPredictions)
+  return endOfPredictions
+}
 
+function calcMatchesInPlay(endOfPredictions){
+  let now = moment()
   return now.isAfter( endOfPredictions )
 }
 
@@ -86,6 +92,8 @@ function mapStateToProps( state, { params } ){
   const isGameWeek = displayWeekIndex === gameWeekIndex
   const isInPast = displayWeekIndex < gameWeekIndex
 
+  const endOfPredictions = calcEndOfPredictions(state.weeks.items[gameWeekIndex])
+
   return {
     week,
     gameWeekIndex,
@@ -93,9 +101,10 @@ function mapStateToProps( state, { params } ){
     isInPast,
     displayWeekIndex,
     noOfWeeks,
+    endOfPredictions,
     session: state.session,
     predictions: state.predictions.items,
-    matchesInPlay: calcMatchesInPlay(state.weeks.items[gameWeekIndex])
+    matchesInPlay: calcMatchesInPlay(endOfPredictions)
   }
 }
 
