@@ -16,7 +16,7 @@ export class GroupChat extends React.Component {
   }
 
   componentDidMount(e){
-    this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
+    setTimeout(()=>{this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight}, 100);
   }
 
   componentDidUpdate() {
