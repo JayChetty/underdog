@@ -84,6 +84,14 @@ main.layout-flex > div {
   flex: 1;
 }
 
+.layout-flex-grow-2 {
+  flex: 2;
+}
+
+.layout-flex-grow-10 {
+  flex: 10;
+}
+
 .layout-flex-grow-11 {
   flex: 11;
 }

@@ -3,7 +3,7 @@
   color: #FFFFFF;
 }
 
-.bg-bright_green {
+.bg-bright-green {
   background-color: #00FF00;
   color: #FFFFFF;
 }
@@ -35,7 +35,6 @@
   color: #AFDDD1;
 }
 
-
 .text-blue {
   color: #5d9cec;
 }
@@ -44,8 +43,16 @@
   color: #FFFFFF;
 }
 
+.text-gray {
+  color: #c1c1c1;
+}
+
+.text-up {
+  text-transform: uppercase;
+}
+
 .text-small {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .text-medium {

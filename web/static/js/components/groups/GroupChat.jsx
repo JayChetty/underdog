@@ -48,7 +48,7 @@ export class GroupChat extends React.Component {
       const user = this.props.group.users.find( user => user.id === msg.user_id )
 
       let containerClasses = []
-      let elementClasses = ["speech_bubble"]
+      let elementClasses = ["speech-bubble"]
       let userName = null;
       if(user.id === this.props.current_user.id){
         // containerClasses.push( "" )
@@ -61,7 +61,7 @@ export class GroupChat extends React.Component {
 
       return(
         <div className={ elementClasses.join(" ") }>
-          <div className="text-bold text-blue">{userName}</div>
+          <div className="text-skinny text-blue">{userName}</div>
           {msg.body}
           <div className="text-right">{ moment( msg.updated_at ).format( "HH:MM" ) }</div>
         </div>
@@ -75,10 +75,12 @@ export class GroupChat extends React.Component {
           className="scroll-y layout-flex layout-flex-direction-column">
           {messages}
         </div>
-        <footer className="layout-footer">
-          <form onSubmit={ this.sendMsg.bind(this) }>
-            <input type="text" value={this.state.msg} onChange={ this.updateMsg.bind(this) }></input>
-            <input type="submit" value="send" />
+        <footer className="layout-footer bg-gray">
+          <form className="layout-flex" onSubmit={ this.sendMsg.bind(this) }>
+            <input className="layout-flex-grow-10 form-text-input" type="text" value={this.state.msg} onChange={ this.updateMsg.bind(this) }></input>
+            <button className="layout-flex-grow-2 button bg-blue" type="submit">
+              <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
+            </button>
           </form>
         </footer>
      </div>
