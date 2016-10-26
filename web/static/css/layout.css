@@ -96,10 +96,10 @@ main.layout-flex > div {
   flex: 11;
 }
 
-.layout-flex-self-end{
+.layout-flex-self-end {
   align-self: flex-end;
 }
 
-.layout-flex-self-start{
+.layout-flex-self-start {
   align-self: flex-start;
 }

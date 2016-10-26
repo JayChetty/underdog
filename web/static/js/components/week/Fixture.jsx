@@ -3,8 +3,8 @@ import _ from 'lodash'
 
 function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPast, prediction, matchesInPlay} ){
 
-  let homeTeamClasses = "split-list-view-left"
-  let awayTeamClasses = "split-list-view-right"
+  let homeTeamClasses = "split-list-view-left layout-flex"
+  let awayTeamClasses = "split-list-view-right layout-flex"
   let homeTeamPointsClasses = "tag go-left"
   let awayTeamPointsClasses = "tag go-right"
 

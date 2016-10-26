@@ -27,6 +27,10 @@
   font-weight: 100;
 }
 
+.text-bolder {
+  font-weight: 400;
+}
+
 .text-bold {
   font-weight: 600;
 }
