@@ -62,10 +62,7 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
     }
     return fixture.upset_modifier
   })
-  console.log('upsetpoints', upsetPoints)
   const totalPredictionPoints = _.sum(upsetPoints)
-  console.log('week.week_par', week.week_par)
-  console.log('totalPredictionPoints', totalPredictionPoints)
   if( isGameWeek ){
     return 30 + totalPredictionPoints
   }
