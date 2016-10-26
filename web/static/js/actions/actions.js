@@ -1,8 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
-import { browserHistory } from 'react-router';
-import initRender from '../app'
 import { calcGameWeekIndex } from '../libs/undergod_game'
+import { initRender } from "../app"
 
 import {Socket} from "phoenix"
 
@@ -15,7 +14,7 @@ const actions = {
     }
   },
 
-  loginUser: ( email, password, redirect ) => {
+  loginUser: ( email, password ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
@@ -46,7 +45,6 @@ const actions = {
         try {
           dispatch( actions.loginUserSuccess( response ) )
           actions.fetchData(dispatch, response.jwt)
-          browserHistory.push(`/weeks/${redirect }`);
         } catch( e ) {
           console.log( 'e', e )
         }
@@ -202,7 +200,7 @@ const actions = {
   },
 
   fetchData:( dispatch, token )=>{
-    actions.getWeeks()( dispatch )
+    actions.getWeeks()( dispatch, token )
     // actions.getFixtures()(dispatch)
     // actions.getTeams()(dispatch)
     // console.log('fetching data', token)
@@ -270,8 +268,10 @@ const actions = {
 
   getWeeks: () => {
 
-    return ( dispatch ) => {
+    return ( dispatch, token ) => {
       dispatch( actions.requestWeeks() )
+      let socket = new Socket("/socket", {params: {guardian_token: token}})
+      socket.connect()
 
       fetch( "/api/weeks", {
           method: 'GET',
@@ -284,7 +284,16 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
-        initRender();
+
+        let channel = socket.channel("results", {})
+        channel.join()
+          .receive("ok", resp => { console.log("Joined results successfully", resp) })
+          .receive("error", resp => { console.log("Unable to join", resp) })
+        channel.on("new_results", payload => {
+          console.log('payload', payload)
+
+        })
+        initRender( gameWeekIndex );
       })
     }
 

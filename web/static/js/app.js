@@ -23,12 +23,12 @@ import GroupChat from './components/groups/GroupChat';
 import {Socket} from "phoenix"
 
 
-const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
+export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
-const initRender = () => {
+const initRender = ( gameWeekIndex ) => {
+  console.log( gameWeekIndex, "gameWeekIndex" )
   console.log( "init rendered" )
 
-  const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
 
   // let socket = new Socket("/socket", {params: {token: window.userToken}})
   // socket.connect()
@@ -43,7 +43,7 @@ const initRender = () => {
       <Router history={browserHistory}>
         <Route path='/login' component={SignIn}/>
         <Route path='/' component={AppContainer}>
-          <IndexRedirect to={`/weeks/${weekIndex}`}/>
+          <IndexRedirect to={`/weeks/${gameWeekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
           <Route path='/groups/:groupId' component={ requireAuth( GroupChat ) }/>
@@ -55,14 +55,15 @@ const initRender = () => {
 
 };
 
-export default initRender;
+export { initRender };
 
 window.onload = () => {
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
-    actions.fetchData( store.dispatch, session.jwt )
+    actions.fetchData( store.dispatch, session.jwt );
   } else {
-    initRender();
+    const gameWeekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
+    initRender(gameWeekIndex);
   }
 };
