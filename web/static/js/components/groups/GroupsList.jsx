@@ -6,7 +6,7 @@ function GroupsList({groups}){
 
   const groupViews = groups.map((group)=>{
 
-    const lastMessage = group.messages[ group.messages.length - 1 ]
+    const lastMessage = group.messages[ group.messages.length - 1 ] || ""
 
     const users = group.users.map( ( user ) => {
       return user.email

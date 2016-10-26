@@ -284,7 +284,7 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
-        initRender();
+        initRender( gameWeekIndex );
       })
     }
 
