@@ -17,7 +17,6 @@ export default ( state = initialState, action ) => {
         }
         return fixture
       })
-
       const newWeek = Object.assign( {}, state.items[ action.gameWeekIndex ], { fixtures: newFixtures } )
       const newWeeks = Object.assign( {}, state, { items: state.items.slice( 0, action.gameWeekIndex ).concat( newWeek ).concat( state.items.slice( action.gameWeekIndex+1, action.gameWeekIndex.length ) ) } )
       return newWeeks
