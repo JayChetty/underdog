@@ -96,10 +96,15 @@ Underdog.Repo.delete_all(Underdog.Season)
 Underdog.Repo.delete_all(Underdog.League)
 
 
+Underdog.Repo.delete_all(Underdog.Message)
+
 Underdog.Repo.delete_all(Underdog.User)
 
 Underdog.Repo.delete_all(Underdog.Group)
+
 Underdog.Repo.delete_all(Underdog.Membership)
+
+
 
 league = %Underdog.League{name: "Premier League"}
 {:ok, inserted_league} = Underdog.Repo.insert(league)
