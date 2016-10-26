@@ -66,8 +66,6 @@ export function calcGameWeekIndex( weekFixtures ) {
     const dateTo = Date.parse( array[index+1].start_date )
 
     if ( dateToday > dateFrom && dateToday < dateTo ) {
-      console.log("date from", weekFixture.start_date)
-      console.log("date to", array[index+1].start_date )
       return true;
     }
 

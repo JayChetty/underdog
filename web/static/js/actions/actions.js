@@ -56,7 +56,6 @@ const actions = {
   },
 
   loginUserSuccess: ( session ) => {
-    console.log('login user', session)
     localStorage.setItem('ud_session', JSON.stringify( session ) );
     return {
       type: "LOGIN_USER_SUCCESS",
@@ -160,6 +159,10 @@ const actions = {
           channel.join()
             .receive("ok", resp => { console.log("Joined successfully", resp) })
             .receive("error", resp => { console.log("Unable to join", resp) })
+          channel.on("new_msg", payload => {
+            console.log('payload', payload)
+            dispatch( actions.addGroupMessage( payload ) )
+          })
           return Object.assign({}, group, {channel} )
         })
         dispatch( actions.receiveGroups( groupsWithChannels ) )
@@ -185,7 +188,6 @@ const actions = {
     return ( dispatch, session ) => {
 
       dispatch( actions.requestPredictions() )
-      console.log('getting predictions', session)
       fetch( "/api/predictions", {
           method: 'GET',
           headers: {

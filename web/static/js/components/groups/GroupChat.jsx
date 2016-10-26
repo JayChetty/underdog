@@ -16,16 +16,7 @@ export class GroupChat extends React.Component {
   }
 
   componentDidMount(e){
-    let channel = this.props.group.channel
-    channel.on("new_msg", payload => {
-      // const newMsgs = this.state.msgs.concat( [ payload ] )
-      console.log('payload', payload)
-      this.props.dispatch( actions.addGroupMessage( payload ) )
-
-      // this.setState({ msgs:  payload.body })
-    })
-
-    this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight;
+    setTimeout(()=>{this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight}, 100);
   }
 
   componentDidUpdate() {
@@ -43,7 +34,6 @@ export class GroupChat extends React.Component {
   }
 
   render() {
-    console.log('rendering props', this.props)
     const messages = this.props.group.messages.map( (msg, index) => {
       const user = this.props.group.users.find( user => user.id === msg.user_id )
 
@@ -60,7 +50,7 @@ export class GroupChat extends React.Component {
       }
 
       return(
-        <div className={ elementClasses.join(" ") }>
+        <div key={index} className={ elementClasses.join(" ") }>
           <div className="text-skinny text-blue">{userName}</div>
           {msg.body}
           <div className="text-right">{ moment( msg.updated_at ).format( "HH:MM" ) }</div>
