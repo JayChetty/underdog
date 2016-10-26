@@ -43,7 +43,7 @@ const initRender = () => {
       <Router history={browserHistory}>
         <Route path='/login' component={SignIn}/>
         <Route path='/' component={AppContainer}>
-          <IndexRedirect to={`/weeks/${weekIndex}`}/>
+          <IndexRedirect to={`/weeks/${ weekIndex }`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) }/>
           <Route path='/groups/:groupId' component={ requireAuth( GroupChat ) }/>

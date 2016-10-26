@@ -10,6 +10,8 @@ import moment from 'moment';
 
 function WeekContainer( props ) {
 
+  console.log( "Week container rendering" )
+
   const makePrediction = ( prediction ) => {
     actions.makePrediction( prediction )( props.dispatch, props.session )
   }

@@ -15,7 +15,7 @@ const actions = {
     }
   },
 
-  loginUser: ( email, password, redirect ) => {
+  loginUser: ( email, password ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
@@ -46,7 +46,7 @@ const actions = {
         try {
           dispatch( actions.loginUserSuccess( response ) )
           actions.fetchData(dispatch, response.jwt)
-          browserHistory.push(`/weeks/${redirect }`);
+          // browserHistory.push(`/weeks/${ redirect }`);
         } catch( e ) {
           console.log( 'e', e )
         }
@@ -284,6 +284,7 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
+        browserHistory.push(`/weeks/${ gameWeekIndex }`);
         initRender();
       })
     }
