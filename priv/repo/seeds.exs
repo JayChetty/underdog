@@ -97,12 +97,13 @@ Underdog.Repo.delete_all(Underdog.League)
 
 
 Underdog.Repo.delete_all(Underdog.Message)
+Underdog.Repo.delete_all(Underdog.Membership)
 
 Underdog.Repo.delete_all(Underdog.User)
 
 Underdog.Repo.delete_all(Underdog.Group)
 
-Underdog.Repo.delete_all(Underdog.Membership)
+
 
 
 
