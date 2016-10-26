@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
-import { browserHistory } from 'react-router';
 import { calcGameWeekIndex } from '../libs/undergod_game'
 import { initRender } from "../app"
 
@@ -201,7 +200,7 @@ const actions = {
   },
 
   fetchData:( dispatch, token )=>{
-    actions.getWeeks()( dispatch )
+    actions.getWeeks()( dispatch, token )
     // actions.getFixtures()(dispatch)
     // actions.getTeams()(dispatch)
     // console.log('fetching data', token)
@@ -269,8 +268,10 @@ const actions = {
 
   getWeeks: () => {
 
-    return ( dispatch ) => {
+    return ( dispatch, token ) => {
       dispatch( actions.requestWeeks() )
+      let socket = new Socket("/socket", {params: {guardian_token: token}})
+      socket.connect()
 
       fetch( "/api/weeks", {
           method: 'GET',
@@ -283,7 +284,15 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
-        browserHistory.push(`/weeks/${ gameWeekIndex }`);
+
+        let channel = socket.channel("results", {})
+        channel.join()
+          .receive("ok", resp => { console.log("Joined results successfully", resp) })
+          .receive("error", resp => { console.log("Unable to join", resp) })
+        channel.on("new_results", payload => {
+          console.log('payload', payload)
+
+        })
         initRender( gameWeekIndex );
       })
     }

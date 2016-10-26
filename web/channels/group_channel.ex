@@ -3,9 +3,9 @@ defmodule Underdog.GroupChannel do
   use Phoenix.Channel
   import Guardian.Phoenix.Socket
 
-  def join("group:lobby", _message, socket) do
-    {:ok, socket}
-  end
+  # def join("group:lobby", _message, socket) do
+  #   {:ok, socket}
+  # end
 
   def join("group:" <> group_id, _params, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)

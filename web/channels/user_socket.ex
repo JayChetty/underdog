@@ -5,6 +5,7 @@ defmodule Underdog.UserSocket do
 
   ## Channels
   channel "group:*", Underdog.GroupChannel
+  channel "results", Underdog.ResultsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
