@@ -2,6 +2,7 @@ defmodule Underdog.WeekController do
   use Underdog.Web, :controller
 
   alias Underdog.Week
+  alias Underdog.Season
 
   plug :scrub_params, "week" when action in [:create, :update]
 
@@ -9,7 +10,9 @@ defmodule Underdog.WeekController do
     weeks = Repo.all(Week)
     weeks = Repo.preload( weeks, [ { :fixtures, [ :away_team, :home_team ] } ] )
     team_points = Underdog.LeaguePointsCalculator.points_for_teams( weeks )
-    render(conn, "index_with_points.json" , [ weeks: weeks, team_points: team_points ] )
+    seasons = Repo.all( Season )
+    season = List.first( seasons )
+    render(conn, "index_with_points.json" , [ weeks: weeks, team_points: team_points, game_week: season.game_week ] )
 
   end
 

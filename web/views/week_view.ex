@@ -5,7 +5,7 @@ defmodule Underdog.WeekView do
   alias Underdog.UnderdogPointsCalculator
   alias Underdog.LeaguePointsCalculator
 
-  def render("index_with_points.json", %{ weeks: weeks, team_points: team_points }) do
+  def render("index_with_points.json", %{ weeks: weeks, team_points: team_points, game_week: game_week }) do
     data = Enum.map(weeks, fn(week)->
       sorted_fixtures = Enum.sort(week.fixtures, fn(fix_1, fix_2)->
         Ecto.DateTime.to_erl(fix_1.start_time) < Ecto.DateTime.to_erl(fix_2.start_time)
@@ -88,7 +88,9 @@ defmodule Underdog.WeekView do
         week_par: week_par
       }
     end)
-    %{ data: data }
+    %{data: data,
+      game_week: game_week  
+    }
   end
 
 
