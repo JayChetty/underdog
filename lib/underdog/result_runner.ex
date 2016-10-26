@@ -28,7 +28,7 @@ defmodule Underdog.ResultRunner do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 30 * 1000) # In 30 second
+    Process.send_after(self(), :work, 60 * 1000) # In 30 second
   end
 
   defp get_fixtures_from_api do
