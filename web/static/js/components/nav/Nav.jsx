@@ -11,7 +11,7 @@ function Nav( { view, gameWeekIndex } ){
   return(
     <nav className="layout-navbar layout-flex-grow-1">
       <div className="navbar-header">
-        UNDER<span className="text-bold">GOD</span>
+        UNDER<span className="text-bold">DOG</span>
       </div>
       <div className="layout-flex navbar-right">
         { navbarRight[view] }

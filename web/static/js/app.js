@@ -23,12 +23,12 @@ import GroupChat from './components/groups/GroupChat';
 import {Socket} from "phoenix"
 
 
-const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
+export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 const initRender = ( gameWeekIndex ) => {
+  console.log( gameWeekIndex, "gameWeekIndex" )
   console.log( "init rendered" )
 
-  // const weekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
 
   // let socket = new Socket("/socket", {params: {token: window.userToken}})
   // socket.connect()
@@ -55,7 +55,7 @@ const initRender = ( gameWeekIndex ) => {
 
 };
 
-export default initRender;
+export { initRender };
 
 window.onload = () => {
   let session = JSON.parse( localStorage.getItem('ud_session') );
@@ -63,6 +63,7 @@ window.onload = () => {
     store.dispatch(actions.loginUserSuccess( session ));
     actions.fetchData( store.dispatch, session.jwt );
   } else {
-    initRender();
+    const gameWeekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
+    initRender(gameWeekIndex);
   }
 };

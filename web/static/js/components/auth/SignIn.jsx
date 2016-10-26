@@ -16,7 +16,7 @@ export class SignIn extends React.Component {
 
   signIn(e) {
     e.preventDefault();
-    actions.loginUser( this.state.email, this.state.password, 8 )( this.props.dispatch );
+    actions.loginUser( this.state.email, this.state.password )( this.props.dispatch );
   }
 
   render() {

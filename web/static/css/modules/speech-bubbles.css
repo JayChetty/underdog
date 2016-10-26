@@ -9,3 +9,7 @@
 .speech-bubble:last-child {
   margin-bottom: 10px;
 }
+
+.speech-bubble:first-child {
+  margin-top: 10px;
+}

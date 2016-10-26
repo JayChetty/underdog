@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
-import initRender from '../app'
 import { calcGameWeekIndex } from '../libs/undergod_game'
+import { initRender } from "../app"
 
 import {Socket} from "phoenix"
 
@@ -15,7 +15,7 @@ const actions = {
     }
   },
 
-  loginUser: ( email, password, redirect ) => {
+  loginUser: ( email, password ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
@@ -46,7 +46,6 @@ const actions = {
         try {
           dispatch( actions.loginUserSuccess( response ) )
           actions.fetchData(dispatch, response.jwt)
-          browserHistory.push(`/weeks/${redirect }`);
         } catch( e ) {
           console.log( 'e', e )
         }
@@ -284,6 +283,7 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
+        browserHistory.push(`/weeks/${ gameWeekIndex }`);
         initRender( gameWeekIndex );
       })
     }
