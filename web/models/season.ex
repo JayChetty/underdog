@@ -11,7 +11,7 @@ defmodule Underdog.Season do
   end
 
   @required_fields ~w(start_year)
-  @optional_fields ~w()
+  @optional_fields ~w(game_week)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
