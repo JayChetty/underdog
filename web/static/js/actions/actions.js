@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import jwtDecode from 'jwt-decode';
 import { calcGameWeekIndex } from '../libs/undergod_game'
+import { browserHistory } from "react-router"
 import { initRender } from "../app"
 
 import {Socket} from "phoenix"
@@ -284,6 +285,7 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
+        browserHistory.push( `/weeks/${ gameWeekIndex }` )
 
         let channel = socket.channel("results", {})
         channel.join()
@@ -295,10 +297,6 @@ const actions = {
         })
 
         initRender( gameWeekIndex );
-        setTimeout( () => {
-          channel.push("new_results", { fixtures: [ { fixture_id: 92, home_team_score: 1, away_team_score: 0 }, { fixture_id: 91, home_team_score: 1, away_team_score: 4 } ] })
-        }, 1000 )
-
       })
     }
 
