@@ -205,3 +205,6 @@ rick_creators_changeset = Underdog.Membership.changeset( rick_membership, rick_c
 
 
 # {:ok, inserted_prediction} =  Underdog.Repo.insert( prediction )
+
+Underdog.ResultRunner.update_dates()
+Underdog.ResultRunner.update_results()

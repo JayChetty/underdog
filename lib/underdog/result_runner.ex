@@ -28,18 +28,23 @@ defmodule Underdog.ResultRunner do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 30 * 1000) # In 1 second
+    Process.send_after(self(), :work, 30 * 1000) # In 30 second
+  end
+
+  defp get_fixtures_from_api do
+    response = HTTPotion.get(
+      "http://api.football-data.org/v1/competitions/426/fixtures",
+      headers: ["X-Auth-Token": "2130e4f2c38e415e988ed8c9fa617583"]
+    )
+
+    # {:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
+    json_file = response.body
+    fixtures_data = Poison.decode!(json_file)
+    fixtures_data["fixtures"]
   end
 
   def update_results do
-
-    {:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
-
-    # response = HTTPotion.get "http://api.football-data.org/v1/competitions/426/fixtures"
-    # json_file = response.body
-
-    fixtures_data = Poison.decode!(json_file)
-    fixtures_list = fixtures_data["fixtures"]
+    fixtures_list = get_fixtures_from_api()
     updated_fixtures = Enum.map( fixtures_list, fn( fixture_map )->
       # Logger.warn "fixture_map #{ inspect fixture_map}"
       home_team_name = Underdog.FixtureJsonParser.api_name_to_name(fixture_map["homeTeamName"])
@@ -67,5 +72,25 @@ defmodule Underdog.ResultRunner do
     out = Enum.filter(updated_fixtures, fn(fixture)-> !!fixture end)
     Logger.warn( "out #{inspect out}")
     out
+  end
+
+  def update_dates do
+    fixtures_list = get_fixtures_from_api()
+
+    # #Update fixture dates
+    Enum.each( fixtures_list, fn( fixture_map )->
+      home_team_name = Underdog.FixtureJsonParser.api_name_to_name(fixture_map["homeTeamName"])
+      home_team_id = Repo.get_by(Underdog.Team, [ name: home_team_name ]).id
+      week_number = fixture_map["matchday"]
+      week_id = Repo.get_by(Underdog.Week, number: week_number).id
+      fixture = Repo.get_by(Underdog.Fixture, [ home_team_id: home_team_id, week_id: week_id ] )
+
+      {:ok, start_date_time } = Ecto.DateTime.cast( fixture_map["date"] )
+      fixture_params = %{
+        start_time: start_date_time,
+      }
+      changeset = Underdog.Fixture.changeset( fixture, fixture_params )
+      {:ok, _ } = Repo.update( changeset )
+    end)
   end
 end
