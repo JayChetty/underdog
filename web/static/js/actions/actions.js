@@ -56,7 +56,6 @@ const actions = {
   },
 
   loginUserSuccess: ( session ) => {
-    console.log('login user', session)
     localStorage.setItem('ud_session', JSON.stringify( session ) );
     return {
       type: "LOGIN_USER_SUCCESS",
@@ -185,7 +184,6 @@ const actions = {
     return ( dispatch, session ) => {
 
       dispatch( actions.requestPredictions() )
-      console.log('getting predictions', session)
       fetch( "/api/predictions", {
           method: 'GET',
           headers: {
