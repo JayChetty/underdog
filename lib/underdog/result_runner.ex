@@ -22,13 +22,13 @@ defmodule Underdog.ResultRunner do
     updated_results = update_results()
     Logger.enable( self )
     Logger.warn "Update fixtures #{inspect updated_results}"
-    Underdog.Endpoint.broadcast!( "results", "new_results", %{new_results: updated_results} )
+    Underdog.Endpoint.broadcast!( "results", "new_results", %{fixtures: updated_results} )
     schedule_work() # Reschedule once more
     {:noreply, state}
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 30 * 1000) # In 30 second
+    Process.send_after(self(), :work, 60 * 1000) # In 30 second
   end
 
   defp get_fixtures_from_api do
@@ -36,9 +36,10 @@ defmodule Underdog.ResultRunner do
       "http://api.football-data.org/v1/competitions/426/fixtures",
       headers: ["X-Auth-Token": "2130e4f2c38e415e988ed8c9fa617583"]
     )
+    json_file = response.body
 
     # {:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
-    json_file = response.body
+
     fixtures_data = Poison.decode!(json_file)
     fixtures_data["fixtures"]
   end
