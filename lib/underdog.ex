@@ -13,6 +13,7 @@ defmodule Underdog do
       supervisor(Underdog.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Underdog.Worker, [arg1, arg2, arg3]),
+      worker(Underdog.ResultRunner, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
