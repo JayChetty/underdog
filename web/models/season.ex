@@ -2,6 +2,7 @@ defmodule Underdog.Season do
   use Underdog.Web, :model
 
   schema "seasons" do
+    field :game_week, :integer
     field :start_year, :integer
     belongs_to :league, Underdog.League
     has_many :weeks, Underdog.Week

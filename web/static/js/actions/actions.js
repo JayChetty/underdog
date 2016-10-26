@@ -200,7 +200,7 @@ const actions = {
   },
 
   fetchData:( dispatch, token )=>{
-    actions.getWeeks()(dispatch)
+    actions.getWeeks()( dispatch )
     // actions.getFixtures()(dispatch)
     // actions.getTeams()(dispatch)
     // console.log('fetching data', token)

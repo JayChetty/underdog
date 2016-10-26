@@ -12,6 +12,8 @@ defmodule Underdog.SeasonView do
   def render("season.json", %{season: season}) do
     %{id: season.id,
       start_year: season.start_year,
-      league_id: season.league_id}
+      league_id: season.league_id,
+      game_week: season.game_week
+    }
   end
 end

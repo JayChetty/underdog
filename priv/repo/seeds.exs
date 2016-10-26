@@ -101,12 +101,10 @@ Underdog.Repo.delete_all(Underdog.User)
 Underdog.Repo.delete_all(Underdog.Group)
 Underdog.Repo.delete_all(Underdog.Membership)
 
-
-
 league = %Underdog.League{name: "Premier League"}
 {:ok, inserted_league} = Underdog.Repo.insert(league)
 
-season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id }
+season = %Underdog.Season{start_year: 2015, league_id: inserted_league.id, game_week: 9 }
 {:ok, inserted_season} = Underdog.Repo.insert(season)
 
 #year month day weeknumber
