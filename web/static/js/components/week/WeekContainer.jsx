@@ -40,12 +40,14 @@ function WeekContainer( props ) {
         isGameWeek={ props.isGameWeek }
         isInPast={ props.isInPast }
         predictions={ props.predictions }
-        matchesInPlay={props.inPlay}
+        matchesInPlay={props.matchesInPlay}
       >
       </Fixtures>
       <FixturesSummary
         isInPast={ props.isInPast }
         weeklyPoints={ calcPointsForWeek(props.week, props.predictions,props.isGameWeek) }
+        endOfPredictions={props.endOfPredictions}
+        isGameWeek={ props.isGameWeek }
       />
     </Swipeable>
   )
@@ -69,12 +71,17 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
   return week.week_par + totalPredictionPoints
 }
 
-function calcMatchesInPlay(gameWeek){
+function calcEndOfPredictions(gameWeek){
   let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
   let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
-  let now = moment()
+  return endOfPredictions
+}
 
-  return now.isAfter( endOfPredictions )
+function calcMatchesInPlay(endOfPredictions){
+  let now = moment()
+  // let now = moment('2016-10-29 10:40:00')//simulate matches in play
+  const matchesInPlay = now.isAfter( endOfPredictions )
+  return matchesInPlay
 }
 
 function mapStateToProps( state, { params } ){
@@ -86,6 +93,8 @@ function mapStateToProps( state, { params } ){
   const isGameWeek = displayWeekIndex === gameWeekIndex
   const isInPast = displayWeekIndex < gameWeekIndex
 
+  const endOfPredictions = calcEndOfPredictions(state.weeks.items[gameWeekIndex])
+
   return {
     week,
     gameWeekIndex,
@@ -93,9 +102,10 @@ function mapStateToProps( state, { params } ){
     isInPast,
     displayWeekIndex,
     noOfWeeks,
+    endOfPredictions,
     session: state.session,
     predictions: state.predictions.items,
-    matchesInPlay: calcMatchesInPlay(state.weeks.items[gameWeekIndex])
+    matchesInPlay: calcMatchesInPlay(endOfPredictions)
   }
 }
 

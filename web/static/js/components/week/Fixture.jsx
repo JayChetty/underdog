@@ -16,7 +16,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
   const activeGameWeek = isGameWeek && !matchesInPlay
 
 
-  if( mayHavePredictions  ){
+  if( mayHavePredictions ){
     if(activeGameWeek){
       if(prediction){
         clickHandler = () => { deletePrediction( prediction  ) }
