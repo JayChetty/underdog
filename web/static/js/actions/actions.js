@@ -291,12 +291,25 @@ const actions = {
           .receive("error", resp => { console.log("Unable to join", resp) })
         channel.on("new_results", payload => {
           console.log('payload', payload)
-
+          dispatch( actions.updateFixturesInWeeks( gameWeekIndex, payload.fixtures ) )
         })
+
         initRender( gameWeekIndex );
+        setTimeout( () => {
+          channel.push("new_results", { fixtures: [ { fixture_id: 92, home_team_score: 1, away_team_score: 0 }, { fixture_id: 91, home_team_score: 1, away_team_score: 4 } ] })
+        }, 1000 )
+
       })
     }
 
+  },
+
+  updateFixturesInWeeks: ( gameWeekIndex, fixtures ) => {
+    return {
+      type: "UPDATE_FIXTURES_IN_WEEKS",
+      gameWeekIndex,
+      fixtures
+    }
   },
 
   requestWeeks: () => {

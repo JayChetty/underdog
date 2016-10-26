@@ -22,21 +22,9 @@ import GroupTable from './components/groups/GroupTable';
 import GroupChat from './components/groups/GroupChat';
 import {Socket} from "phoenix"
 
-
 export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 const initRender = ( gameWeekIndex ) => {
-  console.log( gameWeekIndex, "gameWeekIndex" )
-  console.log( "init rendered" )
-
-
-  // let socket = new Socket("/socket", {params: {token: window.userToken}})
-  // socket.connect()
-  //
-  // let channel = socket.channel("group:6", {})
-  // channel.join()
-  //   .receive("ok", resp => { console.log("Joined successfully", resp) })
-  //   .receive("error", resp => { console.log("Unable to join", resp) })
 
   ReactDOM.render(
     <Provider store={store}>

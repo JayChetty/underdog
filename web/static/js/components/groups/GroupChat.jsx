@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import {Socket} from "phoenix"
 import { connect } from 'react-redux';
 import actions from "../../actions/actions";
 import moment from "moment";
