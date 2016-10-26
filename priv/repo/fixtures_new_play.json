@@ -2756,8 +2756,8 @@
       "homeTeamName": "Manchester United FC",
       "awayTeamName": "Burnley FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 15,
+        "goalsAwayTeam": 4
       },
       "odds": null
     },
@@ -2782,8 +2782,8 @@
       "homeTeamName": "Middlesbrough FC",
       "awayTeamName": "AFC Bournemouth",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 7,
+        "goalsAwayTeam": 2
       },
       "odds": null
     },
@@ -2808,8 +2808,8 @@
       "homeTeamName": "Tottenham Hotspur FC",
       "awayTeamName": "Leicester City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 14,
+        "goalsAwayTeam": 12
       },
       "odds": null
     },
@@ -2834,8 +2834,8 @@
       "homeTeamName": "Watford FC",
       "awayTeamName": "Hull City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 22,
+        "goalsAwayTeam": 11
       },
       "odds": null
     },
@@ -2860,8 +2860,8 @@
       "homeTeamName": "West Bromwich Albion FC",
       "awayTeamName": "Manchester City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 5,
+        "goalsAwayTeam": 0
       },
       "odds": null
     },
@@ -2886,8 +2886,8 @@
       "homeTeamName": "Crystal Palace FC",
       "awayTeamName": "Liverpool FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 33,
+        "goalsAwayTeam": 33
       },
       "odds": null
     },
@@ -2912,8 +2912,8 @@
       "homeTeamName": "Everton FC",
       "awayTeamName": "West Ham United FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 99,
+        "goalsAwayTeam": 50
       },
       "odds": null
     },
@@ -2938,8 +2938,8 @@
       "homeTeamName": "Southampton FC",
       "awayTeamName": "Chelsea FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 5,
+        "goalsAwayTeam": 3
       },
       "odds": null
     },
@@ -2964,8 +2964,8 @@
       "homeTeamName": "Stoke City FC",
       "awayTeamName": "Swansea City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 4,
+        "goalsAwayTeam": 3
       },
       "odds": null
     },
@@ -2990,8 +2990,8 @@
       "homeTeamName": "Burnley FC",
       "awayTeamName": "Crystal Palace FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 2,
+        "goalsAwayTeam": 0
       },
       "odds": null
     },
@@ -3016,8 +3016,8 @@
       "homeTeamName": "Manchester City FC",
       "awayTeamName": "Middlesbrough FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 45,
+        "goalsAwayTeam": 2
       },
       "odds": null
     },
@@ -3068,8 +3068,8 @@
       "homeTeamName": "West Ham United FC",
       "awayTeamName": "Stoke City FC",
       "result": {
-        "goalsHomeTeam": null,
-        "goalsAwayTeam": null
+        "goalsHomeTeam": 22,
+        "goalsAwayTeam": 11
       },
       "odds": null
     },
