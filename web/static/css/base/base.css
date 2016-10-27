@@ -21,3 +21,10 @@ footer {
 #app {
   height: 100%;
 }
+
+/* Touch based events */
+
+html {
+	-ms-touch-action: manipulation;	/* IE10  */
+	touch-action: manipulation;		/* IE11+ */
+}
