@@ -50,7 +50,7 @@ window.onload = () => {
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
-    actions.fetchData( store.dispatch, session.jwt, false );
+    actions.getGame()( store.dispatch, session.jwt, false );
   } else {
     const gameWeekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
     initRender(gameWeekIndex);
