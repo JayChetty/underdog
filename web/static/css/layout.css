@@ -9,14 +9,14 @@
 }
 
 .layout-content {
-  padding-bottom: 60px;
+  padding-bottom: 40%;
 }
 
 .layout-footer {
-  box-sizing: border-box;
+  position: fixed;
+  width:100%;
   border-top: 1px solid #e5e5e5;
   background-color: #FFFFFF;
-  max-height: 62px;
 }
 
 .layout-full-height {
