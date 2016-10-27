@@ -214,3 +214,4 @@ rick_creators_changeset = Underdog.Membership.changeset( rick_membership, rick_c
 
 Underdog.ResultRunner.update_dates()
 Underdog.ResultRunner.update_results()
+Underdog.ResultRunner.update_team_images()

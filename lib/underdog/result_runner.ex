@@ -17,7 +17,6 @@ defmodule Underdog.ResultRunner do
 
   def handle_info(:work, state) do
     # Do the work you desire here
-    Logger.warn "Result runner handle info"
     Logger.disable( self )
     updated_results = update_results()
     Logger.enable( self )
@@ -39,11 +38,18 @@ defmodule Underdog.ResultRunner do
       headers: ["X-Auth-Token": "2130e4f2c38e415e988ed8c9fa617583"]
     )
     json_file = response.body
-
-    # {:ok, json_file} = File.read "priv/repo/fixtures_new_play.json"
-
     fixtures_data = Poison.decode!(json_file)
     fixtures_data["fixtures"]
+  end
+
+  defp get_teams_from_api do
+    response = HTTPotion.get(
+      "http://api.football-data.org/v1/competitions/426/teams",
+      headers: ["X-Auth-Token": "2130e4f2c38e415e988ed8c9fa617583"]
+    )
+    json_file = response.body
+    fixtures_data = Poison.decode!(json_file)
+    fixtures_data["teams"]
   end
 
   def update_results do
@@ -93,6 +99,22 @@ defmodule Underdog.ResultRunner do
         start_time: start_date_time,
       }
       changeset = Underdog.Fixture.changeset( fixture, fixture_params )
+      {:ok, _ } = Repo.update( changeset )
+    end)
+  end
+
+  def update_team_images do
+    teams_list = get_teams_from_api()
+
+    # #Update fixture dates
+    Enum.each( teams_list, fn( team_map )->
+      team_name = Underdog.FixtureJsonParser.api_name_to_name(team_map["name"])
+      image_url = team_map["crestUrl"]
+      team = Repo.get_by(Underdog.Team, [ name: team_name ])
+      team_params = %{
+        image: image_url,
+      }
+      changeset = Underdog.Team.changeset( team, team_params )
       {:ok, _ } = Repo.update( changeset )
     end)
   end
