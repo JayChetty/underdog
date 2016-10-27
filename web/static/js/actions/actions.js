@@ -4,7 +4,7 @@ import { calcGameWeekIndex } from '../libs/undergod_game'
 import { browserHistory } from "react-router"
 import { initRender } from "../app"
 
-import {Socket} from "phoenix"
+import {connectToSocket, joinChannel} from "../socket"
 
 const actions = {
 
@@ -159,9 +159,11 @@ const actions = {
       dispatch( actions.requestGroups() )
       dispatch( actions.requestPredictions() )
 
-      let socket = new Socket("/socket", {params: {guardian_token: token}})
-      socket.connect()
-      console.log('token', token)
+      // let socket = new Socket("/socket", {params: {guardian_token: token}})
+
+      let socket = connectToSocket(token)
+      // socket.connect()
+
       fetch( "/api/games", {
           method: 'GET',
           headers: {
@@ -171,30 +173,20 @@ const actions = {
       }).then( ( res ) => {
         return res.json();
       }).then( ( data ) => {
-        console.log('got data', data)
         dispatch( actions.receiveWeeks( data.weeks ) )
         const gameWeekIndex = calcGameWeekIndex( data.weeks )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
         dispatch( actions.receivePredictions( data.predictions ) )
 
-        let channel = socket.channel("results", {})
-        channel.join()
-          .receive("ok", resp => { console.log("Joined results successfully", resp) })
-          .receive("error", resp => { console.log("Unable to join", resp) })
+        let channel = joinChannel(socket, "results")
+
         channel.on("new_results", payload => {
-          console.log('payload', payload)
           dispatch( actions.updateFixturesInWeeks( gameWeekIndex, payload.fixtures ) )
         })
 
         const groupsWithChannels = data.groups.map((group)=>{
-          let channel = socket.channel(`group:${group.id}`, {})
-          channel.join()
-            .receive("ok", resp => { console.log("Joined successfully", resp) })
-            .receive("error", resp => { console.log("Unable to join", resp) })
-          channel.on("new_msg", payload => {
-            console.log('payload', payload)
-            dispatch( actions.addGroupMessage( payload ) )
-          })
+          let channel = joinChannel(socket, `group:${group.id}`)
+          channel.on("new_msg", payload => { dispatch( actions.addGroupMessage( payload ) )})
           return Object.assign({}, group, {channel} )
         })
 
