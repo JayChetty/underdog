@@ -6,7 +6,7 @@
 
 .slide-left {
   animation-name: slide-left;
-  animation-duration: 0.2s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;
@@ -14,7 +14,7 @@
 
 .slide-right {
   animation-name: slide-right;
-  animation-duration: 0.2s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-delay: 2s;
   animation-fill-mode: forwards;

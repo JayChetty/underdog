@@ -39,8 +39,8 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
         const awayTeamWon = fixture.home_team_score < fixture.away_team_score
         if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
           homeTeamClasses += " bg-light-gray"
-          homeTeamPointsClasses = "tag tag-simple bg-warning"
-          tagAnimationHome = <div className="tag tag-animate tag-warning slide-left" ><i className="fa fa-times" aria-hidden="true"></i></div>
+          homeTeamPointsClasses = "tag tag-simple"
+          // tagAnimationHome = <div className="tag tag-animate tag-warning slide-left" ><i className="fa fa-times" aria-hidden="true"></i></div>
           if( homeTeamWon ){
             homeTeamPointsClasses = "tag tag-simple bg-green pulse"
             tagAnimationHome = <div className="tag tag-animate tag-success slide-left" ><i className="fa fa-check" aria-hidden="true"></i></div>
@@ -48,8 +48,8 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
 
         }else{
           awayTeamClasses += " bg-light-gray"
-          awayTeamPointsClasses = "tag tag-simple bg-warning"
-          tagAnimationAway = <div className="tag tag-animate tag-warning translate-left-20 slide-right" ><i className="fa fa-times" aria-hidden="true"></i></div>
+          awayTeamPointsClasses = "tag tag-simple"
+          // tagAnimationAway = <div className="tag tag-animate tag-warning translate-left-20 slide-right" ><i className="fa fa-times" aria-hidden="true"></i></div>
 
           if( awayTeamWon ){
             awayTeamPointsClasses = "tag tag-simple bg-green pulse"
