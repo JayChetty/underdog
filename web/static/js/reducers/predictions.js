@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import {List, Map} from "immutable"
 
 const initialState = {
   isFetching: false,
   received: false,
-  items: [],
+  items: List(),
   displayWeekIndex: null,
   gameWeekIndex: null
 }
@@ -16,27 +17,25 @@ export default ( state = initialState, action ) => {
     case 'SET_DISPLAY_WEEK':
       return Object.assign( {}, state, { displayWeekIndex: action.week } )
     case 'RECEIVE_PREDICTIONS':
-      return Object.assign( {}, state, { items: action.predictions, isFetching: false, received: true } )
+      return Object.assign( {}, state, { items: List(action.predictions), isFetching: false, received: true } )
     case 'REQUEST_PREDICTIONS':
       return Object.assign( {}, state, { isFetching: true } )
     case 'ADD_PREDICTION':
-      const existingPrediction = _.find( state.items, (prediction)=>{
+      const predictionExistsForFixture = state.items.some( (prediction)=>{
         return prediction.fixture_id === action.prediction.fixture_id
-      }) || {}
-      const newPrediction = Object.assign( {}, existingPrediction, action.prediction )
-      const filteredPredictions = state.items.filter( (prediction) =>{
-        return prediction.fixture_id !== action.prediction.fixture_id
       })
-      const newPredictions = filteredPredictions.concat( [ newPrediction ] )
-      return Object.assign( {}, state, { items: newPredictions } )
+      if(predictionExistsForFixture){
+        return state
+      }
+      const updatedPredictions = state.items.push( action.prediction )
+      return Object.assign( {}, state, { items: updatedPredictions } )
+
     case 'REMOVE_PREDICTION':
-      const predictionIndex = _.findIndex( state.items, (prediction)=>{
+      const predictionIndex = state.items.findIndex( (prediction)=>{
         return action.fixtureId === prediction.fixture_id
       });
-      const predictionsBefore = state.items.slice(0, predictionIndex);
-      const predictionsAfter = state.items.slice( predictionIndex + 1 );
-      const predictionsWithRemovedPrediction = predictionsBefore.concat( predictionsAfter );
-      return Object.assign( {}, state, { items: predictionsWithRemovedPrediction } )
+      return Object.assign( {}, state, { items: state.items.deleteIn([predictionIndex]) } )
+
     default:
       return state;
   }
