@@ -39,10 +39,10 @@ defmodule Underdog.WeekView do
           { _, _} -> 0
         end
 
-        predicted_upset_modifier = max( home_team_ug_points, away_team_ug_points) - 3
+        predicted_upset_modifier = max( home_team_ug_points, away_team_ug_points)
 
         upset_modifier = case { is_upset, is_draw } do
-          { true, _ } -> max( home_team_ug_points, away_team_ug_points)
+          { true, _ } -> predicted_upset_modifier
           { false, true } -> 0
           { false, false } -> -3
         end
