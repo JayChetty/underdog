@@ -19,7 +19,7 @@ function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePredi
   })
 
   return (
-    <div>
+    <div className="text-up text-bolder">
       { displayFixtures }
     </div>
   )

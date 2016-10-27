@@ -4,7 +4,6 @@
 
 .layout-navbar {
   height: 55px;
-  line-height: 55px;
   padding: 0 15px;
   border-bottom: 1px solid #f6f6f6;
 }
@@ -88,6 +87,14 @@ main.layout-flex > div {
   flex: 2;
 }
 
+.layout-flex-grow-6 {
+  flex: 6;
+}
+
+.layout-flex-grow-9 {
+  flex: 9;
+}
+
 .layout-flex-grow-10 {
   flex: 10;
 }
@@ -96,10 +103,10 @@ main.layout-flex > div {
   flex: 11;
 }
 
-.layout-flex-self-end{
+.layout-flex-self-end {
   align-self: flex-end;
 }
 
-.layout-flex-self-start{
+.layout-flex-self-start {
   align-self: flex-start;
 }

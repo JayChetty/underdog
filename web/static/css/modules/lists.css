@@ -14,7 +14,6 @@
 
 .split-list-view {
   vertical-align: middle;
-  border-bottom: 1px solid #f6f6f6;
 }
 
 .split-list-view img {
@@ -24,11 +23,10 @@
 }
 .split-list-view-left,
 .split-list-view-right {
-  position: relative;
-  box-sizing: border-box;
   display: inline-block;
-  width:50%;
-  padding: 8px;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 8px 4px;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
 }
