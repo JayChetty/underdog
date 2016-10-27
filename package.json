@@ -6,6 +6,7 @@
     "brunch": "~2.2.3",
     "clean-css-brunch": "~1.8.0",
     "css-brunch": "~1.7.0",
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "javascript-brunch": "~1.8.0",
     "jwt-decode": "^2.1.0",
