@@ -110,7 +110,7 @@ function mapStateToProps( state, { params } ){
     noOfWeeks,
     endOfPredictions,
     session: state.session,
-    predictions: state.predictions.items,
+    predictions: state.predictions.items.toJS(),
     matchesInPlay: calcMatchesInPlay(endOfPredictions)
   }
 }

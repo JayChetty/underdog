@@ -53,6 +53,8 @@ defmodule Underdog.Router do
     resources "/messages", MessageController, except: [:new, :edit]
     resources "/memberships", MembershipController, except: [:new, :edit]
 
+    resources "/games", GameController, only: [:index]  
+
     get "/current_user", CurrentUserController, :show
 
 
