@@ -159,10 +159,7 @@ const actions = {
       dispatch( actions.requestGroups() )
       dispatch( actions.requestPredictions() )
 
-      // let socket = new Socket("/socket", {params: {guardian_token: token}})
-
       let socket = connectToSocket(token)
-      // socket.connect()
 
       fetch( "/api/games", {
           method: 'GET',
