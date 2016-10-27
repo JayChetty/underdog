@@ -64,7 +64,6 @@ function calcPointsForWeek( week, predictions, predicting ){
       return 0
     }
     if(predicting){
-      console.log('pum', fixture.predicted_upset_modifier)
       return fixture.predicted_upset_modifier
     }else{
       return fixture.upset_modifier
