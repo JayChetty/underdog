@@ -7,10 +7,7 @@ defmodule Underdog.WeekController do
 
   def index(conn, _params) do
     weeks = Repo.all(Week)
-    weeks = Repo.preload( weeks, [ { :fixtures, [ :away_team, :home_team ] } ] )
-    team_points = Underdog.LeaguePointsCalculator.points_for_teams( weeks )
-    render(conn, "index_with_points.json" , [ weeks: weeks, team_points: team_points ] )
-
+    render(conn, "index.json" , weeks: weeks)
   end
 
   def create(conn, %{"week" => week_params}) do

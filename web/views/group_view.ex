@@ -19,7 +19,6 @@ defmodule Underdog.GroupView do
   end
 
   def render("user_with_predictions.json", %{user: user}) do
-    Logger.warn("user predictions #{inspect user.predictions }")
     %{
       id: user.id,
       email: user.email,
