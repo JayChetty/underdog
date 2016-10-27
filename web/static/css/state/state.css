@@ -102,6 +102,7 @@
 
 .scroll-y {
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .translate-left-20 {

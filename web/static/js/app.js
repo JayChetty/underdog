@@ -47,6 +47,12 @@ const initRender = ( gameWeekIndex ) => {
 export { initRender };
 
 window.onload = () => {
+
+  document.addEventListener( "touchmove", (e) => {
+    console.log( 'touchmove ' )
+    e.preventDefault();
+  })
+
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
