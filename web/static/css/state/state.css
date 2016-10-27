@@ -1,11 +1,16 @@
 .bg-green {
-  background-color: #AFDDD1;
+  background-color: #37bc9b;
   color: #FFFFFF;
 }
 
 .bg-bright-green {
   background-color: #00FF00;
   color: #FFFFFF;
+}
+
+.bg-warning {
+  background-color:  #fc6e51;
+  color: #ffffff;
 }
 
 .bg-blue {
@@ -21,7 +26,6 @@
 
 .bg-light-gray {
   background-color: #f9f9f9;
-  color: #a1a1a1;
 }
 
 .bg-light-blue {
@@ -98,4 +102,8 @@
 
 .scroll-y {
   overflow-y: scroll;
+}
+
+.translate-left-20 {
+  transform: translateX(-20px);
 }

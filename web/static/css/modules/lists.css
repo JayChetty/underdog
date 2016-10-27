@@ -19,14 +19,11 @@
 .split-list-view img {
   height: 20px;
   vertical-align: middle;
-  margin: 0 3px;
+  margin: 0 4px;
 }
 .split-list-view-left,
 .split-list-view-right {
-  display: inline-block;
-  width: 50%;
-  box-sizing: border-box;
-  padding: 8px 4px;
+  padding: 12px 8px;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
 }

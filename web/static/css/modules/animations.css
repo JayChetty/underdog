@@ -4,6 +4,22 @@
   animation-timing-function: ease-out;
 }
 
+.slide-left {
+  animation-name: slide-left;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+.slide-right {
+  animation-name: slide-right;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
 .delay-slide-in-bottom {
   position: relative;
   animation-name: delay-slide-in-bottom;
@@ -41,22 +57,44 @@
   }
 }
 
-@keyframes slide-in-left {
+@keyframes slide-left {
   0% {
-    right: 100px;
+    transform: translateX(0) scale(1);
+    display: inline-block;
+  }
+  50% {
+    transform: translateX(-15px) scale(0.4);
+    opacity: 1
+  }
+  90% {
+    transform: translateX(-25px) scale(0.8);
+    opacity: 0.2
   }
   100% {
-    right: 0px;
+    opacity: 0;
+    display: none;
   }
 }
-@keyframes slide-in-right {
+
+@keyframes slide-right {
   0% {
-    left: 100px;
+    transform: translateX(-20px) scale(1);
+    display: inline-block;
+  }
+  50% {
+    transform: translateX(-5px) scale(0.4);
+    opacity: 1
+  }
+  90% {
+    transform: translateX(5px) scale(0.8);
+    opacity: 0.2
   }
   100% {
-    left: 0px;
+    opacity: 0;
+    display: none;
   }
 }
+
 @keyframes pulse {
   0% {
     transform: scale(1);
