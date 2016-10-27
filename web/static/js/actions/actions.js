@@ -82,94 +82,6 @@ const actions = {
     }
   },
 
-  // getTeams: () => {
-  //   return ( dispatch ) => {
-  //
-  //     dispatch( actions.requestTeams() )
-  //
-  //     fetch( "/api/teams", {
-  //       method: 'GET'
-  //     }).then( ( res ) => {
-  //       return res.json();
-  //     }).then(( teams ) => {
-  //       dispatch( actions.receiveTeams( teams.data ) )
-  //     })
-  //
-  //   }
-  // },
-  //
-  // requestTeams: () => {
-  //   return {
-  //     type: "REQUEST_TEAMS"
-  //   }
-  // },
-  //
-  // receiveTeams: ( teams ) => {
-  //   return {
-  //     type: "RECEIVE_TEAMS",
-  //     teams
-  //   }
-  // },
-
-  // getFixtures: () => {
-  //   return ( dispatch ) => {
-  //     dispatch( actions.requestFixtures() )
-  //     fetch( "/api/seasons/1/fixtures", {
-  //       method: 'GET'
-  //     }).then( ( res ) => {
-  //       return res.json();
-  //     }).then( ( fixtures ) => {
-  //       dispatch( actions.receiveFixtures( fixtures.data ) )
-  //     })
-  //
-  //   }
-  // },
-
-  // requestFixtures: () => {
-  //   return {
-  //     type: "REQUEST_FIXTURES"
-  //   }
-  // },
-  //
-  // receiveFixtures: ( fixtures ) => {
-  //   return {
-  //     type: "RECEIVE_FIXTURES",
-  //     fixtures
-  //   }
-  // },
-
-  // getGroups: () => {
-  //
-  //   return ( dispatch, session ) => {
-  //     let socket = new Socket("/socket", {params: {guardian_token: session.token}})
-  //     socket.connect()
-  //
-  //     dispatch( actions.requestGroups() )
-  //     fetch( "/api/groups", {
-  //       method: 'GET',
-  //       headers: {
-  //         "Authorization": session.token
-  //       }
-  //     }).then( ( res ) => {
-  //       return res.json();
-  //     }).then( ( groups ) => {
-  //       const groupsWithChannels = groups.data.map((group)=>{
-  //         let channel = socket.channel(`group:${group.id}`, {})
-  //         channel.join()
-  //           .receive("ok", resp => { console.log("Joined successfully", resp) })
-  //           .receive("error", resp => { console.log("Unable to join", resp) })
-  //         channel.on("new_msg", payload => {
-  //           console.log('payload', payload)
-  //           dispatch( actions.addGroupMessage( payload ) )
-  //         })
-  //         return Object.assign({}, group, {channel} )
-  //       })
-  //       dispatch( actions.receiveGroups( groupsWithChannels ) )
-  //     })
-  //
-  //   }
-  // },
-
   requestGroups: () => {
     return {
       type: "REQUEST_GROUPS"
@@ -182,32 +94,6 @@ const actions = {
       groups
     }
   },
-
-  // getPredictions: () => {
-  //   return ( dispatch, session ) => {
-  //
-  //     dispatch( actions.requestPredictions() )
-  //     fetch( "/api/predictions", {
-  //         method: 'GET',
-  //         headers: {
-  //           "Authorization": session.token
-  //         }
-  //     }).then( ( res ) => {
-  //       return res.json();
-  //     }).then( ( predictions ) => {
-  //       dispatch( actions.receivePredictions( predictions.data ) )
-  //     })
-  //   }
-  // },
-
-  // fetchData:( dispatch, token, userLoggingIn )=>{
-  //   actions.getWeeks()( dispatch, token, userLoggingIn )
-  //   // actions.getFixtures()(dispatch)
-  //   // actions.getTeams()(dispatch)
-  //   // console.log('fetching data', token)
-  //   actions.getPredictions()(dispatch, { token: token })
-  //   actions.getGroups()(dispatch, { token: token })
-  // },
 
   requestPredictions: () => {
     return {
@@ -323,43 +209,6 @@ const actions = {
     }
 
   },
-
-  // getWeeks: () => {
-  //
-  //   return ( dispatch, token, userLoggingIn ) => {
-  //     dispatch( actions.requestWeeks() )
-  //     let socket = new Socket("/socket", {params: {guardian_token: token}})
-  //     socket.connect()
-  //
-  //     fetch( "/api/weeks", {
-  //         method: 'GET',
-  //         headers: {
-  //           "Content-Type": "application/json"
-  //         }
-  //     }).then( ( res ) => {
-  //       return res.json();
-  //     }).then( ( weeks ) => {
-  //       dispatch( actions.receiveWeeks( weeks.data ) )
-  //       const gameWeekIndex = calcGameWeekIndex( weeks.data )
-  //       dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
-  //
-  //       let channel = socket.channel("results", {})
-  //       channel.join()
-  //         .receive("ok", resp => { console.log("Joined results successfully", resp) })
-  //         .receive("error", resp => { console.log("Unable to join", resp) })
-  //       channel.on("new_results", payload => {
-  //         console.log('payload', payload)
-  //         dispatch( actions.updateFixturesInWeeks( gameWeekIndex, payload.fixtures ) )
-  //       })
-  //
-  //       if ( userLoggingIn ) {
-  //         browserHistory.push( `/weeks/${ gameWeekIndex }` )
-  //       }
-  //       initRender( gameWeekIndex );
-  //     })
-  //   }
-  //
-  // },
 
   updateFixturesInWeeks: ( gameWeekIndex, fixtures ) => {
     return {
