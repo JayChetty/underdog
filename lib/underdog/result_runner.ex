@@ -110,6 +110,9 @@ defmodule Underdog.ResultRunner do
     Enum.each( teams_list, fn( team_map )->
       team_name = Underdog.FixtureJsonParser.api_name_to_name(team_map["name"])
       image_url = team_map["crestUrl"]
+      if team_name == "Bournemouth" do
+        image_url = "https://upload.wikimedia.org/wikipedia/en/b/bf/AFC_Bournemouth.svg"
+      end
       team = Repo.get_by(Underdog.Team, [ name: team_name ])
       team_params = %{
         image: image_url,
