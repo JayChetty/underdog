@@ -154,11 +154,10 @@ const actions = {
   },
 
   getGame: () => {
-
     return ( dispatch, token, userLoggingIn ) => {
       dispatch( actions.requestWeeks() )
       dispatch( actions.requestGroups() )
-      dispatch( actions.requestWeeks() )
+      dispatch( actions.requestPredictions() )
 
       let socket = new Socket("/socket", {params: {guardian_token: token}})
       socket.connect()
