@@ -3,17 +3,29 @@
 }
 
 .layout-navbar {
-  height: 55px;
+  position:fixed;
+  box-sizing: border-box;
+  z-index: 1;
+  width: 100%;
+  height: 10%;
   padding: 0 15px;
   border-bottom: 1px solid #f6f6f6;
+  background-color: #FFFFFF;
 }
 
 .layout-content {
-  padding-bottom: 40%;
+  padding-bottom: 10vh;
+}
+
+.layout-content-footer {
+  position: relative;
+  top: 10%;
 }
 
 .layout-footer {
+  box-sizing: border-box;
   position: fixed;
+  height: 10vh;
   width:100%;
   border-top: 1px solid #e5e5e5;
   background-color: #FFFFFF;

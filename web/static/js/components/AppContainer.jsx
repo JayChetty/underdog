@@ -8,7 +8,7 @@ const AppContainer = ( { view, gameWeekIndex, children } ) => {
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
       <Nav view={ view } gameWeekIndex={ gameWeekIndex } />
-      <main className="layout-flex-grow-11 layout-flex">
+      <main className="layout-content-footer layout-flex">
         { children }
       </main>
     </div>
