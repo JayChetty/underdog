@@ -39,12 +39,12 @@ defmodule Underdog.WeekView do
           { _, _} -> 0
         end
 
-        #if not result give predict positivly
-        upset_modifier = case { is_upset, is_draw, no_result } do
-          { _, _, true } -> max( home_team_ug_points, away_team_ug_points) - 3
-          { true, _, _ } -> max( home_team_ug_points, away_team_ug_points)
-          { false, true, _ } -> 0
-          { false, false, _ } -> -3
+        predicted_upset_modifier = max( home_team_ug_points, away_team_ug_points) - 3
+
+        upset_modifier = case { is_upset, is_draw } do
+          { true, _ } -> max( home_team_ug_points, away_team_ug_points)
+          { false, true } -> 0
+          { false, false } -> -3
         end
 
         %{id: fixture.id,
@@ -68,7 +68,8 @@ defmodule Underdog.WeekView do
           },
           is_upset: is_upset,
           par_score: par_score,
-          upset_modifier: upset_modifier
+          upset_modifier: upset_modifier,
+          predicted_upset_modifier: predicted_upset_modifier
         }
       end)
 
@@ -76,9 +77,6 @@ defmodule Underdog.WeekView do
         |> Enum.map(fn fixture -> fixture.par_score end)
         |> Enum.sum
 
-
-
-      # first_fixture_start = week.fixtures
 
       %{id: week.id,
         start_date: week.start_date,

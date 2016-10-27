@@ -45,17 +45,17 @@ function WeekContainer( props ) {
       </Fixtures>
       <FixturesSummary
         isInPast={ props.isInPast }
-        weeklyPoints={ calcPointsForWeek(props.week, props.predictions,props.isGameWeek) }
+        weeklyPoints={ calcPointsForWeek( props.week, props.predictions, props.isGameWeek && !props.matchesInPlay ) }
         endOfPredictions={props.endOfPredictions}
         isGameWeek={ props.isGameWeek }
+        matchesInPlay={props.matchesInPlay}
       >
       </FixturesSummary>
     </Swipeable>
   )
 }
 
-function calcPointsForWeek( week, predictions, isGameWeek ){
-
+function calcPointsForWeek( week, predictions, predicting ){
   const upsetPoints = predictions.map((prediction)=>{
     const fixture = week.fixtures.find( (fixture)=>{
       return fixture.id === prediction.fixture_id
@@ -63,10 +63,16 @@ function calcPointsForWeek( week, predictions, isGameWeek ){
     if(!fixture){
       return 0
     }
-    return fixture.upset_modifier
+    if(predicting){
+      console.log('pum', fixture.predicted_upset_modifier)
+      return fixture.predicted_upset_modifier
+    }else{
+      return fixture.upset_modifier
+    }
+
   })
   const totalPredictionPoints = _.sum(upsetPoints)
-  if( isGameWeek ){
+  if( predicting ){
     return 30 + totalPredictionPoints
   }
   return week.week_par + totalPredictionPoints
