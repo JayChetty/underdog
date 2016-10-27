@@ -21,8 +21,10 @@ defmodule Underdog.ResultRunner do
     Logger.disable( self )
     updated_results = update_results()
     Logger.enable( self )
-    Logger.warn "Update fixtures #{inspect updated_results}"
-    Underdog.Endpoint.broadcast!( "results", "new_results", %{fixtures: updated_results} )
+    if List.first(updated_results) do
+      Logger.warn "Broadcasting updated results #{inspect updated_results}"
+      Underdog.Endpoint.broadcast!( "results", "new_results", %{fixtures: updated_results} )
+    end
     schedule_work() # Reschedule once more
     {:noreply, state}
   end
