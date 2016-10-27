@@ -45,7 +45,7 @@ const actions = {
       }).then( ( response ) => {
         try {
           dispatch( actions.loginUserSuccess( response ) )
-          actions.fetchData(dispatch, response.jwt)
+          actions.fetchData(dispatch, response.jwt, true)
         } catch( e ) {
           console.log( 'e', e )
         }
@@ -200,8 +200,8 @@ const actions = {
     }
   },
 
-  fetchData:( dispatch, token )=>{
-    actions.getWeeks()( dispatch, token )
+  fetchData:( dispatch, token, userLoggingIn )=>{
+    actions.getWeeks()( dispatch, token, userLoggingIn )
     // actions.getFixtures()(dispatch)
     // actions.getTeams()(dispatch)
     // console.log('fetching data', token)
@@ -269,7 +269,7 @@ const actions = {
 
   getWeeks: () => {
 
-    return ( dispatch, token ) => {
+    return ( dispatch, token, userLoggingIn ) => {
       dispatch( actions.requestWeeks() )
       let socket = new Socket("/socket", {params: {guardian_token: token}})
       socket.connect()
@@ -285,7 +285,6 @@ const actions = {
         dispatch( actions.receiveWeeks( weeks.data ) )
         const gameWeekIndex = calcGameWeekIndex( weeks.data )
         dispatch( actions.setGameWeekIndex( gameWeekIndex ) )
-        browserHistory.push( `/weeks/${ gameWeekIndex }` )
 
         let channel = socket.channel("results", {})
         channel.join()
@@ -296,6 +295,9 @@ const actions = {
           dispatch( actions.updateFixturesInWeeks( gameWeekIndex, payload.fixtures ) )
         })
 
+        if ( userLoggingIn ) {
+          browserHistory.push( `/weeks/${ gameWeekIndex }` )
+        }
         initRender( gameWeekIndex );
       })
     }

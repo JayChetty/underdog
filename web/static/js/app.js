@@ -33,8 +33,9 @@ const initRender = ( gameWeekIndex ) => {
         <Route path='/' component={AppContainer}>
           <IndexRedirect to={`/weeks/${gameWeekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
-          <Route path='/groups' component={ requireAuth( GroupsList ) }/>
-          <Route path='/groups/:groupId' component={ requireAuth( GroupChat ) }/>
+          <Route path='/groups' component={ requireAuth( GroupsList ) } />
+          <Route path='/groups/:groupId/chat' component={ requireAuth( GroupChat ) }/>
+          <Route path='/groups/:groupId/table' component={ requireAuth( GroupTable ) }/>
         </Route>
       </Router>
     </Provider>,
@@ -49,7 +50,7 @@ window.onload = () => {
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
-    actions.fetchData( store.dispatch, session.jwt );
+    actions.fetchData( store.dispatch, session.jwt, false );
   } else {
     const gameWeekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
     initRender(gameWeekIndex);

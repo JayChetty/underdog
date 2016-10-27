@@ -5,7 +5,6 @@ import {Link} from 'react-router';
 function GroupsList({groups}){
 
   const groupViews = groups.map((group)=>{
-
     const lastMessage = group.messages[ group.messages.length - 1 ] || ""
 
     const users = group.users.map( ( user ) => {
@@ -14,7 +13,7 @@ function GroupsList({groups}){
 
     return(
       <div key={group.id} className="list-item">
-        <Link to={ `/groups/${group.id}` } activeClassName='nav-link' className='nav-link'>
+        <Link to={ `/groups/${group.id}/chat` } activeClassName='nav-link' className='nav-link'>
           <div className="layout-flex">
             <div className="layout-flex-grow-11">
               <div className="text-blue text-small text-up">{ group.name }</div>

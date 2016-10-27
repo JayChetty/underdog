@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import _ from "lodash"
+import GroupOptions from "./GroupOptions";
 
 function totalPoints(user, weeks){
   const parScores = weeks.map((week)=>{ return week.week_par })
@@ -22,7 +23,7 @@ function totalPoints(user, weeks){
 
 }
 
-function GroupTable({group, weeks}){
+function GroupTable( {group, weeks} ){
   if(!group){ return null }
   const userViews = group.users.map((user)=>{
     return <div key={user.id} className='list-item'>
@@ -36,7 +37,9 @@ function GroupTable({group, weeks}){
   })
   return(
    <div className = 'list-view'>
-     { userViews }
+    <GroupOptions groupId={group.id} />
+
+    { userViews }
    </div>
   )
 }

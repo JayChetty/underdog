@@ -9,8 +9,23 @@
   margin: 0px 5px;
 }
 
-.button:last-child {
-  margin-right: 0px;
+.button-split {
+  width:100%;
+  text-align: center;
+  padding: 5px 8px;
+  border: 1px solid #5d9cec;
+  text-decoration: none;
+  color: #5d9cec;
+}
+
+.button-split:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.button-split:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .button-full-width {

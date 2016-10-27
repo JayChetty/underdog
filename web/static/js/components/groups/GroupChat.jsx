@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import actions from "../../actions/actions";
 import moment from "moment";
-
+import GroupOptions from "./GroupOptions"
 
 export class GroupChat extends React.Component {
 
@@ -33,6 +33,7 @@ export class GroupChat extends React.Component {
   }
 
   render() {
+
     const messages = this.props.group.messages.map( (msg, index) => {
       const user = this.props.group.users.find( user => user.id === msg.user_id )
 
@@ -62,6 +63,7 @@ export class GroupChat extends React.Component {
         <div
           ref={(div) => this.messagesDiv = div}
           className="scroll-y layout-flex layout-flex-direction-column">
+          <GroupOptions groupId={this.props.group.id} />
           {messages}
         </div>
         <footer className="layout-footer bg-gray">
