@@ -4,10 +4,10 @@ import Nav from './nav/Nav'
 
 import actions from '../actions/actions'
 
-const AppContainer = ( { view, gameWeekIndex, children } ) => {
+const AppContainer = ( { view, params, gameViewIndex, gameWeekIndex, children } ) => {
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
-      <Nav view={ view } gameWeekIndex={ gameWeekIndex } />
+      <Nav params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } />
       <main className="layout-content-footer layout-flex">
         { children }
       </main>
@@ -16,9 +16,14 @@ const AppContainer = ( { view, gameWeekIndex, children } ) => {
 }
 
 const mapStateToProps = (state, {params, location})=>{
+  console.log( state, "state" )
+  console.log( params, "params" )
+  console.log( location, "location" )
   return {
     view: location.pathname.split('/')[1],
-    gameWeekIndex: state.predictions.gameWeekIndex
+    gameWeekIndex: state.predictions.gameWeekIndex,
+    gameViewIndex: Number( params.id ),
+    params
   }
 }
 

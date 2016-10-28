@@ -63,7 +63,6 @@ export class GroupChat extends React.Component {
         <div
           ref={(div) => this.messagesDiv = div}
           className="scroll-y layout-flex layout-flex-direction-column">
-          <GroupOptions groupId={this.props.group.id} />
           {messages}
         </div>
         <footer className="layout-footer bg-gray">

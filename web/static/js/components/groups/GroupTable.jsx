@@ -37,8 +37,6 @@ function GroupTable( {group, weeks} ){
   })
   return(
    <div className = 'list-view'>
-    <GroupOptions groupId={group.id} />
-
     { userViews }
    </div>
   )
