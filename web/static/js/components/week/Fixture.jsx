@@ -18,7 +18,6 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
   const mayHavePredictions = isGameWeek || isInPast
   const activeGameWeek = isGameWeek && !matchesInPlay
 
-
   if( mayHavePredictions ){
     if(activeGameWeek){
       if(prediction){
@@ -35,46 +34,45 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
         awayTeamPointsClasses += " tag-active pulse"
       }
     }else{
-        const homeTeamWon = fixture.home_team_score > fixture.away_team_score
-        const awayTeamWon = fixture.home_team_score < fixture.away_team_score
-        if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
-          homeTeamClasses += " bg-light-gray"
-          homeTeamPointsClasses = "tag tag-simple"
-          // tagAnimationHome = <div className="tag tag-animate tag-warning slide-left" ><i className="fa fa-times" aria-hidden="true"></i></div>
-          if( homeTeamWon ){
-            homeTeamPointsClasses = "tag tag-simple bg-green"
-            if(predictUpset){
-              homeTeamPointsClasses += " pulse-big"
-            }else{
-              homeTeamPointsClasses += " pulse"
-            }
-            tagAnimationHome = <div className="tag tag-animate tag-success slide-left" ><i className="fa fa-check" aria-hidden="true"></i></div>
+      const homeTeamWon = fixture.home_team_score > fixture.away_team_score
+      const awayTeamWon = fixture.home_team_score < fixture.away_team_score
+      if( (homeTeamPredictedWinner && !predictUpset) || (!homeTeamPredictedWinner && predictUpset)  ){
+        homeTeamClasses += " bg-light-gray"
+        homeTeamPointsClasses = "tag tag-simple"
+        // tagAnimationHome = <div className="tag tag-animate tag-warning slide-left" ><i className="fa fa-times" aria-hidden="true"></i></div>
+        if( homeTeamWon ){
+          homeTeamPointsClasses = "tag tag-simple bg-green"
+          if(predictUpset){
+            homeTeamPointsClasses += " pulse-big"
+          }else{
+            homeTeamPointsClasses += " pulse"
           }
-
-        }else{
-          awayTeamClasses += " bg-light-gray"
-          awayTeamPointsClasses = "tag tag-simple"
-          // tagAnimationAway = <div className="tag tag-animate tag-warning translate-left-20 slide-right" ><i className="fa fa-times" aria-hidden="true"></i></div>
-
-          if( awayTeamWon ){
-            awayTeamPointsClasses = "tag tag-simple bg-green"
-            if(predictUpset){
-              awayTeamPointsClasses += " pulse-big"
-            }else{
-              awayTeamPointsClasses += " pulse"
-            }
-            tagAnimationAway = <div className="tag tag-animate tag-success translate-left-20 slide-right" ><i className="fa fa-check" aria-hidden="true"></i></div>
-          }
+          tagAnimationHome = <div className="tag tag-animate tag-success slide-left" ><i className="fa fa-check" aria-hidden="true"></i></div>
         }
+
+      }else{
+        awayTeamClasses += " bg-light-gray"
+        awayTeamPointsClasses = "tag tag-simple"
+        // tagAnimationAway = <div className="tag tag-animate tag-warning translate-left-20 slide-right" ><i className="fa fa-times" aria-hidden="true"></i></div>
+
+        if( awayTeamWon ){
+          awayTeamPointsClasses = "tag tag-simple bg-green"
+          if(predictUpset){
+            awayTeamPointsClasses += " pulse-big"
+          }else{
+            awayTeamPointsClasses += " pulse"
+          }
+          tagAnimationAway = <div className="tag tag-animate tag-success translate-left-20 slide-right" ><i className="fa fa-check" aria-hidden="true"></i></div>
+        }
+      }
     }
   }
-{/*<div className="tag tag-animate tag-success" ><i className="fa fa-check" aria-hidden="true"></i></div>*/}
 
   return(
     <div className="split-list-view layout-flex">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
         <div className="tags">
-          <div className={ homeTeamPointsClasses } > { fixture.home_team_ug_points } </div>
+          <div className={ homeTeamPointsClasses } > { mayHavePredictions && fixture.home_team_ug_points } </div>
           { tagAnimationHome }
         </div>
         <div>
@@ -91,7 +89,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
         </div>
         <div className="tags">
           { tagAnimationAway }
-          <div className={ awayTeamPointsClasses }>{  fixture.away_team_ug_points  }</div>
+          <div className={ awayTeamPointsClasses }>{  mayHavePredictions && fixture.away_team_ug_points  }</div>
         </div>
       </div>
     </div>

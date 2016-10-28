@@ -12,12 +12,19 @@ function FixturesSummary( { isInPast, weeklyPoints, endOfPredictions, isGameWeek
   )
   }
 
+  let total = null
+  if(isInPast || isGameWeek){
+    total = (
+    <div className="go-right">
+      <div className="text-blue">{ isInPast || (isGameWeek && matchesInPlay) ? "TOTAL POINTS" : "POTENTIAL POINTS" }</div>
+      <div className="text-bold text-large">{ weeklyPoints }</div>
+    </div>
+    )
+  }
+
   return (
     <footer className="layout-footer">
-      <div className="go-right">
-        <div className="text-blue">{ isInPast || (isGameWeek && matchesInPlay) ? "TOTAL POINTS" : "POTENTIAL POINTS" }</div>
-        <div className="text-bold text-large">{ weeklyPoints }</div>
-      </div>
+      { total }
       { countdown }
     </footer>
   )
