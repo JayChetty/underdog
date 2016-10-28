@@ -77,14 +77,14 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
         </div>
         <div>
           <span className="text-x-small">{ fixture.home_team.name }</span>
-          <img src={ fixture.home_team.image } />
+          <img src={ `/images/teams/${fixture.home_team.name}.png` } />
           <span className="text-small"> { fixture.home_team_score } </span>
         </div>
       </div>
       <div className={ awayTeamClasses } onClick={ clickHandler }>
         <div>
           <span className="text-small">{ fixture.away_team_score }</span>
-          <img src={ fixture.away_team.image } />
+          <img src={ `/images/teams/${fixture.away_team.name}.png` } />
           <span className="text-x-small">{ fixture.away_team.name }</span>
         </div>
         <div className="tags">
