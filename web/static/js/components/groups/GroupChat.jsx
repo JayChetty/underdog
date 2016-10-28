@@ -44,7 +44,8 @@ export class GroupChat extends React.Component {
         // containerClasses.push( "" )
         elementClasses.push( "bg-blue layout-flex-self-end" )
       }else{
-        userName = user.email
+        console.log('user', user)
+        userName = user.name || user.email
         elementClasses.push( "layout-flex-self-start" )
 
       }

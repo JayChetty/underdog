@@ -22,6 +22,7 @@ defmodule Underdog.GroupView do
     %{
       id: user.id,
       email: user.email,
+      name: user.name,
       predictions: render_many(user.predictions,
         Underdog.PredictionView,
         "prediction.json",

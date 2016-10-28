@@ -8,7 +8,7 @@ function GroupsList({groups}){
     const lastMessage = group.messages[ group.messages.length - 1 ] || ""
 
     const users = group.users.map( ( user ) => {
-      return user.email
+      return user.name || user.email
     }).join(", ")
 
     return(
