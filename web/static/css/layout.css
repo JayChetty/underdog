@@ -13,7 +13,8 @@
 }
 
 .layout-content {
-  height: 74vh;
+  /*height: 74vh;*/
+  padding-bottom: 10vh;
 }
 
 .layout-content-footer {
