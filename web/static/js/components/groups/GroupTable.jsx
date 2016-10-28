@@ -25,12 +25,20 @@ function totalPoints(user, weeks){
 
 function GroupTable( {group, weeks} ){
   if(!group){ return null }
-  const userViews = group.users.map((user)=>{
+  const usersWithTotalPoints = group.users.map( (user)=>{
+    return Object.assign({}, user, {totalPoints: totalPoints(user, weeks)})
+  })
+
+  const sortedUsers = usersWithTotalPoints.sort( (a,b) =>{
+    return b.totalPoints - a.totalPoints
+  })
+
+  const userViews = sortedUsers.map((user)=>{
     return <div key={user.id} className='list-item'>
       <div className="layout-flex">
         <div className="layout-flex-grow-11 text-small">{user.email}</div>
         <div className="layout-flex-grow-1 layout-flex layout-flex-center-vertical layout-justify-flex-end">
-          <div className="tag tag-active pulse">{totalPoints(user, weeks)}</div>
+          <div className="tag tag-active pulse">{user.totalPoints}</div>
         </div>
       </div>
     </div>
