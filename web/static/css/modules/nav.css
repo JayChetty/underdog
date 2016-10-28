@@ -5,8 +5,14 @@
   font-size: 18px;
 }
 
+.navbar-secondary {
+  background-color: #f9f9f9;
+  height: 6vh;
+  padding: 4px;
+}
+
 .navbar-right {
-  
+
 }
 
 .navbar-right a {

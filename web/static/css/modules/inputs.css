@@ -1,6 +1,10 @@
 .form-text-input {
+  font-size: 14px;
+  color: initial;
   border-radius: 6px;
-  border:none;
+  border: none;
   outline: 0;
-  padding: 0px 5px;
+  padding: 0px 8px;
+  font-weight: 100;
+  margin-right: 6px;
 }
