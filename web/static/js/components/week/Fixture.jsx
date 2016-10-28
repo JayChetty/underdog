@@ -42,7 +42,12 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
           homeTeamPointsClasses = "tag tag-simple"
           // tagAnimationHome = <div className="tag tag-animate tag-warning slide-left" ><i className="fa fa-times" aria-hidden="true"></i></div>
           if( homeTeamWon ){
-            homeTeamPointsClasses = "tag tag-simple bg-green pulse"
+            homeTeamPointsClasses = "tag tag-simple bg-green"
+            if(predictUpset){
+              homeTeamPointsClasses += " pulse-big"
+            }else{
+              homeTeamPointsClasses += " pulse"
+            }
             tagAnimationHome = <div className="tag tag-animate tag-success slide-left" ><i className="fa fa-check" aria-hidden="true"></i></div>
           }
 
@@ -52,7 +57,12 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
           // tagAnimationAway = <div className="tag tag-animate tag-warning translate-left-20 slide-right" ><i className="fa fa-times" aria-hidden="true"></i></div>
 
           if( awayTeamWon ){
-            awayTeamPointsClasses = "tag tag-simple bg-green pulse"
+            awayTeamPointsClasses = "tag tag-simple bg-green"
+            if(predictUpset){
+              awayTeamPointsClasses += " pulse-big"
+            }else{
+              awayTeamPointsClasses += " pulse"
+            }
             tagAnimationAway = <div className="tag tag-animate tag-success translate-left-20 slide-right" ><i className="fa fa-check" aria-hidden="true"></i></div>
           }
         }
