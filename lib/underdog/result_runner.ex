@@ -63,7 +63,7 @@ defmodule Underdog.ResultRunner do
       fixture = Repo.get_by(Underdog.Fixture, [ home_team_id: home_team_id, week_id: week_id ] )
 
       new_result = fixture_map["result"]
-      if !fixture.home_team_score && !!new_result["goalsHomeTeam"] do
+      if !fixture.home_team_score && !!new_result["goalsHomeTeam"] && fixture_map["status"] == "FINISHED" do
         fixture_params = %{
           home_team_score: new_result["goalsHomeTeam"],
           away_team_score: new_result["goalsAwayTeam"]
