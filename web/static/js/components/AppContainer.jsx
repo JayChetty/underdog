@@ -16,9 +16,6 @@ const AppContainer = ( { view, params, gameViewIndex, gameWeekIndex, children } 
 }
 
 const mapStateToProps = (state, {params, location})=>{
-  console.log( state, "state" )
-  console.log( params, "params" )
-  console.log( location, "location" )
   return {
     view: location.pathname.split('/')[1],
     gameWeekIndex: state.predictions.gameWeekIndex,

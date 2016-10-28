@@ -88,6 +88,10 @@
   text-align: right;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .text-second {
   font-family: 'Lato', sans-serif;
 }
