@@ -53,7 +53,7 @@ export class GroupChat extends React.Component {
         <div key={index} className={ elementClasses.join(" ") }>
           <div className="text-skinny text-blue">{userName}</div>
           {msg.body}
-          <div className="text-right">{ moment( msg.updated_at ).format( "HH:MM" ) }</div>
+          <div className="text-right text-x-small">{ moment( msg.updated_at ).format( "HH:MM" ) }</div>
         </div>
       )
 
@@ -62,11 +62,11 @@ export class GroupChat extends React.Component {
      <div className='layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between'>
         <div
           ref={(div) => this.messagesDiv = div}
-          className="scroll-y layout-flex layout-flex-direction-column">
+          className="scroll-y layout-content layout-flex layout-flex-direction-column">
           {messages}
         </div>
         <footer className="layout-footer bg-gray">
-          <form className="layout-flex" onSubmit={ this.sendMsg.bind(this) }>
+          <form className="layout-flex layout-full-height" onSubmit={ this.sendMsg.bind(this) }>
             <input className="layout-flex-grow-10 form-text-input" type="text" value={this.state.msg} onChange={ this.updateMsg.bind(this) }></input>
             <button className="layout-flex-grow-2 button bg-blue" type="submit">
               <i className="fa fa-paper-plane-o" aria-hidden="true"></i>
