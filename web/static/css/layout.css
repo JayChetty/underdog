@@ -18,16 +18,17 @@
 
 .layout-content-footer {
   position: relative;
+  box-sizing: border-box;
   top: 16vh;
+  height: 84vh;
 }
 
 .layout-footer {
+  position: absolute;
   box-sizing: border-box;
-  position: fixed;
-  height: 10vh;
-  width:100%;
+  width: 100%;
+  height: 12%;
   border-top: 1px solid #e5e5e5;
-  background-color: #FFFFFF;
 }
 
 .layout-full-height {
