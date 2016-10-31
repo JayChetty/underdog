@@ -1,13 +1,22 @@
 import React from 'react'
 
-function FixturesSummary( { isInPast, weeklyPoints, endOfPredictions, isGameWeek, matchesInPlay } ){
+function FixturesSummary(
+  { isInPast, weeklyPoints, endOfPredictions,
+    isGameWeek, matchesInPlay, friendOnDisplay } ){
 
-  let countdown = null
-  if(isGameWeek){
-    countdown = (
+  let additionalInfo = null
+  if(isGameWeek && !friendOnDisplay){
+    additionalInfo = (
     <div className="go-left">
       <div className="text-blue">LAST PREDICTIONS</div>
       <div className="text-bold"> {endOfPredictions.format('ddd Do h:mma')} </div>
+    </div>
+  )
+  }
+  if(friendOnDisplay){
+    additionalInfo = (
+    <div className="go-left">
+      <div className="text-blue">{ friendOnDisplay.name }</div>
     </div>
   )
   }
@@ -32,7 +41,7 @@ function FixturesSummary( { isInPast, weeklyPoints, endOfPredictions, isGameWeek
   return (
     <footer className="layout-footer">
       { total }
-      { countdown }
+      { additionalInfo }
     </footer>
   )
 }
