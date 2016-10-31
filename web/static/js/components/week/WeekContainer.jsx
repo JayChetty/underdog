@@ -18,19 +18,28 @@ function WeekContainer( props ) {
     actions.deletePrediction( prediction )( props.dispatch, props.session )
   }
 
-  const changeWeek = ( notEqualTo, howMany ) => {
+  const changeWeek = ( notEqualTo, howMany, friendOnDisplay ) => {
     const index = props.displayWeekIndex
     if ( index === notEqualTo ) {
       return "No more fixtures"
     }
-    browserHistory.push(`/weeks/${index+howMany}`)
+    let url = `/weeks/${index+howMany}`
+    if(friendOnDisplay){
+      url = `/weeks/${index+howMany}/users/${friendOnDisplay.id}`
+    }
+    browserHistory.push(url)
+  }
+
+  let weekLimit = props.noOfWeeks-1
+  if(props.friendOnDisplay){
+    weekLimit = props.gameWeekIndex-1
   }
 
   return(
     <Swipeable
       className="layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between"
-      onSwipedRight={ () => { changeWeek( 0, -1 ) } }
-      onSwipedLeft={ () => { changeWeek( props.noOfWeeks-1, 1 ) } }
+      onSwipedRight={ () => { changeWeek( 0, -1, props.friendOnDisplay ) } }
+      onSwipedLeft={ () => { changeWeek( weekLimit, 1, props.friendOnDisplay ) } }
     >
       <Fixtures
         makePrediction={ makePrediction }
@@ -49,6 +58,7 @@ function WeekContainer( props ) {
         endOfPredictions={props.endOfPredictions}
         isGameWeek={ props.isGameWeek }
         matchesInPlay={props.matchesInPlay}
+        friendOnDisplay={props.friendOnDisplay}
       >
       </FixturesSummary>
     </Swipeable>
@@ -90,6 +100,11 @@ function calcMatchesInPlay(endOfPredictions){
   return matchesInPlay
 }
 
+function findUser(groups, id){
+  const users = _.flatten( groups.items.map( group => group.users ) )
+  return users.find( user => user.id === id )
+}
+
 function mapStateToProps( state, { params } ){
   const displayWeekIndex = Number( params.id )
   const week = state.weeks.items[ displayWeekIndex ]
@@ -98,8 +113,14 @@ function mapStateToProps( state, { params } ){
 
   const isGameWeek = displayWeekIndex === gameWeekIndex
   const isInPast = displayWeekIndex < gameWeekIndex
-
   const endOfPredictions = calcEndOfPredictions(state.weeks.items[gameWeekIndex])
+
+  let friendOnDisplay = null
+  let predictions = state.predictions.items.toJS()
+  if( params.userId ){
+    friendOnDisplay = findUser( state.groups, Number(params.userId) )
+    predictions = friendOnDisplay.predictions
+  }
 
   return {
     week,
@@ -109,8 +130,9 @@ function mapStateToProps( state, { params } ){
     displayWeekIndex,
     noOfWeeks,
     endOfPredictions,
+    friendOnDisplay,
     session: state.session,
-    predictions: state.predictions.items.toJS(),
+    predictions: predictions,
     matchesInPlay: calcMatchesInPlay(endOfPredictions)
   }
 }

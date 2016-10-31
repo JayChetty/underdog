@@ -35,6 +35,7 @@ const initRender = ( gameWeekIndex ) => {
           <Route path='/groups' component={ requireAuth( GroupsList ) } />
           <Route path='/groups/:groupId/chat' component={ requireAuth( GroupChat ) }/>
           <Route path='/groups/:groupId/table' component={ requireAuth( GroupTable ) }/>
+          <Route path='/weeks/:id/users/:userId' component={ requireAuth( WeekContainer ) }/>
         </Route>
       </Router>
     </Provider>,
