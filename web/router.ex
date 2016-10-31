@@ -2,7 +2,7 @@ defmodule Underdog.Router do
   use Underdog.Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -53,7 +53,7 @@ defmodule Underdog.Router do
     resources "/messages", MessageController, except: [:new, :edit]
     resources "/memberships", MembershipController, except: [:new, :edit]
 
-    resources "/games", GameController, only: [:index]  
+    resources "/games", GameController, only: [:index]
 
     get "/current_user", CurrentUserController, :show
 

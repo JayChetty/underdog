@@ -26,6 +26,7 @@
     "redux": "^3.5.2",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.1.0",
+    "sw-precache": "^4.2.1",
     "swipe-js-iso": "^2.0.3",
     "uglify-js-brunch": "~1.7.0"
   },
