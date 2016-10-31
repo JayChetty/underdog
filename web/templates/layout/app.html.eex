@@ -10,6 +10,7 @@
     <title>Underdog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="manifest" href="<%= static_path(@conn, "/manifest.json") %>">
   </head>
   <body>
     <div id='app'></div>
