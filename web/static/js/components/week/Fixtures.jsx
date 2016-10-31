@@ -26,7 +26,7 @@ function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePredi
   })
 
   return (
-    <div className="text-up text-bolder layout-content">
+    <div className="text-up text-bolder scroll-y layout-content">
       { displayFixtures }
     </div>
   )

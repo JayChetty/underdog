@@ -17,7 +17,10 @@
 }
 
 .layout-content-footer {
-  padding-top: 16vh;
+  position: relative;
+  box-sizing: border-box;
+  top: 16vh;
+  height: 84vh;
 }
 
 .layout-footer {
