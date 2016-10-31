@@ -5,8 +5,6 @@ import NavSecondarySimple from './NavSecondarySimple'
 import GroupOptions from '../groups/GroupOptions'
 
 function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
-  console.log( "view", view )
-  console.log( "params", params )
 
   const navbarRight = {
     weeks: <Link to={"/groups"}><i className="fa fa-users" aria-hidden="true"></i></Link>,
@@ -20,7 +18,7 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
 
   if ( params.groupId ) {
     navbarSecondary = {
-      groups: <GroupOptions groupId={ params.groupId } />
+      groups: <GroupOptions groupId={ params.groupId } gameWeekIndex={ gameWeekIndex } />
     }
   }
 
