@@ -26,9 +26,9 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
     const predictions = groupUsers.forEach( ( user ) => {
       const userPrediction = user.predictions.find( ( prediction ) => { return prediction.fixture_id === fixture.id } )
 
-      if ( ( userPrediction && homeTeamPredictedWinner ) || !homeTeamPredictedWinner ) {
+      if (  (userPrediction && homeTeamPredictedWinner) || (!userPrediction && !homeTeamPredictedWinner)  ) {
         awayTeamGroupUsers = awayTeamGroupUsers.concat( [ user.name ] )
-      } else if ( userPrediction || homeTeamPredictedWinner ) {
+      } else {
         homeTeamGroupUsers = homeTeamGroupUsers.concat( [ user.name ] )
       }
     })
