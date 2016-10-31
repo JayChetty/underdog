@@ -6,9 +6,9 @@ import { browserHistory } from 'react-router';
 
 const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) => {
 
-  const changeWeek = ( notEqualTo, howMany ) => {
+  const changeWeek = ( limit, howMany ) => {
     const index = displayWeekIndex
-    if ( index === notEqualTo ) {
+    if ( index === limit ) {
       return "No more fixtures"
     }
     browserHistory.push(`/groups/${ group.id }/weeks/${ index+howMany }`)
@@ -18,12 +18,14 @@ const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) =>
     <Swipeable
       className="layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between"
       onSwipedRight={ () => { changeWeek( 0, -1 ) } }
-      onSwipedLeft={ () => { changeWeek( gameWeekIndex, 1 ) } }
+      onSwipedLeft={ () => { changeWeek( gameWeekIndex-1, 1 ) } }
     >
       <Fixtures
         fixtures={ week.fixtures }
         weekNumber={ week.number }
         groupUsers={ group.users }
+        isInPast={ true }
+        isGameWeek={ false }
       >
       </Fixtures>
     </Swipeable>

@@ -18,7 +18,7 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
 
   if ( params.groupId ) {
     navbarSecondary = {
-      groups: <GroupOptions groupId={ params.groupId } gameWeekIndex={ gameWeekIndex } />
+      groups: <GroupOptions displayWeekIndex={ params.displayWeekIndex } groupId={ params.groupId } gameWeekIndex={ gameWeekIndex } />
     }
   }
 
