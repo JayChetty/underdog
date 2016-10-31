@@ -1,6 +1,5 @@
 import "phoenix_html"
 
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -18,6 +17,7 @@ import SignIn from './components/auth/SignIn';
 import WeekContainer from './components/week/WeekContainer';
 import GroupsList from './components/groups/GroupsList';
 import GroupTable from './components/groups/GroupTable';
+import GroupPredictions from './components/groups/GroupPredictions';
 import GroupChat from './components/groups/GroupChat';
 import {Socket} from "phoenix"
 
@@ -38,6 +38,7 @@ const initRender = ( gameWeekIndex ) => {
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
           <Route path='/groups' component={ requireAuth( GroupsList ) } />
           <Route path='/groups/:groupId/chat' component={ requireAuth( GroupChat ) }/>
+          <Route path='/groups/:groupId/weeks/:displayWeekIndex' component={ requireAuth( GroupPredictions ) }/>
           <Route path='/groups/:groupId/table' component={ requireAuth( GroupTable ) }/>
           <Route path='/weeks/:id/users/:userId' component={ requireAuth( WeekContainer ) }/>
         </Route>

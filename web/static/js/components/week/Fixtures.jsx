@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import Fixture from './Fixture'
 
-function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay } ){
+function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
+
 
   const displayFixtures = fixtures.map( ( fixture ) => {
-    const prediction = predictions.find( (prediction) =>{ return prediction.fixture_id === fixture.id })
+    let prediction = null;
+    if ( predictions ) {
+      prediction = predictions.find( (prediction) =>{ return prediction.fixture_id === fixture.id })
+    }
+
     return( <Fixture
       key={fixture.id}
       fixture={fixture}
@@ -12,10 +17,12 @@ function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePredi
       deletePrediction={ deletePrediction }
       isGameWeek={isGameWeek}
       isInPast={ isInPast }
-      prediction={prediction}
+      prediction={ prediction }
       matchesInPlay={matchesInPlay}
+      groupUsers={ groupUsers }
     />
     )
+
   })
 
   return (
