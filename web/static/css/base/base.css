@@ -8,18 +8,10 @@ body {
   font-size: 12px;
 }
 
-body, html {
-  height:100vh;
-}
-
 footer {
   padding: 10px;
   bottom: 0;
   background-color: #FFFFFF;
-}
-
-#app {
-  height: 100vh;
 }
 
 /* Touch based events */
