@@ -13,6 +13,7 @@ export default function init(){
       (window.location.protocol === 'https:' || isLocalhost)) {
     navigator.serviceWorker.register('/sw.js')
     .then(function(registration) {
+      registration.showNotification("Hello World")
       console.log('in service worker setup')
       // updatefound is fired if service-worker.js changes.
       registration.onupdatefound = function() {
