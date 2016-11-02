@@ -38,10 +38,10 @@ defmodule Underdog.GameView do
           { _, _} -> 0
         end
 
-        predicted_upset_modifier = max( home_team_ug_points, away_team_ug_points)
+        predicted_upset_modifier = max( home_team_ug_points, away_team_ug_points) - 3
 
         upset_modifier = case { is_upset, is_draw } do
-          { true, _ } -> predicted_upset_modifier
+          { true, _ } -> max( home_team_ug_points, away_team_ug_points)
           { false, true } -> 0
           { false, false } -> -3
         end
