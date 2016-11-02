@@ -21,10 +21,6 @@ import GroupPredictions from './components/groups/GroupPredictions';
 import GroupChat from './components/groups/GroupChat';
 import {Socket} from "phoenix"
 
-import swi from './service_worker_init'
-console.log('trying to call sw')
-swi()
-
 export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 const initRender = ( gameWeekIndex ) => {

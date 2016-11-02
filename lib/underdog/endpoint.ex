@@ -9,7 +9,7 @@ defmodule Underdog.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :underdog, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt sw.js manifest.json)
+    only: ~w(css fonts images js favicon.ico robots.txt sw.js manifest.json firebase-messaging-sw.js)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

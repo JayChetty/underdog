@@ -11,6 +11,39 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="manifest" href="<%= static_path(@conn, "/manifest.json") %>">
+
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAzIdDH3G6RkLKFNkZP3xjRnQgjmSD6Upc",
+        authDomain: "underdog-messenger.firebaseapp.com",
+        databaseURL: "https://underdog-messenger.firebaseio.com",
+        storageBucket: "underdog-messenger.appspot.com",
+        messagingSenderId: "861414133939"
+      };
+      firebase.initializeApp(config);
+      var messaging = firebase.messaging()
+      messaging.requestPermission()
+      .then(function(){
+        console.log("Have permission")
+        return messaging.getToken();
+      })
+      .then(function(token){
+        console.log("token", token)
+      })
+      .catch(function(){
+        console.log("erro occured")
+      })
+
+      messaging.onMessage(function(payload){
+        console.log('Onmessage', payload)
+      })
+
+    </script>
+
   </head>
   <body>
     <div id='app'></div>
