@@ -20,11 +20,14 @@ defmodule Underdog.GroupChannel do
     Logger.debug "in user! #{ inspect user}"
     Logger.debug "Got message! #{ inspect body }"
     message_data = %{ group_id: group_id, body: body, user_id: user.id }
+    broadcast! socket, "new_msg", message_data
+
+    #update date database
     changeset = Underdog.Message.changeset( %Underdog.Message{}, message_data )
     Underdog.Repo.insert(changeset)
 
-    broadcast! socket, "new_msg", message_data
     #trigger broadcast to firebase for users not in app
+    group = Underdog.Repo.get!(Underdog.Group, group_id)
     broadcast_firebase_message(group_id, group.name, body, user.name)
 
     {:noreply, socket }
