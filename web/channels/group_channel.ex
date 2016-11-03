@@ -31,7 +31,7 @@ defmodule Underdog.GroupChannel do
         "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
         "Content-Type": "application/json"
       ],
-      body: "{\"to\":\"cNWRozMIF1U:APA91bHzlqXEEG0_T1zZ_61Inyq0anuv3ZVw73kgk09OPXXD_kXH3E_QWnc1QKrtMvPTKiMxUvwDD5xGKYW1F9ijvMv6Yjqo0S2nctfkGFwXBwvn19N0sWkdD5JFI-kav4R4RNv3vrFi\", \"notification\": {\"title\": \"#{body}\"}}"
+      body: "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
     )
 
     Logger.warn("response #{inspect response}")
