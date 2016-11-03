@@ -3,16 +3,13 @@ defmodule Underdog.UserController do
   require Logger
   alias Underdog.User
 
-
-
   def update(conn, %{"id" => id, "user" => user_params}) do
-    Logger.warn("IN user controller #{inspect user_params}")
-    user = Repo.get!(User, id)
+    #Note we don't actually use the id passed in
+    #We get user from session, protecting anyone being able to change anyone
+    user = Guardian.Plug.current_resource(conn)
     changeset = User.changeset_update(user, user_params)
-    Logger.warn("changeset #{inspect changeset}")
     case Repo.update(changeset) do
       {:ok, group} ->
-        # render(conn, "show.json", user: user)
         send_resp(conn, :no_content, "")
       {:error, changeset} ->
         conn
