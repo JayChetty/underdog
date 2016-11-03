@@ -29,7 +29,10 @@ const mapStateToProps = (state, {params, location})=>{
   const notificationGroup = findNotificationGroup( state.notify.groupId, state.groups.items )
   const view = location.pathname.split('/')[1]
   const inGroups = view === 'groups'
-  const isSender = ( state.session.user.id === state.notify.userId ) || false
+  let isSender = false
+  if ( state.session ) {
+    isSender = ( state.session.user.id === state.notify.userId )
+  }
   return {
     notify: state.notify,
     notificationGroup,
