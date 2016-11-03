@@ -57,33 +57,36 @@ const actions = {
   loginUserSuccess: ( session ) => {
     localStorage.setItem('ud_session', JSON.stringify( session ) );
 
-    const messaging = firebase.messaging()
-    messaging.requestPermission()
-    .then(function(){
-      console.log("Have permission for firebase messaging")
-      return messaging.getToken();
-    })
-    .then(function(firebaseToken){
-      const user = { firebase_token: firebaseToken }
+    if(window.ServiceWorker){
+      console.log("have service worker setting up messaging")
+      const messaging = firebase.messaging()
+      messaging.requestPermission()
+      .then(function(){
+        console.log("Have permission for firebase messaging")
+        return messaging.getToken();
+      })
+      .then(function(firebaseToken){
+        const user = { firebase_token: firebaseToken }
+        fetch( `/api/users/${session.user.id}`, {
+          method: "PUT",
+          body: JSON.stringify( { user: user } ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": session.jwt
+          }
+        }).then( response => { console.log( response ) })
+        .catch( err => { console.error( err ) } )
 
-      fetch( `/api/users/${session.user.id}`, {
-        method: "PUT",
-        body: JSON.stringify( { user: user } ),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": session.jwt
-        }
-      }).then( response => { console.log( response ) })
-      .catch( err => { console.error( err ) } )
+      })
+      .catch(function(){
+        console.log("error occured firebase messaging reg")
+      })
 
-    })
-    .catch(function(){
-      console.log("error occured firebase messaging reg")
-    })
+      messaging.onMessage(function(payload){
+        console.log('Onmessage', payload)
+      })
+    }
 
-    messaging.onMessage(function(payload){
-      console.log('Onmessage', payload)
-    })
 
     return {
       type: "LOGIN_USER_SUCCESS",
