@@ -3,8 +3,8 @@ defmodule Underdog.UserController do
   require Logger
   alias Underdog.User
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    #Note we don't actually use the id passed in
+  def update(conn, %{"user" => user_params}) do
+    #Note we don't use the id passed in
     #We get user from session, protecting anyone being able to change anyone
     user = Guardian.Plug.current_resource(conn)
     changeset = User.changeset_update(user, user_params)
