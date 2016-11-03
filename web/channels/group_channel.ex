@@ -25,13 +25,21 @@ defmodule Underdog.GroupChannel do
 
     broadcast! socket, "new_msg", message_data
     #trigger broadcast to firebase for users not in app
+    http_body = %{
+      to: "/topics/group_#{group_id}",
+      notification: %{
+        title: body
+      }
+    }
+
+    # "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
     response = HTTPotion.post(
       "https://fcm.googleapis.com/fcm/send",
       headers: [
         "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
         "Content-Type": "application/json"
       ],
-      body: "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
+      body: Poison.encode!( http_body )
     )
 
     Logger.warn("response #{inspect response}")
