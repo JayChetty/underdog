@@ -19,7 +19,7 @@ const actions = {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
-      return fetch( '/api/sessions', {
+      return fetch( 'localhost:4000/api/sessions', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -67,7 +67,7 @@ const actions = {
       })
       .then(function(firebaseToken){
         const user = { firebase_token: firebaseToken }
-        fetch( `/api/users/${session.user.id}`, {
+        fetch( `localhost:4000/api/users/${session.user.id}`, {
           method: "PUT",
           body: JSON.stringify( { user: user } ),
           headers: {
@@ -151,7 +151,7 @@ const actions = {
   makePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
       dispatch( actions.addPrediction( prediction ) )
-      fetch( "/api/predictions", {
+      fetch( "localhost:4000/api/predictions", {
         method: "POST",
         body: JSON.stringify( { prediction: prediction } ),
         headers: {
@@ -166,7 +166,7 @@ const actions = {
   deletePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
       dispatch( actions.removePrediction( prediction.fixture_id ) )
-      fetch( `/api/fixtures/${prediction.fixture_id }/delete_prediction`, {
+      fetch( `localhost:4000/api/fixtures/${prediction.fixture_id }/delete_prediction`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -193,7 +193,7 @@ const actions = {
 
       let socket = connectToSocket(token)
 
-      fetch( "/api/games", {
+      fetch( "localhost:4000/api/games", {
           method: 'GET',
           headers: {
             "Content-Type": "application/json",

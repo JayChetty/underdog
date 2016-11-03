@@ -48,11 +48,15 @@ const initRender = ( gameWeekIndex ) => {
 export { initRender };
 
 window.onload = () => {
-
+  window.start()
   // document.ontouchmove = function(event){
   //   event.preventDefault();
   // }
 
+
+};
+
+window.start = function(){
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {
     store.dispatch(actions.loginUserSuccess( session ));
@@ -61,4 +65,4 @@ window.onload = () => {
     const gameWeekIndex = store.getState( "predictions" ).predictions.gameWeekIndex
     initRender(gameWeekIndex);
   }
-};
+}
