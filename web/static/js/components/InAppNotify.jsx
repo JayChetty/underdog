@@ -1,6 +1,6 @@
 import React from "react"
 
-const InAppNotify = ( { notify, inGroups, notificationGroup } ) => {
+const InAppNotify = ( { notify, inGroups, notificationGroup, isSender } ) => {
   if ( !notify.isNotifying || inGroups || isSender ) { return null; }
 
   return(
