@@ -10,15 +10,11 @@ defmodule Underdog.GroupChannel do
 
   def join("group:" <> group_id, _params, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)
-    Logger.warn "user #{inspect user}"
-    Logger.warn "Connecting to group #{inspect group_id}"
     {:ok, socket}
   end
 
   def handle_in("new_msg", %{"body" => body, "group_id" => group_id}, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)
-    Logger.debug "in user! #{ inspect user}"
-    Logger.debug "Got message! #{ inspect body }"
     message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
     broadcast! socket, "new_msg", message_data
 
@@ -44,7 +40,8 @@ defmodule Underdog.GroupChannel do
       notification: %{
         title: "#{username} @ #{group_name}",
         body: text,
-        click_action: "#{host}/groups/#{group_id}/chat"
+        click_action: "#{host}/groups/#{group_id}/chat",
+        icon: "/images/main_icon/underdog-152.png"
       }
     }
 
