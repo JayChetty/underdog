@@ -20,28 +20,47 @@ defmodule Underdog.GroupChannel do
     Logger.debug "in user! #{ inspect user}"
     Logger.debug "Got message! #{ inspect body }"
     message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
+    broadcast! socket, "new_msg", message_data
+
     changeset = Underdog.Message.changeset( %Underdog.Message{}, message_data )
     Underdog.Repo.insert(changeset)
 
-    broadcast! socket, "new_msg", message_data
     #trigger broadcast to firebase for users not in app
-    response = HTTPotion.post(
-      "https://fcm.googleapis.com/fcm/send",
-      headers: [
-        "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
-        "Content-Type": "application/json"
-      ],
-      body: "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
-    )
-
-    Logger.warn("response #{inspect response}")
-
+    group = Underdog.Repo.get!(Underdog.Group, group_id)
+    broadcast_firebase_message(group_id, group.name, body, user.name)
 
     {:noreply, socket }
   end
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}
   # end
+  def broadcast_firebase_message(group_id, group_name, text, username) do
+    host = "https://guarded-hollows-82324.herokuapp.com"
+    # host = "localhost:4000"
+
+    http_body = %{
+      to: "/topics/group_#{group_id}",
+      collapse_key: "group_#{group_id}",
+      notification: %{
+        title: "#{username} @ #{group_name}",
+        body: text,
+        click_action: "#{host}/groups/#{group_id}/chat"
+      }
+    }
+
+    # "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
+    response = HTTPotion.post(
+      "https://fcm.googleapis.com/fcm/send",
+      headers: [
+        "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
+        "Content-Type": "application/json"
+      ],
+      body: Poison.encode!( http_body )
+    )
+
+    Logger.warn("response #{inspect response}")
+
+  end
 end
 
 #--header "Authorization: key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM" --header "Content-Type: application/json" https://fcm.googleapis.com/fcm/send -d "{\"to\":\"cNWRozMIF1U:APA91bHzlqXEEG0_T1zZ_61Inyq0anuv3ZVw73kgk09OPXXD_kXH3E_QWnc1QKrtMvPTKiMxUvwDD5xGKYW1F9ijvMv6Yjqo0S2nctfkGFwXBwvn19N0sWkdD5JFI-kav4R4RNv3vrFi\", \"notification\": {\"title\": \"hello\"}}"
