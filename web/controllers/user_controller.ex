@@ -8,8 +8,8 @@ defmodule Underdog.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     Logger.warn("IN user controller #{inspect user_params}")
     user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
-
+    changeset = User.changeset_update(user, user_params)
+    Logger.warn("changeset #{inspect changeset}")
     case Repo.update(changeset) do
       {:ok, group} ->
         # render(conn, "show.json", user: user)

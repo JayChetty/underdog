@@ -9,6 +9,7 @@ defmodule Underdog.User do
     field :email, :string
     field :encrypted_password, :string
     field :password, :string, virtual: true
+    field :firebase_token, :string
     has_many :predictions, Underdog.Prediction
     has_many :memberships, Underdog.Membership
     has_many :groups, through: [:memberships, :group]
@@ -18,7 +19,7 @@ defmodule Underdog.User do
   end
 
   @required_fields ~w(name email password)
-  @optional_fields ~w(encrypted_password)
+  @optional_fields ~w(encrypted_password firebase_token)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -34,6 +35,11 @@ defmodule Underdog.User do
     |> validate_confirmation(:password, message: "Password does not match")
     |> unique_constraint(:email, message: "Email already taken")
     |> generate_encrypted_password
+  end
+
+  def changeset_update(model, params \\ :empty) do
+    model
+    |> cast(params, [:firebase_token])
   end
 
   defp generate_encrypted_password(current_changeset) do

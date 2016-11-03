@@ -64,10 +64,7 @@ const actions = {
       return messaging.getToken();
     })
     .then(function(firebaseToken){
-      console.log("firebase token", firebaseToken)
-      console.log("session", session)
-
-      const user = { firebaseToken: firebaseToken }
+      const user = { firebase_token: firebaseToken }
 
       fetch( `/api/users/${session.user.id}`, {
         method: "PUT",
