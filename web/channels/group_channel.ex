@@ -38,6 +38,7 @@ defmodule Underdog.GroupChannel do
 
     http_body = %{
       to: "/topics/group_#{group_id}",
+      collapse_key: "group_#{group_id}",
       notification: %{
         title: username,
         body: text,
