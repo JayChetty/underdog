@@ -7,8 +7,8 @@ import GroupOptions from '../groups/GroupOptions'
 function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
 
   const navbarRight = {
-    weeks: <Link to={"/groups"}><i className="fa fa-users" aria-hidden="true"></i></Link>,
-    groups: <Link to={`/weeks/${ gameWeekIndex }`}><i className="fa fa-th-list" aria-hidden="true"></i></Link>
+    weeks: <Link to={"/groups"} className="text-small"><i className="fa fa-users" aria-hidden="true"></i></Link>,
+    groups: <Link to={`/weeks/${ gameWeekIndex }`} className="text-small"><i className="fa fa-th-list" aria-hidden="true"></i></Link>
   }
 
   let navbarSecondary = {

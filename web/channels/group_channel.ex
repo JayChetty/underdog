@@ -19,7 +19,7 @@ defmodule Underdog.GroupChannel do
     user = Guardian.Phoenix.Socket.current_resource(socket)
     Logger.debug "in user! #{ inspect user}"
     Logger.debug "Got message! #{ inspect body }"
-    message_data = %{ group_id: group_id, body: body, user_id: user.id }
+    message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
     changeset = Underdog.Message.changeset( %Underdog.Message{}, message_data )
     Underdog.Repo.insert(changeset)
 
