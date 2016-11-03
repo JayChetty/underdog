@@ -25,14 +25,14 @@ defmodule Underdog.GroupChannel do
 
     broadcast! socket, "new_msg", message_data
     #trigger broadcast to firebase for users not in app
-    broadcast_firebase_message(group_id, body, user.name)
+    broadcast_firebase_message(group_id, group.name, body, user.name)
 
     {:noreply, socket }
   end
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}
   # end
-  def broadcast_firebase_message(group_id, text, username) do
+  def broadcast_firebase_message(group_id, group_name, text, username) do
     host = "https://guarded-hollows-82324.herokuapp.com"
     # host = "localhost:4000"
 
@@ -40,7 +40,7 @@ defmodule Underdog.GroupChannel do
       to: "/topics/group_#{group_id}",
       collapse_key: "group_#{group_id}",
       notification: %{
-        title: username,
+        title: "#{username} @ #{group_name}",
         body: text,
         click_action: "#{host}/groups/#{group_id}/chat"
       }
