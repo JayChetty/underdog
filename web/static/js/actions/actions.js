@@ -56,6 +56,24 @@ const actions = {
 
   loginUserSuccess: ( session ) => {
     localStorage.setItem('ud_session', JSON.stringify( session ) );
+
+    const messaging = firebase.messaging()
+    messaging.requestPermission()
+    .then(function(){
+      console.log("Have permission for firebase messaging")
+      return messaging.getToken();
+    })
+    .then(function(token){
+      console.log("token", token)
+    })
+    .catch(function(){
+      console.log("error occured firebase messaging reg")
+    })
+
+    messaging.onMessage(function(payload){
+      console.log('Onmessage', payload)
+    })
+
     return {
       type: "LOGIN_USER_SUCCESS",
       session

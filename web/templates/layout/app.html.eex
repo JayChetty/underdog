@@ -25,22 +25,24 @@
         messagingSenderId: "861414133939"
       };
       firebase.initializeApp(config);
-      var messaging = firebase.messaging()
-      messaging.requestPermission()
-      .then(function(){
-        console.log("Have permission")
-        return messaging.getToken();
-      })
-      .then(function(token){
-        console.log("token", token)
-      })
-      .catch(function(){
-        console.log("erro occured")
-      })
 
-      messaging.onMessage(function(payload){
-        console.log('Onmessage', payload)
-      })
+
+      // var messaging = firebase.messaging()
+      // messaging.requestPermission()
+      // .then(function(){
+      //   console.log("Have permission")
+      //   return messaging.getToken();
+      // })
+      // .then(function(token){
+      //   console.log("token", token)
+      // })
+      // .catch(function(){
+      //   console.log("erro occured")
+      // })
+      //
+      // messaging.onMessage(function(payload){
+      //   console.log('Onmessage', payload)
+      // })
 
     </script>
 
