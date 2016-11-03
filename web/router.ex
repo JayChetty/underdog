@@ -30,6 +30,7 @@ defmodule Underdog.Router do
     post "/sessions", SessionController, :create
     delete "/sessions", SessionController, :delete
 
+    resources "/users", UserController, except: [:new, :edit]
 
     resources "/leagues", LeagueController, except: [:new, :edit] do
       resources "/seasons", SeasonController, except: [:new, :edit]

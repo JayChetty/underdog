@@ -63,8 +63,22 @@ const actions = {
       console.log("Have permission for firebase messaging")
       return messaging.getToken();
     })
-    .then(function(token){
-      console.log("token", token)
+    .then(function(firebaseToken){
+      console.log("firebase token", firebaseToken)
+      console.log("session", session)
+
+      const user = { firebaseToken: firebaseToken }
+
+      fetch( `/api/users/${session.user.id}`, {
+        method: "PUT",
+        body: JSON.stringify( { user: user } ),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": session.jwt
+        }
+      }).then( response => { console.log( response ) })
+      .catch( err => { console.error( err ) } )
+
     })
     .catch(function(){
       console.log("error occured firebase messaging reg")
