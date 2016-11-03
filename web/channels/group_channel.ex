@@ -41,7 +41,7 @@ defmodule Underdog.GroupChannel do
       notification: %{
         title: username,
         body: text,
-        click_action: "#{host}/groups"
+        click_action: "#{host}/groups/#{group_id}/chat"
       }
     }
 
