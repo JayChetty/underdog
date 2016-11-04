@@ -16,15 +16,16 @@
 }
 
 .layout-footer {
-  position: fixed;
   box-sizing: border-box;
-  width: 100%;
-  height: 10vh;
   border-top: 1px solid #e5e5e5;
 }
 
 .layout-full-height {
   height: 100%;
+}
+
+.layout-full-width {
+  width: 100%;
 }
 
 .layout-constrained {
