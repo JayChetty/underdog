@@ -76,7 +76,7 @@ const actions = {
       messaging.requestPermission()
       .then( ()=> {
         console.log("Have permission for firebase messaging")
-        messaging.onTokenRefresh( ()=>{
+        // messaging.onTokenRefresh( ()=>{
           console.log('Token has refreshed')
           messaging.getToken()
           .then( (firebaseToken)=>{
@@ -93,7 +93,7 @@ const actions = {
             .catch( err => { console.error( err ) } )
           })
           .catch( err => console.error("Error getting token", err))
-        })
+        // })
       })
       .catch(err => console.error("Error occured firebase messaging reg", err))
 
