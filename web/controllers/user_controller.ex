@@ -32,7 +32,7 @@ defmodule Underdog.UserController do
     response = HTTPotion.post(
       url,
       headers: [
-        "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
+        "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
         "Content-Type": "application/json"
       ]
     )

@@ -85,6 +85,16 @@ main.layout-flex > div {
   -webkit-align-items: flex-end;
 }
 
+.layout-align-items-stretch {
+  align-items: stretch;
+  -webkit-align-items: stretch;
+}
+
+.layout-align-self-center {
+  align-self: center;
+  -webkit-align-self: center;
+}
+
 .layout-flex-center {
   justify-content: center;
   -webkit-justify-content: center;

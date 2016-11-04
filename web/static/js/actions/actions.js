@@ -74,26 +74,28 @@ const actions = {
       console.log("have service worker setting up messaging")
       const messaging = firebase.messaging()
       messaging.requestPermission()
-      .then(function(){
+      .then( ()=> {
         console.log("Have permission for firebase messaging")
-        return messaging.getToken();
+        messaging.onTokenRefresh( ()=>{
+          console.log('Token has refreshed')
+          messaging.getToken()
+          .then( (firebaseToken)=>{
+            const user = { firebase_token: firebaseToken }
+            fetch( `/api/users/${session.user.id}`, {
+              method: "PUT",
+              body: JSON.stringify( { user: user } ),
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": session.jwt
+              }
+            })
+            .then( response => console.log("Updated Token", response ) )
+            .catch( err => { console.error( err ) } )
+          })
+          .catch( err => console.error("Error getting token", err))
+        })
       })
-      .then(function(firebaseToken){
-        const user = { firebase_token: firebaseToken }
-        fetch( `/api/users/${session.user.id}`, {
-          method: "PUT",
-          body: JSON.stringify( { user: user } ),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": session.jwt
-          }
-        }).then( response => { console.log( response ) })
-        .catch( err => { console.error( err ) } )
-
-      })
-      .catch(function(){
-        console.log("error occured firebase messaging reg")
-      })
+      .catch(err => console.error("Error occured firebase messaging reg", err))
 
       messaging.onMessage(function(payload){
         console.log('Onmessage', payload)
