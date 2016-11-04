@@ -45,19 +45,19 @@
 }
 
 .text-green {
-  color: #AFDDD1;
+  color: #AFDDD1 !important;
 }
 
 .text-blue {
-  color: #5d9cec;
+  color: #5d9cec !important;
 }
 
 .text-white {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .text-gray {
-  color: #c1c1c1;
+  color: #c1c1c1 !important;
 }
 
 .text-up {

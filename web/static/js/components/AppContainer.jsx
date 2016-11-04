@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Nav from './nav/Nav'
 import InAppNotify from './InAppNotify';
+import FooterNav from './nav/FooterNav';
 
 import actions from '../actions/actions'
 
@@ -10,9 +11,10 @@ const AppContainer = ( { view, params, gameViewIndex, gameWeekIndex, children, n
     <div className="app-content layout-flex layout-flex-direction-column">
       <InAppNotify notify={ notify } inGroups={ inGroups } notificationGroup={ notificationGroup } isSender={ isSender } />
       <Nav params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } />
-      <main className="layout-content-footer layout-flex">
+      <main className="layout-flex">
         { children }
       </main>
+      <FooterNav gameWeekIndex={ gameWeekIndex } />
     </div>
   )
 }

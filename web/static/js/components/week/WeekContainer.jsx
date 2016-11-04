@@ -52,15 +52,6 @@ function WeekContainer( props ) {
         matchesInPlay={props.matchesInPlay}
       >
       </Fixtures>
-      <FixturesSummary
-        isInPast={ props.isInPast }
-        weeklyPoints={ calcPointsForWeek( props.week, props.predictions, props.isGameWeek && !props.matchesInPlay ) }
-        endOfPredictions={props.endOfPredictions}
-        isGameWeek={ props.isGameWeek }
-        matchesInPlay={props.matchesInPlay}
-        friendOnDisplay={props.friendOnDisplay}
-      >
-      </FixturesSummary>
     </Swipeable>
   )
 }
@@ -138,3 +129,14 @@ function mapStateToProps( state, { params } ){
 }
 
 export default connect( mapStateToProps )( WeekContainer );
+
+
+{/*<FixturesSummary
+  isInPast={ props.isInPast }
+  weeklyPoints={ calcPointsForWeek( props.week, props.predictions, props.isGameWeek && !props.matchesInPlay ) }
+  endOfPredictions={props.endOfPredictions}
+  isGameWeek={ props.isGameWeek }
+  matchesInPlay={props.matchesInPlay}
+  friendOnDisplay={props.friendOnDisplay}
+>
+</FixturesSummary>*/}
