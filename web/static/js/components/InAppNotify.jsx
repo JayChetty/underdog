@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "react-router"
 
-const InAppNotify = ( { notify, inGroups, notificationGroup, isSender } ) => {
-  if ( !notify.isNotifying || inGroups || isSender ) { return null; }
+const InAppNotify = ( { notify, inGroupChat, notificationGroup, isSender } ) => {
+  if ( !notify.isNotifying || inGroupChat || isSender ) { return null; }
 
   return(
     <Link to={`/groups/${ notify.groupId }/chat`}>
