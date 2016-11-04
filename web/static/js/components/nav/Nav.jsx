@@ -19,7 +19,7 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, nu
 
   let navbarSecondary = {
     weeks: <NavSecondary heading={ `MATCHDAY ${ gameViewIndex + 1 }` } leftLink={ leftLink } rightLink={ rightLink } />,
-    groups: <NavSecondary subHeading="GROUPS" />
+    groups: <NavSecondary heading="GROUPS" />
   }
 
   if ( params.groupId ) {
@@ -28,11 +28,16 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, nu
     }
   }
 
+  let navbarLeft = null;
+  if ( view === "groups" && params.groupId ) {
+    navbarLeft = <Link to={`/groups`} className="text-large text-blue"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+  }
+
   return(
     <nav className="layout-navbar">
       <div className="layout-flex layout-justify-flex-space-between navbar-main">
-        <div className="navbar-left layout-flex-grow-2 layout-flex-center-vertical layout-flex layout-justify-flex-start">
-
+        <div className="navbar-left layout-flex-grow-2 layout-flex layout-flex-center">
+          { navbarLeft }
         </div>
         <div className="navbar-header layout-flex-grow-8 layout-flex layout-flex-center">
           UNDER<span className="text-bold">DOG</span>

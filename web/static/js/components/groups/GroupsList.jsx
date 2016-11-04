@@ -20,8 +20,8 @@ function GroupsList({groups}){
               <div className="text-medium">{ users }</div>
               <div className="text-gray">{ lastMessage.body }</div>
             </div>
-            <div className="layout-flex layout-flex-center layout-flex-grow-1 text-medium">
-              <i className="fa fa-chevron-right" aria-hidden="true"></i>
+            <div className="layout-flex layout-flex-center layout-flex-grow-1 text-large">
+              <i className="fa fa-angle-right" aria-hidden="true"></i>
             </div>
           </div>
         </Link>

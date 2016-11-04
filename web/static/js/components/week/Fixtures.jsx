@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Fixture from './Fixture'
 
-function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
+function Fixtures( { className, isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
 
 
   const displayFixtures = fixtures.map( ( fixture ) => {
@@ -26,7 +26,7 @@ function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePredi
   })
 
   return (
-    <div className="text-up text-bolder scroll-y layout-content">
+    <div className={`text-up text-bolder scroll-y ${className}`}>
       { displayFixtures }
     </div>
   )

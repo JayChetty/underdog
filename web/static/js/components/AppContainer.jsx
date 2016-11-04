@@ -6,7 +6,13 @@ import FooterNav from './nav/FooterNav';
 
 import actions from '../actions/actions'
 
-const AppContainer = ( { view, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
+const AppContainer = ( { view, inGroup, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
+  let footer = null;
+
+  if ( !inGroup ) {
+    footer = <FooterNav gameWeekIndex={ gameWeekIndex } view={ view } />
+  }
+
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
       <InAppNotify notify={ notify } inGroups={ inGroups } notificationGroup={ notificationGroup } isSender={ isSender } />
@@ -14,7 +20,7 @@ const AppContainer = ( { view, numberOfWeeks, params, gameViewIndex, gameWeekInd
       <main className="layout-flex">
         { children }
       </main>
-      <FooterNav gameWeekIndex={ gameWeekIndex } view={ view } />
+      { footer }
     </div>
   )
 }
@@ -37,6 +43,7 @@ const mapStateToProps = (state, {params, location})=>{
   if ( state.session ) {
     isSender = ( state.session.user.id === state.notify.userId )
   }
+  const inGroup = location.pathname !== '/groups' && inGroups
   return {
     numberOfWeeks,
     notify: state.notify,
@@ -45,6 +52,7 @@ const mapStateToProps = (state, {params, location})=>{
     isSender,
     view,
     inGroups,
+    inGroup,
     gameWeekIndex: state.predictions.gameWeekIndex,
     gameViewIndex: Number( params.id ),
     params
