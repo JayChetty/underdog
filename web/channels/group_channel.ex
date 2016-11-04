@@ -60,7 +60,7 @@ defmodule Underdog.GroupChannel do
       "group_#{group_id}",
       "#{username} @ #{group_name}",
       text,
-      "/groups/#{group_id}/chat",
+      "groups/#{group_id}/chat",
       "group_#{group_id}"
     )
   end

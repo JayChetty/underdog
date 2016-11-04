@@ -23,6 +23,15 @@ defmodule Underdog.ResultRunner do
     if List.first(updated_results) do
       Logger.warn "Broadcasting updated results #{inspect updated_results}"
       Underdog.Endpoint.broadcast!( "results", "new_results", %{fixtures: updated_results} )
+      Enum.each(update_results, fn(result)->
+        Underdog.GroupChannel.broadcast_firebase_topic_message(
+          "results",
+          "Result",
+          "#{result.home_team_name} #{result.home_team_score} - #{result.away_team_score} #{result.away_team_name}",
+          "/weeks",
+          "results"
+        )
+      end)
     end
     schedule_work() # Reschedule once more
     {:noreply, state}
@@ -57,6 +66,8 @@ defmodule Underdog.ResultRunner do
     updated_fixtures = Enum.map( fixtures_list, fn( fixture_map )->
       # Logger.warn "fixture_map #{ inspect fixture_map}"
       home_team_name = Underdog.FixtureJsonParser.api_name_to_name(fixture_map["homeTeamName"])
+      away_team_name = Underdog.FixtureJsonParser.api_name_to_name(fixture_map["awayTeamName"])
+
       home_team_id = Repo.get_by(Underdog.Team, [ name: home_team_name ]).id
       week_number = fixture_map["matchday"]
       week_id = Repo.get_by(Underdog.Week, number: week_number).id
@@ -72,7 +83,9 @@ defmodule Underdog.ResultRunner do
         {:ok, updated_fixture } = Repo.update( changeset )
         %{fixture_id: updated_fixture.id,
           home_team_score: updated_fixture.home_team_score,
-          away_team_score: updated_fixture.away_team_score
+          away_team_score: updated_fixture.away_team_score,
+          home_team_name: home_team_name,
+          away_team_name: away_team_name
         }
       else
         nil
