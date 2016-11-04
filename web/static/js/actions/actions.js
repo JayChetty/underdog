@@ -8,6 +8,19 @@ import {connectToSocket, joinChannel} from "../socket"
 
 const actions = {
 
+  showNotification: ( payload ) => {
+    return {
+      type: "SHOW_NOTIFICATION",
+      payload
+    }
+  },
+
+  removeNotification: () => {
+    return {
+      type: "REMOVE_NOTIFICATION"
+    }
+  },
+
   addGroupMessage: ( message ) => {
     return {
       type: "ADD_GROUP_MESSAGE",
@@ -215,7 +228,20 @@ const actions = {
 
         const groupsWithChannels = data.groups.map((group)=>{
           let channel = joinChannel(socket, `group:${group.id}`)
-          channel.on("new_msg", payload => { dispatch( actions.addGroupMessage( payload ) )})
+          channel.on("new_msg", ( payload ) => {
+            console.log( "got new message" )
+            dispatch( actions.addGroupMessage( payload ) )
+
+            console.log( payload );
+
+            dispatch( actions.showNotification( payload ) );
+            setTimeout( () => {
+              dispatch( actions.removeNotification() );
+            }, 4000 )
+
+
+
+          })
           return Object.assign({}, group, {channel} )
         })
 
