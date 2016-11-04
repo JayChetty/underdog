@@ -23,30 +23,63 @@ defmodule Underdog.GroupChannel do
 
     #trigger broadcast to firebase for users not in app
     group = Underdog.Repo.get!(Underdog.Group, group_id)
-    broadcast_firebase_message(group_id, group.name, body, user.name)
+    broadcast_firebase_group_message(group_id, group.name, body, user.name)
 
     {:noreply, socket }
   end
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}
   # end
-  def broadcast_firebase_message(group_id, group_name, text, username) do
+  def broadcast_firebase_group_message(group_id, group_name, text, username) do
+    # host = "https://guarded-hollows-82324.herokuapp.com"
+    # # host = "localhost:4000"
+    #
+    # http_body = %{
+    #   to: "/topics/group_#{group_id}",
+    #   collapse_key: "group_#{group_id}",
+    #   notification: %{
+    #     title: "#{username} @ #{group_name}",
+    #     body: text,
+    #     click_action: "#{host}/groups/#{group_id}/chat",
+    #     icon: "/images/main_icon/underdog-152.png"
+    #   }
+    # }
+    #
+    # System.get_env( "FCM_SERVER_KEY" )
+    # response = HTTPotion.post(
+    #   "https://fcm.googleapis.com/fcm/send",
+    #   headers: [
+    #     "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
+    #     "Content-Type": "application/json"
+    #   ],
+    #   body: Poison.encode!( http_body )
+    # )
+    #
+    # Logger.warn("response #{inspect response}")
+    broadcast_firebase_topic_message(
+      "group_#{group_id}",
+      "#{username} @ #{group_name}",
+      text,
+      "groups/#{group_id}/chat",
+      "group_#{group_id}"
+    )
+  end
+
+  def broadcast_firebase_topic_message(topic, title, body, click_action, collapse_key) do
     host = "https://guarded-hollows-82324.herokuapp.com"
     # host = "localhost:4000"
 
     http_body = %{
-      to: "/topics/group_#{group_id}",
-      collapse_key: "group_#{group_id}",
+      to: "/topics/#{topic}",
+      collapse_key: collapse_key,
       notification: %{
-        title: "#{username} @ #{group_name}",
-        body: text,
-        click_action: "#{host}/groups/#{group_id}/chat",
+        title: title,
+        body: body,
+        click_action: "#{host}/#{click_action}",
         icon: "/images/main_icon/underdog-152.png"
       }
     }
 
-    # "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
-    # AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM
     System.get_env( "FCM_SERVER_KEY" )
     response = HTTPotion.post(
       "https://fcm.googleapis.com/fcm/send",
@@ -58,7 +91,6 @@ defmodule Underdog.GroupChannel do
     )
 
     Logger.warn("response #{inspect response}")
-
   end
 end
 
