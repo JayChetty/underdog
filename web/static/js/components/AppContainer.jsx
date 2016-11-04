@@ -14,7 +14,7 @@ const AppContainer = ( { view, params, gameViewIndex, gameWeekIndex, children, n
       <main className="layout-flex">
         { children }
       </main>
-      <FooterNav gameWeekIndex={ gameWeekIndex } />
+      <FooterNav gameWeekIndex={ gameWeekIndex } view={ view } />
     </div>
   )
 }
