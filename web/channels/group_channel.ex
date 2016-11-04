@@ -46,10 +46,12 @@ defmodule Underdog.GroupChannel do
     }
 
     # "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
+    # AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM
+    System.get_env( "FCM_SERVER_KEY" )
     response = HTTPotion.post(
       "https://fcm.googleapis.com/fcm/send",
       headers: [
-        "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
+        "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
         "Content-Type": "application/json"
       ],
       body: Poison.encode!( http_body )
