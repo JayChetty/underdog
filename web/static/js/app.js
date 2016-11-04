@@ -49,9 +49,9 @@ export { initRender };
 
 window.onload = () => {
 
-  // document.ontouchmove = function(event){
-  //   event.preventDefault();
-  // }
+  // document.addEventListener("touchmove", function(event){
+  //     event.preventDefault();
+  // });
 
   let session = JSON.parse( localStorage.getItem('ud_session') );
   if (session !== null) {

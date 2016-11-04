@@ -21,6 +21,7 @@ const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) =>
       onSwipedLeft={ () => { changeWeek( gameWeekIndex-1, 1 ) } }
     >
       <Fixtures
+        className="layout-content-no-footer"
         fixtures={ week.fixtures }
         weekNumber={ week.number }
         groupUsers={ group.users }

@@ -8,8 +8,8 @@ function FixturesSummary(
   if(isGameWeek && !friendOnDisplay){
     additionalInfo = (
     <div className="go-left">
-      <div className="text-blue">LAST PREDICTIONS</div>
-      <div className="text-bold"> {endOfPredictions.format('ddd Do h:mma')} </div>
+      <div className="text-x-small">CLOSES</div>
+      <div className="text-blue text-medium text-bolder"> {endOfPredictions.format('ddd Do h:mma')} </div>
     </div>
   )
   }
@@ -24,15 +24,17 @@ function FixturesSummary(
   let total = null
   if(isInPast || isGameWeek){
     total = (
-    <div className="go-right">
-      <div className="text-bold text-large tag tag-large tag-simple bg-green">{ weeklyPoints }</div>
+    <div className="go-right text-right">
+      <div className="text-x-small">POINTS</div>
+      <div className="text-green text-medium text-bolder">{ weeklyPoints }</div>
     </div>
     )
 
     if(isGameWeek && !matchesInPlay){
       total = (
-      <div className="go-right">
-        <div className="text-bold text-large tag tag-large tag-simple bg-blue">{ weeklyPoints }</div>
+      <div className="go-right text-right">
+        <div className="text-x-small">POINTS</div>
+        <div className="text-blue text-medium text-bolder">{ weeklyPoints }</div>
       </div>
     )
     }

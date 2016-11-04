@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Fixture from './Fixture'
 import moment from 'moment';
 
-function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
+function Fixtures( { className, isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
 
   let lastFixtureTime = moment("1995-12-25") //an early date
   let fixtureText = null
@@ -45,7 +45,7 @@ function Fixtures( { isGameWeek, isInPast, fixtures, makePrediction, deletePredi
   })
 
   return (
-    <div className="text-up text-bolder scroll-y layout-content">
+    <div className={`text-up text-bolder scroll-y ${className}`}>
       { displayFixtures }
     </div>
   )
