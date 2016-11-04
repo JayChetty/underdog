@@ -95,7 +95,6 @@ function calcEndOfPredictions(gameWeek){
 
 function calcMatchesInPlay(endOfPredictions){
   let now = moment()
-  // let now = moment("2016-10-29 17:00Z")
   const matchesInPlay = now.isAfter( endOfPredictions )
   return matchesInPlay
 }
