@@ -3,14 +3,37 @@ import { connect } from 'react-redux';
 import Swipeable from 'react-swipeable';
 import Fixtures from '../week/Fixtures';
 import { browserHistory } from 'react-router';
+import moment from 'moment';
+
+
+//DUPLICATED PUT IN LIBRARY
+function calcEndOfPredictions(gameWeek){
+  let startOfGameWeek = moment(gameWeek.fixtures[0].start_time)
+  let endOfPredictions = startOfGameWeek.subtract(1, 'hours');
+  return endOfPredictions
+}
+
+function calcMatchesInPlay(endOfPredictions){
+  let now = moment()
+  const matchesInPlay = now.isAfter( endOfPredictions )
+  return matchesInPlay
+}
+
 
 const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) => {
 
   const changeWeek = ( limit, howMany ) => {
-    const index = displayWeekIndex
-    if ( index === limit ) {
+
+    let index = displayWeekIndex
+
+    if(calcMatchesInPlay( calcEndOfPredictions(week) ) ){
+      limit++;
+    }
+
+    if ( index >= limit ) {
       return "No more fixtures"
     }
+
     browserHistory.push(`/groups/${ group.id }/weeks/${ index+howMany }`)
   }
 
