@@ -16,13 +16,13 @@ function NavSeconadary( { heading, subHeading, leftLink, rightLink } ) {
 
   return(
     <div className="text-small text-bolder layout-flex layout-full-width">
-      <div className="layout-flex-grow-1 text-large layout-flex layout-justify-flex-start">
+      <div className="layout-flex-grow-1 text-large layout-flex layout-flex-center">
         { linkOnLeft }
       </div>
       <div className="layout-flex-grow-10 layout-flex layout-flex-center">
         { heading }
       </div>
-      <div className="layout-flex-grow-1 text-blue text-large layout-flex layout-justify-flex-end">
+      <div className="layout-flex-grow-1 text-blue text-large layout-flex layout-flex-center">
         { linkOnRight }
       </div>
     </div>

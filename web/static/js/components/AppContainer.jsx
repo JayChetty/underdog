@@ -6,7 +6,7 @@ import FooterNav from './nav/FooterNav';
 
 import actions from '../actions/actions'
 
-const AppContainer = ( { view, inGroup, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
+const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
   let footer = null;
 
   if ( !inGroup ) {
@@ -15,7 +15,7 @@ const AppContainer = ( { view, inGroup, numberOfWeeks, params, gameViewIndex, ga
 
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
-      <InAppNotify notify={ notify } inGroups={ inGroups } notificationGroup={ notificationGroup } isSender={ isSender } />
+      <InAppNotify notify={ notify } inGroups={ inGroups } inGroupChat={ inGroupChat } notificationGroup={ notificationGroup } isSender={ isSender } />
       <Nav numberOfWeeks={ numberOfWeeks } params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } displayWeekIndex={ displayWeekIndex } />
       <main className="layout-flex">
         { children }
@@ -44,12 +44,14 @@ const mapStateToProps = (state, {params, location})=>{
     isSender = ( state.session.user.id === state.notify.userId )
   }
   const inGroup = location.pathname !== '/groups' && inGroups
+  const inGroupChat = location.pathname.split('/')[3] === 'chat'
   return {
     numberOfWeeks,
     notify: state.notify,
     displayWeekIndex,
     notificationGroup,
     isSender,
+    inGroupChat,
     view,
     inGroups,
     inGroup,
