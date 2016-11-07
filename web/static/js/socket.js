@@ -1,7 +1,12 @@
 import {Socket} from "phoenix"
 
+let host = ''
+if(window.isCordovaApp){
+  host = "ws://localhost:4000"
+}
+
 export function connectToSocket(token){
-  let socket = new Socket("ws://localhost:4000/socket", {params: {guardian_token: token}})
+  let socket = new Socket(`${host}/socket`, {params: {guardian_token: token}})
   socket.connect()
   return socket
 }

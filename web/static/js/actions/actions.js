@@ -6,6 +6,26 @@ import { initRender } from "../app"
 
 import {connectToSocket, joinChannel} from "../socket"
 
+let host = ""
+if(window.isCordovaApp){
+  host = "http://localhost:4000"
+}
+
+function updateFCMToken(firebaseToken, session){
+  const user = { firebase_token: firebaseToken }
+  fetch( `${host}/api/users/${session.user.id}`, {
+    method: "PUT",
+    body: JSON.stringify( { user: user } ),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": session.jwt
+    }
+  })
+  .then( response => console.log("Updated Token", response ) )
+  .catch( err => { console.error( err ) } )
+}
+
+
 const actions = {
 
   showNotification: ( payload ) => {
@@ -32,7 +52,7 @@ const actions = {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )
 
-      return fetch( 'http://localhost:4000/api/sessions', {
+      return fetch( `${host}/api/sessions`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -76,32 +96,33 @@ const actions = {
       messaging.requestPermission()
       .then( ()=> {
         console.log("Have permission for firebase messaging")
-        // messaging.onTokenRefresh( ()=>{
+        messaging.onTokenRefresh( ()=>{
           console.log('Token has refreshed')
           messaging.getToken()
           .then( (firebaseToken)=>{
-            const user = { firebase_token: firebaseToken }
-            fetch( `http://localhost:4000/api/users/${session.user.id}`, {
-              method: "PUT",
-              body: JSON.stringify( { user: user } ),
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": session.jwt
-              }
-            })
-            .then( response => console.log("Updated Token", response ) )
-            .catch( err => { console.error( err ) } )
+            updateFCMToken(firebaseToken, session)
           })
           .catch( err => console.error("Error getting token", err))
-        // })
+        })
       })
       .catch(err => console.error("Error occured firebase messaging reg", err))
 
       messaging.onMessage(function(payload){
         console.log('Onmessage', payload)
       })
+    } else if(window.isCordovaApp && FCMPlugin){
+      // how to request permission her
+      FCMPlugin.getToken(
+        function(firebaseToken){
+          console.log('cordova FCM got token', firebaseToken)
+          updateFCMToken(firebaseToken, session)
+          // FCMPlugin.subscribeToTopic('group_1');
+        },
+        function(err){
+          console.log('cordova error retrieving token: ' + err);
+        }
+      )
     }
-
 
     return {
       type: "LOGIN_USER_SUCCESS",
@@ -166,7 +187,7 @@ const actions = {
   makePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
       dispatch( actions.addPrediction( prediction ) )
-      fetch( "http://localhost:4000/api/predictions", {
+      fetch( `${host}/api/predictions`, {
         method: "POST",
         body: JSON.stringify( { prediction: prediction } ),
         headers: {
@@ -181,7 +202,7 @@ const actions = {
   deletePrediction: ( prediction ) => {
     return ( dispatch, session ) => {
       dispatch( actions.removePrediction( prediction.fixture_id ) )
-      fetch( `http://localhost:4000/api/fixtures/${prediction.fixture_id }/delete_prediction`, {
+      fetch( `${host}/api/fixtures/${prediction.fixture_id }/delete_prediction`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -208,7 +229,7 @@ const actions = {
 
       let socket = connectToSocket(token)
 
-      fetch( "http://localhost:4000/api/games", {
+      fetch( `${host}/api/games`, {
           method: 'GET',
           headers: {
             "Content-Type": "application/json",
