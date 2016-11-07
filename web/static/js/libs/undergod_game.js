@@ -61,12 +61,13 @@ export function calcGameWeekIndex( weekFixtures ) {
   // const dateToday = moment("2016-11-05 17:00Z")
   const dateToday = moment()
 
-
+  console.log("today", dateToday)
   const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
     if ( index === array.length-1 ) { return true }
 
     const dateFrom = moment( weekFixture.start_date )
     const dateTo = moment( array[index+1].start_date ).endOf('week')
+
 
     if ( dateToday.isAfter(dateFrom) && dateToday.isBefore(dateTo) ) {
       return true;
