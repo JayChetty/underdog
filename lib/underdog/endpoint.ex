@@ -35,5 +35,9 @@ defmodule Underdog.Endpoint do
     key: "_underdog_key",
     signing_salt: "PY+Ja1b0"
 
+  plug Corsica, origins: "http://localhost:8000",
+    allow_headers: ["Content-Type", "Authorization"],
+    allow_credentials: true
+
   plug Underdog.Router
 end

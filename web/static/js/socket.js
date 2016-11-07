@@ -1,7 +1,7 @@
 import {Socket} from "phoenix"
 
 export function connectToSocket(token){
-  let socket = new Socket("/socket", {params: {guardian_token: token}})
+  let socket = new Socket("ws://localhost:4000/socket", {params: {guardian_token: token}})
   socket.connect()
   return socket
 }

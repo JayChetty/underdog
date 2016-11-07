@@ -3,7 +3,7 @@ import "phoenix_html"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
+import {Router, Route, IndexRedirect, browserHistory, Redirect} from 'react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -38,6 +38,7 @@ const initRender = ( gameWeekIndex ) => {
           <Route path='/groups/:groupId/table' component={ requireAuth( GroupTable ) }/>
           <Route path='/weeks/:id/users/:userId' component={ requireAuth( WeekContainer ) }/>
         </Route>
+        <Redirect from="*" to="/"/>
       </Router>
     </Provider>,
     document.getElementById( 'app' )
