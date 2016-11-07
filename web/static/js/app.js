@@ -54,7 +54,9 @@ window.onload = () => {
   //   event.preventDefault();
   // }
 
-
+  // document.addEventListener("touchmove", function(event){
+  //     event.preventDefault();
+  // });xwxw
 };
 
 window.start = function(){

@@ -5,10 +5,16 @@
   font-size: 18px;
 }
 
+.navbar-main {
+  box-sizing: border-box;
+  height: 9vh;
+}
+
 .navbar-secondary {
+  box-sizing: border-box;
   background-color: #f9f9f9;
-  height: 6vh;
-  padding: 4px;
+  height: 9vh;
+  padding: 4px 8px;
 }
 
 .navbar-right {
@@ -17,4 +23,14 @@
 
 .navbar-right a {
   color: #4a89dc;
+}
+
+.navbar-footer {
+  height: 8vh;
+  background-color: #f9f9f9;
+  border-top: 1px solid #f6f6f6;
+}
+
+.navbar-footer a {
+  color: #c1c1c1;
 }

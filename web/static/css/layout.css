@@ -3,36 +3,33 @@
 }
 
 .layout-navbar {
-  position:fixed;
   box-sizing: border-box;
   z-index: 1;
   width: 100%;
-  height: 16vh;
+  height: 18vh;
   border-bottom: 1px solid #f6f6f6;
   background-color: #FFFFFF;
 }
 
 .layout-content {
-  padding-bottom: 10vh;
+  height: 74vh;
 }
 
-.layout-content-footer {
-  position: relative;
-  box-sizing: border-box;
-  top: 16vh;
-  height: 84vh;
+.layout-content-no-footer {
+  height: 82vh;
 }
 
 .layout-footer {
-  position: fixed;
   box-sizing: border-box;
-  width: 100%;
-  height: 10vh;
   border-top: 1px solid #e5e5e5;
 }
 
 .layout-full-height {
   height: 100%;
+}
+
+.layout-full-width {
+  width: 100%;
 }
 
 .layout-constrained {
@@ -74,6 +71,10 @@ main.layout-flex > div {
   justify-content: space-between;
 }
 
+.layout-justify-flex-space-around {
+  justify-content: space-around;
+}
+
 .layout-justify-flex-end {
   justify-content: flex-end;
   -webkit-justify-content: flex-end;
@@ -82,6 +83,16 @@ main.layout-flex > div {
 .layout-align-items-flex-end {
   align-items: flex-end;
   -webkit-align-items: flex-end;
+}
+
+.layout-align-items-stretch {
+  align-items: stretch;
+  -webkit-align-items: stretch;
+}
+
+.layout-align-self-center {
+  align-self: center;
+  -webkit-align-self: center;
 }
 
 .layout-flex-center {

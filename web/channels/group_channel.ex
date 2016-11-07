@@ -10,57 +10,87 @@ defmodule Underdog.GroupChannel do
 
   def join("group:" <> group_id, _params, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)
-    Logger.warn "user #{inspect user}"
-    Logger.warn "Connecting to group #{inspect group_id}"
     {:ok, socket}
   end
 
   def handle_in("new_msg", %{"body" => body, "group_id" => group_id}, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)
-    Logger.debug "in user! #{ inspect user}"
-    Logger.debug "Got message! #{ inspect body }"
-    message_data = %{ group_id: group_id, body: body, user_id: user.id }
+    message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
     broadcast! socket, "new_msg", message_data
 
-    #update date database
     changeset = Underdog.Message.changeset( %Underdog.Message{}, message_data )
     Underdog.Repo.insert(changeset)
 
     #trigger broadcast to firebase for users not in app
     group = Underdog.Repo.get!(Underdog.Group, group_id)
-    broadcast_firebase_message(group_id, group.name, body, user.name)
+    broadcast_firebase_group_message(group_id, group.name, body, user.name)
 
     {:noreply, socket }
   end
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}
   # end
-  def broadcast_firebase_message(group_id, group_name, text, username) do
+  def broadcast_firebase_group_message(group_id, group_name, text, username) do
+    # host = "https://guarded-hollows-82324.herokuapp.com"
+    # # host = "localhost:4000"
+    #
+    # http_body = %{
+    #   to: "/topics/group_#{group_id}",
+    #   collapse_key: "group_#{group_id}",
+    #   notification: %{
+    #     title: "#{username} @ #{group_name}",
+    #     body: text,
+    #     click_action: "#{host}/groups/#{group_id}/chat",
+    #     icon: "/images/main_icon/underdog-152.png"
+    #   }
+    # }
+    #
+    # System.get_env( "FCM_SERVER_KEY" )
+    # response = HTTPotion.post(
+    #   "https://fcm.googleapis.com/fcm/send",
+    #   headers: [
+    #     "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
+    #     "Content-Type": "application/json"
+    #   ],
+    #   body: Poison.encode!( http_body )
+    # )
+    #
+    # Logger.warn("response #{inspect response}")
+    broadcast_firebase_topic_message(
+      "group_#{group_id}",
+      "#{username} @ #{group_name}",
+      text,
+      "groups/#{group_id}/chat",
+      "group_#{group_id}"
+    )
+  end
+
+  def broadcast_firebase_topic_message(topic, title, body, click_action, collapse_key) do
     host = "https://guarded-hollows-82324.herokuapp.com"
     # host = "localhost:4000"
 
     http_body = %{
-      to: "/topics/group_#{group_id}",
-      collapse_key: "group_#{group_id}",
+      to: "/topics/#{topic}",
+      collapse_key: collapse_key,
       notification: %{
-        title: "#{username} @ #{group_name}",
-        body: text,
-        click_action: "#{host}/groups/#{group_id}/chat"
+        title: title,
+        body: body,
+        click_action: "#{host}/#{click_action}",
+        icon: "/images/main_icon/underdog-152.png"
       }
     }
 
-    # "{\"to\":\"/topics/group_#{group_id}\", \"notification\": {\"title\":\"#{body}\"} }"
+    System.get_env( "FCM_SERVER_KEY" )
     response = HTTPotion.post(
       "https://fcm.googleapis.com/fcm/send",
       headers: [
-        "Authorization": "key=AIzaSyCc96PYoEamdZQNxh-SJDEqemTGFPhf_pM",
+        "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
         "Content-Type": "application/json"
       ],
       body: Poison.encode!( http_body )
     )
 
     Logger.warn("response #{inspect response}")
-
   end
 end
 

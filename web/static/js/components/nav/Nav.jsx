@@ -1,19 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router'
 
-import NavSecondarySimple from './NavSecondarySimple'
+import NavSecondary from './NavSecondary'
 import GroupOptions from '../groups/GroupOptions'
 
-function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
+function Nav( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, numberOfWeeks } ){
 
-  const navbarRight = {
-    weeks: <Link to={"/groups"}><i className="fa fa-users" aria-hidden="true"></i></Link>,
-    groups: <Link to={`/weeks/${ gameWeekIndex }`}><i className="fa fa-th-list" aria-hidden="true"></i></Link>
+  let leftLink = `/weeks/${displayWeekIndex-1}`;
+  let rightLink = `/weeks/${displayWeekIndex+1}`;
+
+  if ( displayWeekIndex <= 0 ) {
+    leftLink = null;
+  }
+
+  if ( displayWeekIndex >= numberOfWeeks-1 ) {
+    rightLink = null;
   }
 
   let navbarSecondary = {
-    weeks: <NavSecondarySimple subHeading={ `MATCHDAY ${ gameViewIndex + 1 }` } />,
-    groups: <NavSecondarySimple subHeading="GROUPS" />,
+    weeks: <NavSecondary heading={ `MATCHDAY ${ gameViewIndex + 1 }` } leftLink={ leftLink } rightLink={ rightLink } />,
+    groups: <NavSecondary heading="GROUPS" />
   }
 
   if ( params.groupId ) {
@@ -22,20 +28,25 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex } ){
     }
   }
 
-  return(
-    <nav className="layout-flex layout-navbar layout-flex-direction-column">
-      <div className="layout-flex layout-justify-flex-space-between layout-flex-grow-8">
-        <div className="navbar-left layout-flex-grow-2 layout-flex-center-vertical layout-flex layout-justify-flex-start">
+  let navbarLeft = null;
+  if ( view === "groups" && params.groupId ) {
+    navbarLeft = <Link to={`/groups`} className="text-large text-blue"><i className="fa fa-angle-left" aria-hidden="true"></i></Link>
+  }
 
+  return(
+    <nav className="layout-navbar">
+      <div className="layout-flex layout-justify-flex-space-between navbar-main">
+        <div className="navbar-left layout-flex-grow-2 layout-flex layout-flex-center">
+          { navbarLeft }
         </div>
         <div className="navbar-header layout-flex-grow-8 layout-flex layout-flex-center">
           UNDER<span className="text-bold">DOG</span>
         </div>
         <div className="layout-flex navbar-right layout-flex-grow-2 layout-flex-center">
-          { navbarRight[view] }
+
         </div>
       </div>
-      <div className="navbar-secondary layout-flex-grow-4 layout-flex layout-flex-center">
+      <div className="navbar-secondary layout-flex layout-flex-center-vertical">
         { navbarSecondary[view] }
       </div>
     </nav>

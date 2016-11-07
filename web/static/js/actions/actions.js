@@ -8,6 +8,19 @@ import {connectToSocket, joinChannel} from "../socket"
 
 const actions = {
 
+  showNotification: ( payload ) => {
+    return {
+      type: "SHOW_NOTIFICATION",
+      payload
+    }
+  },
+
+  removeNotification: () => {
+    return {
+      type: "REMOVE_NOTIFICATION"
+    }
+  },
+
   addGroupMessage: ( message ) => {
     return {
       type: "ADD_GROUP_MESSAGE",
@@ -61,26 +74,28 @@ const actions = {
       console.log("have service worker setting up messaging")
       const messaging = firebase.messaging()
       messaging.requestPermission()
-      .then(function(){
+      .then( ()=> {
         console.log("Have permission for firebase messaging")
-        return messaging.getToken();
+        // messaging.onTokenRefresh( ()=>{
+          console.log('Token has refreshed')
+          messaging.getToken()
+          .then( (firebaseToken)=>{
+            const user = { firebase_token: firebaseToken }
+            fetch( `http://localhost:4000/api/users/${session.user.id}`, {
+              method: "PUT",
+              body: JSON.stringify( { user: user } ),
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": session.jwt
+              }
+            })
+            .then( response => console.log("Updated Token", response ) )
+            .catch( err => { console.error( err ) } )
+          })
+          .catch( err => console.error("Error getting token", err))
+        // })
       })
-      .then(function(firebaseToken){
-        const user = { firebase_token: firebaseToken }
-        fetch( `http://localhost:4000/api/users/${session.user.id}`, {
-          method: "PUT",
-          body: JSON.stringify( { user: user } ),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": session.jwt
-          }
-        }).then( response => { console.log( response ) })
-        .catch( err => { console.error( err ) } )
-
-      })
-      .catch(function(){
-        console.log("error occured firebase messaging reg")
-      })
+      .catch(err => console.error("Error occured firebase messaging reg", err))
 
       messaging.onMessage(function(payload){
         console.log('Onmessage', payload)
@@ -215,7 +230,20 @@ const actions = {
 
         const groupsWithChannels = data.groups.map((group)=>{
           let channel = joinChannel(socket, `group:${group.id}`)
-          channel.on("new_msg", payload => { dispatch( actions.addGroupMessage( payload ) )})
+          channel.on("new_msg", ( payload ) => {
+            console.log( "got new message" )
+            dispatch( actions.addGroupMessage( payload ) )
+
+            console.log( payload );
+
+            dispatch( actions.showNotification( payload ) );
+            setTimeout( () => {
+              dispatch( actions.removeNotification() );
+            }, 4000 )
+
+
+
+          })
           return Object.assign({}, group, {channel} )
         })
 

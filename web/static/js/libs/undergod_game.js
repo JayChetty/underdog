@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { findTeamById } from './league'
+import moment from 'moment';
 
 export function isHomeTeamPredictedWinner(fixture, weekNumber){
   const output = calcPointsDifference(fixture, weekNumber) >= 0
@@ -57,15 +58,18 @@ export function calcPointsPredictedForFixture( fixture, weekNumber){
 export function calcGameWeekIndex( weekFixtures ) {
   if ( weekFixtures.length === 0 ) { return null; }
 
-  const dateToday = Date.now();
+  // const dateToday = moment("2016-11-05 17:00Z")
+  const dateToday = moment()
 
+  console.log("today", dateToday)
   const gameWeek = weekFixtures.findIndex( function( weekFixture, index, array ) {
     if ( index === array.length-1 ) { return true }
 
-    const dateFrom = Date.parse( weekFixture.start_date )
-    const dateTo = Date.parse( array[index+1].start_date )
+    const dateFrom = moment( weekFixture.start_date )
+    const dateTo = moment( array[index+1].start_date ).endOf('week')
 
-    if ( dateToday > dateFrom && dateToday < dateTo ) {
+
+    if ( dateToday.isAfter(dateFrom) && dateToday.isBefore(dateTo) ) {
       return true;
     }
 

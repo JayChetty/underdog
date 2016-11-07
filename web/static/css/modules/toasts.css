@@ -1,0 +1,10 @@
+.toast {
+  box-sizing: border-box;
+  background-color: #37bc9b;
+  height: 55px;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  color: white;
+  padding: 10px;
+}
