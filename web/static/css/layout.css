@@ -15,8 +15,8 @@
 
 .layout-content {
   height: 74vh;
-  padding-top: 18vh;
-  padding-bottom: 8vh;
+  margin-top: 18vh;
+  margin-bottom: 8vh;
 }
 
 .layout-content-no-footer {
