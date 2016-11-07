@@ -107,8 +107,19 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
       }
     }
   }
+
+  let homeTeamName = fixture.home_team.name
+  let awayTeamName = fixture.away_team.name
+
+  if ( homeTeamName === "Middlesbrough" ) {
+    homeTeamName = "MIDDLES'BORO"
+  }
+
+  if ( awayTeamName === "Middlesbrough" ) {
+    awayTeamName = "MIDDLES'BORO"
+  }
   return(
-    <div className="split-list-view layout-flex">
+    <div className="layout-flex">
       <div className={ homeTeamClasses } onClick={ clickHandler }>
         <div className="layout-flex layout-flex-center-vertical layout-justify-flex-space-between">
           <div className="tags">
@@ -116,7 +127,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
             { tagAnimationHome }
           </div>
           <div>
-            <span className="text-x-small">{ fixture.home_team.name }</span>
+            <span className="text-x-small">{ homeTeamName }</span>
             <img src={ `/images/teams/${fixture.home_team.name}.png` } />
             <span className="text-small"> { fixture.home_team_score } </span>
           </div>
@@ -128,7 +139,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
           <div>
             <span className="text-small">{ fixture.away_team_score }</span>
             <img src={ `/images/teams/${fixture.away_team.name}.png` } />
-            <span className="text-x-small">{ fixture.away_team.name }</span>
+            <span className="text-x-small">{ awayTeamName }</span>
           </div>
           <div className="tags">
             { tagAnimationAway }

@@ -23,7 +23,7 @@ export class SignIn extends React.Component {
     return (
       <div className="layout-flex layout-flex-center layout-full-height layout-color-blue">
         <div className="layout-constrained">
-          <div className="navbar-header text-large text-white text-center">UNDER<span className="text-bold">GOD</span></div>
+          <div className="navbar-header text-large text-white text-center">UNDER<span className="text-bold">DOG</span></div>
           <form className="stacked-form">
             <input className="stacked-form-input" type="text" valueLink={this.linkState('email')} placeholder="Email" />
             <input className="stacked-form-input" type="password" valueLink={this.linkState('password')} placeholder="Password" />
