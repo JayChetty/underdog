@@ -19,13 +19,14 @@
 
 .split-list-view-center {
   position: absolute;
+  left: 50%;
   top: 50%;
-  transform: translateY(-12px);
+  transform: translateY(-12px) translateX(-13px);
   height: 26px;
   width: 26px;
   border-radius: 50%;
   background-color: #ffffff;
-  font-size: 8px;
+  font-size: 7px;
 }
 
 .split-list-view img {

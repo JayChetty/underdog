@@ -29,9 +29,9 @@ function GroupsList({groups}){
     )
   })
   return(
-   <main className="layout-content">
+   <div>
      { groupViews }
-   </main>
+   </div>
   )
 }
 
