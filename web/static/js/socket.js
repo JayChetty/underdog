@@ -9,13 +9,15 @@ if(window.isCordovaApp){
 
 export function connectToSocket(token){
   let socket = new Socket(`${host}/socket`, {params: {guardian_token: token}})
+  console.log("connecting to socket", socket)
   socket.connect()
+  console.log("connectED to socket", socket)
   return socket
 }
 
 export function joinChannel(socket, channelTopicKey){
   let channel = socket.channel(channelTopicKey, {})
-  console.log("Joined channel", socket, channelTopicKey)
+  console.log("Trying to join channel", socket, channelTopicKey)
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
