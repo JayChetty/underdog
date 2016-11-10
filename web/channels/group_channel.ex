@@ -78,8 +78,8 @@ defmodule Underdog.GroupChannel do
         click_action: "FCM_PLUGIN_ACTIVITY",
         icon: "/images/main_icon/underdog-152.png"
       },
-      data: {
-        params1: "value"
+      data: %{
+        params: "value"
       },
       priority: "high"
     }
