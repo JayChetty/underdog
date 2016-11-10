@@ -14,6 +14,7 @@ defmodule Underdog.GroupChannel do
   end
 
   def handle_in("new_msg", %{"body" => body, "group_id" => group_id}, socket) do
+
     user = Guardian.Phoenix.Socket.current_resource(socket)
     message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
     broadcast! socket, "new_msg", message_data
