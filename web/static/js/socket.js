@@ -3,7 +3,7 @@ import {Socket} from "phoenix"
 let host = ''
 if(window.isCordovaApp){
   // host = "ws://localhost:4000"
-  host = "ws://guarded-hollows-82324.herokuapp.com/"
+  host = "ws://guarded-hollows-82324.herokuapp.com"
 }
 
 export function connectToSocket(token){
