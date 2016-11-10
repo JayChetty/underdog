@@ -4,8 +4,8 @@ import moment from 'moment';
 
 function Fixtures( { className, isGameWeek, isInPast, fixtures, makePrediction, deletePrediction, predictions, matchesInPlay, groupUsers } ){
 
-  let lastFixtureTime = moment("1995-12-25") //an early date
-  let fixtureText = null
+  // let lastFixtureTime = moment("1995-12-25") //an early date
+  // let fixtureText = null
 
   const displayFixtures = fixtures.map( ( fixture ) => {
     let prediction = null;
@@ -14,19 +14,17 @@ function Fixtures( { className, isGameWeek, isInPast, fixtures, makePrediction, 
     }
 
     let startTime = moment(fixture.start_time)
-    let dateDiv = null
 
-    let dateClasses = "layout-align-self-center"
-    if( startTime.isAfter(lastFixtureTime) ){
+    let dateDiv = null;
+    if ( !isInPast ) {
       dateDiv = (
-      <div className="layout-align-self-center date">
-        { startTime.format('ddd Do h:mma') }
+      <div className="layout-align-self-center split-list-view-center layout-flex layout-flex-center text-center">
+        <div>{ startTime.format('ddd HH:mm') }</div>
       </div>)
-      lastFixtureTime = startTime.clone()
     }
 
     return(
-      <div key={fixture.id} className="layout-flex layout-flex-direction-column layout-align-items-stretch">
+      <div key={fixture.id} className="layout-flex layout-flex-direction-column layout-align-items-stretch split-list-view">
         { dateDiv }
         <Fixture
           fixture={fixture}
@@ -45,7 +43,7 @@ function Fixtures( { className, isGameWeek, isInPast, fixtures, makePrediction, 
   })
 
   return (
-    <div className={`text-up text-bolder scroll-y ${className}`}>
+    <div className={"text-up text-bolder scroll-y"}>
       { displayFixtures }
     </div>
   )

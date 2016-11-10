@@ -9,7 +9,7 @@ const FooterNav = ( { gameWeekIndex, view } ) => {
   }
 
   return(
-    <footer className="navbar-footer layout-flex layout-justify-flex-space-around layout-flex-center-vertical">
+    <footer className="layout-footer navbar-footer layout-flex layout-justify-flex-space-around layout-flex-center-vertical">
       <Link to={`/weeks/${ gameWeekIndex }`} className={ gameClasses } activeClassName="text-blue">
         <i className="fa fa-gamepad" aria-hidden="true"></i>
       </Link>

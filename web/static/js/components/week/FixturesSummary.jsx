@@ -41,7 +41,7 @@ function FixturesSummary(
   }
 
   return (
-    <footer className="layout-footer">
+    <footer>
       { total }
       { additionalInfo }
     </footer>
