@@ -78,7 +78,7 @@ defmodule Underdog.GroupChannel do
         click_action: "#{host}/#{click_action}",
         icon: "/images/main_icon/underdog-152.png"
       },
-      priority:"high"
+      priority: "high"
     }
 
     System.get_env( "FCM_SERVER_KEY" )
