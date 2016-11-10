@@ -15,6 +15,7 @@ export function connectToSocket(token){
 
 export function joinChannel(socket, channelTopicKey){
   let channel = socket.channel(channelTopicKey, {})
+  console.log("Joined channel", socket, channelTopicKey)
   channel.join()
     .receive("ok", resp => { console.log("Joined successfully", resp) })
     .receive("error", resp => { console.log("Unable to join", resp) })
