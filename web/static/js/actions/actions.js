@@ -8,7 +8,8 @@ import {connectToSocket, joinChannel} from "../socket"
 
 let host = ""
 if(window.isCordovaApp){
-  host = "http://localhost:4000"
+  // host = "http://localhost:4000"
+  host = "ws://guarded-hollows-82324.herokuapp.com/"
 }
 
 function updateFCMToken(firebaseToken, session){
