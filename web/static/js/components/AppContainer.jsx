@@ -17,7 +17,7 @@ const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, game
     <div className="app-content layout-flex layout-flex-direction-column">
       <InAppNotify notify={ notify } inGroups={ inGroups } inGroupChat={ inGroupChat } notificationGroup={ notificationGroup } isSender={ isSender } />
       <Nav numberOfWeeks={ numberOfWeeks } params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } displayWeekIndex={ displayWeekIndex } />
-      <main className="layout-flex">
+      <main className="layout-flex layout-content scroll-y">
         { children }
       </main>
       { footer }

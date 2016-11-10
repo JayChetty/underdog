@@ -4,6 +4,8 @@
 
 .layout-navbar {
   box-sizing: border-box;
+  position: fixed;
+  top: 0px;
   z-index: 1;
   width: 100%;
   height: 18vh;
@@ -13,6 +15,8 @@
 
 .layout-content {
   height: 74vh;
+  margin-top: 18vh;
+  margin-bottom: 8vh;
 }
 
 .layout-content-no-footer {
@@ -20,6 +24,9 @@
 }
 
 .layout-footer {
+  height: 8vh;
+  position: fixed;
+  width: 100%;
   box-sizing: border-box;
   border-top: 1px solid #e5e5e5;
 }
