@@ -108,10 +108,10 @@
   float: right;
 }
 
-.scroll-y {
+/*.scroll-y {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-}
+}*/
 
 .translate-left-20 {
   transform: translateX(-20px);

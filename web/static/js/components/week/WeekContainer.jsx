@@ -37,7 +37,7 @@ function WeekContainer( props ) {
 
   return(
     <Swipeable
-      className="layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between"
+      className="layout-flex layout-flex-direction-column layout-justify-flex-space-between"
       onSwipedRight={ () => { changeWeek( 0, -1, props.friendOnDisplay ) } }
       onSwipedLeft={ () => { changeWeek( weekLimit, 1, props.friendOnDisplay ) } }
     >

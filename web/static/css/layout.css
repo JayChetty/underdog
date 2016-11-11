@@ -1,27 +1,6 @@
-.app-content {
-  height: 100%;
-}
-
-.layout-navbar {
-  box-sizing: border-box;
-  z-index: 1;
-  border-bottom: 1px solid #f6f6f6;
-  background-color: #FFFFFF;
-}
-
-.layout-content-no-footer {
+/*.layout-content-no-footer {
   height: 82vh;
-}
-
-.layout-footer {
-  height: 8vh;
-  box-sizing: border-box;
-  border-top: 1px solid #e5e5e5;
-}
-
-.layout-full-height {
-  height: 100%;
-}
+}*/
 
 .layout-full-width {
   width: 100%;
@@ -31,10 +10,6 @@
   display: block;
   width: 70%;
   margin: 0 auto;
-}
-
-.layout-color-green {
-  background-color: #AFDDD1;
 }
 
 .layout-color-blue {
