@@ -13,7 +13,7 @@ const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, game
       <InAppNotify notify={ notify } inGroups={ inGroups } inGroupChat={ inGroupChat } notificationGroup={ notificationGroup } isSender={ isSender } />
       <Nav gameWeekIndex={ gameWeekIndex } view={ view } inGroup={ inGroup } />
       <Aside numberOfWeeks={ numberOfWeeks } params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } displayWeekIndex={ displayWeekIndex } />
-      <main>
+      <main className="main-sticky">
         { children }
       </main>
     </div>

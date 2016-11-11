@@ -37,6 +37,8 @@ const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) =>
     browserHistory.push(`/groups/${ group.id }/weeks/${ index+howMany }`)
   }
 
+  document.body.scrollTop = 0;
+
   return(
     <Swipeable
       className="layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between"

@@ -26,7 +26,7 @@ const Nav = ( { gameWeekIndex, view, inGroup } ) => {
   }
 
   return(
-    <nav>
+    <nav className="nav-sticky">
       { navigation }
     </nav>
   )

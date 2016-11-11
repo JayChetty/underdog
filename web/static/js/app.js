@@ -44,26 +44,26 @@ const initRender = ( gameWeekIndex ) => {
     document.getElementById( 'app' )
   )
 
-  const body = document.body;
-  const nav = document.querySelector( "nav" );
-  const aside = document.querySelector( "aside" );
-  const main = document.querySelector( "main" );
-
-  nav.className = "";
-  aside.className = "";
-  main.className = "";
-
-  body.onscroll = (e) => {
-    if ( body.scrollTop > 45 ) {
-      nav.className = "navbar-sticky";
-      aside.className = "aside-sticky";
-      main.className = "main-sticky";
-    } else {
-      nav.className = "";
-      aside.className = "";
-      main.className = "";
-    }
-  }
+  // const body = document.body;
+  // const nav = document.querySelector( "nav" );
+  // const aside = document.querySelector( "aside" );
+  // const main = document.querySelector( "main" );
+  //
+  // nav.className = "";
+  // aside.className = "";
+  // main.className = "";
+  //
+  // body.onscroll = (e) => {
+  //   if ( body.scrollTop > 45 ) {
+  //     nav.className = "navbar-sticky";
+  //     aside.className = "aside-sticky";
+  //     main.className = "main-sticky";
+  //   } else {
+  //     nav.className = "";
+  //     aside.className = "";
+  //     main.className = "";
+  //   }
+  // }
 
 };
 
