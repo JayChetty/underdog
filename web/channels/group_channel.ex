@@ -9,13 +9,16 @@ defmodule Underdog.GroupChannel do
   # end
 
   def join("group:" <> group_id, _params, socket) do
+    Logger.warn "trying to join GROUP socket#{ inspect socket}"
     user = Guardian.Phoenix.Socket.current_resource(socket)
+    Logger.warn "trying to join GROUP user#{ inspect user}"
     {:ok, socket}
   end
 
   def handle_in("new_msg", %{"body" => body, "group_id" => group_id}, socket) do
-
+    Logger.warn "GOT MESSAGE #{ inspect group_id}"
     user = Guardian.Phoenix.Socket.current_resource(socket)
+    Logger.warn "GOT MESSAGE USER #{ inspect user}"
     message_data = %{ group_id: group_id, body: body, user_id: user.id, user_name: user.name }
     broadcast! socket, "new_msg", message_data
 

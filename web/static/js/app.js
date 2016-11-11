@@ -49,14 +49,17 @@ const initRender = ( gameWeekIndex ) => {
 export { initRender };
 
 window.onload = () => {
-  window.start()
+  console.log("window onload triggered")
+  if(!window.isCordova){//cordova will call start itself apis are loaded
+    window.start()
+  }
   // document.ontouchmove = function(event){
   //   event.preventDefault();
   // }
 
   // document.addEventListener("touchmove", function(event){
   //     event.preventDefault();
-  // });xwxw
+  // });
 };
 
 window.start = function(){
