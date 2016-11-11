@@ -50,7 +50,7 @@ export { initRender };
 
 window.onload = () => {
   console.log("window onload triggered")
-  if(!window.isCordova){//cordova will call start itself apis are loaded
+  if(!window.isCordovaApp){//cordova will call start itself apis are loaded
     window.start()
   }
   // document.ontouchmove = function(event){
