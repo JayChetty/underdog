@@ -35,7 +35,7 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, nu
 
   return(
     <nav className="layout-navbar">
-      <div className="layout-flex layout-justify-flex-space-between navbar-main">
+      {/*<div className="layout-flex layout-justify-flex-space-between navbar-main">
         <div className="navbar-left layout-flex-grow-2 layout-flex layout-flex-center">
           { navbarLeft }
         </div>
@@ -45,7 +45,7 @@ function Nav( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, nu
         <div className="layout-flex navbar-right layout-flex-grow-2 layout-flex-center">
 
         </div>
-      </div>
+      </div>*/}
       <div className="navbar-secondary layout-flex layout-flex-center-vertical">
         { navbarSecondary[view] }
       </div>
