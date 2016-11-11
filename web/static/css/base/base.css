@@ -9,7 +9,7 @@ body {
 }
 
 body, html {
-  height:100vh;
+  height:100%;
 }
 
 footer {
@@ -18,8 +18,8 @@ footer {
   background-color: #FFFFFF;
 }
 
-#app {
-  height: 100vh;
+#app, .app-content {
+  height: 100%;
 }
 /* Touch based events */
 

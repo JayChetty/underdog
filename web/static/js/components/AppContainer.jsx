@@ -1,26 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Nav from './nav/Nav'
+import Aside from './nav/Aside'
 import InAppNotify from './InAppNotify';
-import FooterNav from './nav/FooterNav';
+import Nav from './nav/Nav';
 
 import actions from '../actions/actions'
 
 const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
-  let footer = null;
-
-  if ( !inGroup ) {
-    footer = <FooterNav gameWeekIndex={ gameWeekIndex } view={ view } />
-  }
+  // let footer = null;
+  //
+  // if ( !inGroup ) {
+  //   footer =
+  // }
 
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
       <InAppNotify notify={ notify } inGroups={ inGroups } inGroupChat={ inGroupChat } notificationGroup={ notificationGroup } isSender={ isSender } />
-      <Nav numberOfWeeks={ numberOfWeeks } params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } displayWeekIndex={ displayWeekIndex } />
-      <main className="layout-flex layout-content scroll-y">
+      <Nav gameWeekIndex={ gameWeekIndex } view={ view } inGroup={ inGroup } />
+      <Aside numberOfWeeks={ numberOfWeeks } params={ params } view={ view } gameViewIndex={ gameViewIndex } gameWeekIndex={ gameWeekIndex } displayWeekIndex={ displayWeekIndex } />
+      <main>
         { children }
       </main>
-      { footer }
     </div>
   )
 }

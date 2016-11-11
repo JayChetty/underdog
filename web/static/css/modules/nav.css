@@ -1,35 +1,65 @@
-.navbar-header {
+/*.navbar-header {
   color: #999999;
   font-family: 'Lato', sans-serif;
   letter-spacing: 2.7px;
   font-size: 18px;
+}*/
+
+.navbar {
+  box-sizing: border-box;
+  height: 45px;
 }
 
-.navbar-main {
+.navbar a {
+  display: inline-block;
+  line-height: 45px;
+  width: 50%;
+  text-align: center;
   box-sizing: border-box;
-  height: 9vh;
+  text-decoration: none;
+  flex-grow: 1;
+  color: #c1c1c1;
+}
+
+.navbar .fa-gamepad {
+  font-size: 20px;
+}
+
+.navbar .fa-users {
+  font-size: 14px;
+}
+
+.navbar-simple {
+  height: 45px;
+}
+
+.navbar-simple a {
+  line-height: 45px;
+  padding: 12px;
+  color: #5d9cec;
+  text-decoration: none;
+}
+
+.navbar-simple i {
+  font-size: 20px;
 }
 
 .navbar-secondary {
   box-sizing: border-box;
   background-color: #f9f9f9;
-  height: 9vh;
-  padding: 4px 8px;
+  padding: 8px;
+  height: 45px;
 }
-
+/*
 .navbar-right {
 
 }
 
 .navbar-right a {
   color: #4a89dc;
-}
+}*/
 
-.navbar-footer {
-  background-color: #f9f9f9;
-  border-top: 1px solid #f6f6f6;
-}
-
-.navbar-footer a {
-  color: #c1c1c1;
+.navbar-selected {
+  color: #5d9cec !important;
+  box-shadow: inset 0 -2px #5d9cec;
 }
