@@ -1,6 +1,7 @@
 .navbar {
   box-sizing: border-box;
   height: 45px;
+  background-color: #ffffff;
 }
 
 .navbar a {
