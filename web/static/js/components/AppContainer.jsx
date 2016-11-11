@@ -7,11 +7,6 @@ import Nav from './nav/Nav';
 import actions from '../actions/actions'
 
 const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
-  // let footer = null;
-  //
-  // if ( !inGroup ) {
-  //   footer =
-  // }
 
   return(
     <div className="app-content layout-flex layout-flex-direction-column">

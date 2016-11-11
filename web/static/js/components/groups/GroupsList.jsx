@@ -13,16 +13,14 @@ function GroupsList({groups}){
 
     return(
       <div key={group.id} className="list-item">
-        <Link to={ `/groups/${group.id}/chat` } activeClassName='nav-link' className='nav-link'>
-          <div className="layout-flex">
-            <div className="layout-flex-grow-11">
-              <div className="text-blue text-small text-up">{ group.name }</div>
-              <div className="text-medium">{ users }</div>
-              <div className="text-gray">{ lastMessage.body }</div>
-            </div>
-            <div className="layout-flex layout-flex-center layout-flex-grow-1 text-large">
-              <i className="fa fa-angle-right" aria-hidden="true"></i>
-            </div>
+        <Link to={ `/groups/${group.id}/chat` } className="layout-flex">
+          <div className="layout-flex-grow-11">
+            <div className="text-blue text-small text-up">{ group.name }</div>
+            <div className="text-medium">{ users }</div>
+            <div className="text-gray">{ lastMessage.body }</div>
+          </div>
+          <div className="layout-flex layout-flex-center layout-flex-grow-1 text-large">
+            <i className="fa fa-angle-right" aria-hidden="true"></i>
           </div>
         </Link>
       </div>
