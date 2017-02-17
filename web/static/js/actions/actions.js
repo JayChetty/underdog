@@ -49,6 +49,31 @@ const actions = {
     }
   },
 
+  signUpUser: ( name, email, password ) => {
+    return function( dispatch ) {
+
+      return fetch( `${host}/api/registrations`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify( {
+            user: {
+              name: name,
+              email: email,
+              password: password
+            }
+        })
+      }).then( ( response ) => {
+          console.log( response )
+      })
+
+
+    }
+  },
+
   loginUser: ( email, password ) => {
     return function( dispatch ) {
       dispatch( actions.loginUserRequest() )

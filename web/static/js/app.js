@@ -14,12 +14,13 @@ import AppContainer from './components/AppContainer';
 
 import requireAuth from './components/auth/RequireAuth';
 import SignIn from './components/auth/SignIn';
+import SignUp from './components/auth/SignUp';
 import WeekContainer from './components/week/WeekContainer';
 import GroupsList from './components/groups/GroupsList';
 import GroupTable from './components/groups/GroupTable';
 import GroupPredictions from './components/groups/GroupPredictions';
 import GroupChat from './components/groups/GroupChat';
-import {Socket} from "phoenix"
+import {Socket} from "phoenix";
 
 export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
@@ -29,6 +30,7 @@ const initRender = ( gameWeekIndex ) => {
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path='/login' component={SignIn}/>
+        <Route path='/signup' component={SignUp}/>
         <Route path='/' component={AppContainer}>
           <IndexRedirect to={`/weeks/${gameWeekIndex}`}/>
           <Route path='/weeks/:id' component={ requireAuth( WeekContainer ) }/>
