@@ -15,7 +15,7 @@ export class GroupChat extends React.Component {
   }
 
   componentDidMount(e){
-    setTimeout(()=>{this.messagesDiv.scrollTop = this.messagesDiv.scrollHeight}, 100);
+    setTimeout(()=>{ document.body.scrollTop = document.body.scrollHeight }, 100);
   }
 
   componentDidUpdate() {
@@ -62,7 +62,7 @@ export class GroupChat extends React.Component {
      <div className='layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between'>
         <div
           ref={(div) => this.messagesDiv = div}
-          className="scroll-y layout-flex layout-flex-direction-column">
+          className="layout-flex layout-flex-direction-column">
           {messages}
         </div>
         <footer className="layout-footer bg-gray">

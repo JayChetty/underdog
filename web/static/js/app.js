@@ -44,22 +44,38 @@ const initRender = ( gameWeekIndex ) => {
     document.getElementById( 'app' )
   )
 
+  // const body = document.body;
+  // const nav = document.querySelector( "nav" );
+  // const aside = document.querySelector( "aside" );
+  // const main = document.querySelector( "main" );
+  //
+  // nav.className = "";
+  // aside.className = "";
+  // main.className = "";
+  //
+  // body.onscroll = (e) => {
+  //   if ( body.scrollTop > 45 ) {
+  //     nav.className = "navbar-sticky";
+  //     aside.className = "aside-sticky";
+  //     main.className = "main-sticky";
+  //   } else {
+  //     nav.className = "";
+  //     aside.className = "";
+  //     main.className = "";
+  //   }
+  // }
+
 };
 
 export { initRender };
 
 window.onload = () => {
   console.log("window onload triggered")
-  if(!window.isCordova){//cordova will call start itself api
+
+  if(!window.isCordovaApp){//cordova will call start itself apis are loaded
     window.start()
   }
-  // document.ontouchmove = function(event){
-  //   event.preventDefault();
-  // }
 
-  // document.addEventListener("touchmove", function(event){
-  //     event.preventDefault();
-  // });
 };
 
 window.start = function(){

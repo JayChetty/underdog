@@ -34,18 +34,7 @@ function Aside( { view, params, gameViewIndex, gameWeekIndex, displayWeekIndex, 
   }
 
   return(
-    <aside>
-      {/*<div className="layout-flex layout-justify-flex-space-between navbar-main">
-        <div className="navbar-left layout-flex-grow-2 layout-flex layout-flex-center">
-          { navbarLeft }
-        </div>
-        <div className="navbar-header layout-flex-grow-8 layout-flex layout-flex-center">
-          UNDER<span className="text-bold">DOG</span>
-        </div>
-        <div className="layout-flex navbar-right layout-flex-grow-2 layout-flex-center">
-
-        </div>
-      </div>*/}
+    <aside className="aside-sticky">
       <div className="navbar-secondary layout-flex layout-flex-center-vertical">
         { navbarSecondary[view] }
       </div>

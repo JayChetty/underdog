@@ -1,9 +1,9 @@
 .list-item{
   border-bottom: 1px solid #f6f6f6;
-  padding: 15px;
 }
 
 .list-item a {
+  padding: 15px;
   color: inherit;
   text-decoration: none;
 }

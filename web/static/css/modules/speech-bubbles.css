@@ -5,6 +5,7 @@
   border-radius: 4px;
   max-width: 60%;
   font-size: 16px;
+  word-wrap: break-word;
 }
 
 .speech-bubble:last-child {

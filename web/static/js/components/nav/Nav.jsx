@@ -3,11 +3,9 @@ import { Link } from 'react-router';
 
 const Nav = ( { gameWeekIndex, view, inGroup } ) => {
 
-  console.log( "inGroup", inGroup )
-
   let gameClasses = "";
   if ( view === "weeks" ) {
-    gameClasses = "nav-selected"
+    gameClasses = "navbar-selected"
   }
 
   let navigation = <div className="navbar">
@@ -28,7 +26,7 @@ const Nav = ( { gameWeekIndex, view, inGroup } ) => {
   }
 
   return(
-    <nav>
+    <nav className="nav-sticky">
       { navigation }
     </nav>
   )
