@@ -19,6 +19,7 @@ function WeekContainer( props ) {
   }
 
   const changeWeek = ( notEqualTo, howMany, friendOnDisplay ) => {
+    console.log("trying to change week")
     const index = props.displayWeekIndex
     if ( index === notEqualTo ) {
       return "No more fixtures"

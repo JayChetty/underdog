@@ -22,28 +22,21 @@ function calcMatchesInPlay(endOfPredictions){
 
 const GroupPredictions = ( { week, group, gameWeekIndex, displayWeekIndex } ) => {
 
-  const changeWeek = ( limit, howMany ) => {
-
-    let index = displayWeekIndex
-
-    if(calcMatchesInPlay( calcEndOfPredictions(week) ) ){
-      limit++;
-    }
-
-    if ( index >= limit ) {
+  const changeWeek = ( howMany ) => {
+    const weekToGoTo = displayWeekIndex+howMany
+    if ( weekToGoTo >= gameWeekIndex || weekToGoTo === 0  ) {
       return "No more fixtures"
     }
-
-    browserHistory.push(`/groups/${ group.id }/weeks/${ index+howMany }`)
+    browserHistory.push(`/groups/${ group.id }/weeks/${ weekToGoTo }`)
   }
 
   document.body.scrollTop = 0;
-
+  console.log("game week index", gameWeekIndex)
   return(
     <Swipeable
       className="layout-full-height layout-flex layout-flex-direction-column layout-justify-flex-space-between"
-      onSwipedRight={ () => { changeWeek( 0, -1 ) } }
-      onSwipedLeft={ () => { changeWeek( gameWeekIndex-1, 1 ) } }
+      onSwipedRight={ () => { changeWeek( -1 ) } }
+      onSwipedLeft={ () => { changeWeek( 1 ) } }
     >
       <Fixtures
         className="layout-content-no-footer"
