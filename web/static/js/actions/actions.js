@@ -49,9 +49,9 @@ const actions = {
     }
   },
 
+
   signUpUser: ( name, email, password ) => {
     return function( dispatch ) {
-
       return fetch( `${host}/api/registrations`, {
         method: "POST",
         credentials: "include",
@@ -67,10 +67,9 @@ const actions = {
             }
         })
       }).then( ( response ) => {
-          console.log( response )
+          console.log( "response", response )
+          dispatch( actions.loginUser( email, password ) )
       })
-
-
     }
   },
 
@@ -280,16 +279,20 @@ const actions = {
           channel.on("new_msg", ( payload ) => {
             console.log( "got new message" )
             dispatch( actions.addGroupMessage( payload ) )
-
             console.log( payload );
-
             dispatch( actions.showNotification( payload ) );
             setTimeout( () => {
               dispatch( actions.removeNotification() );
             }, 4000 )
-
-
-
+          })
+          channel.on("member_added", ( payload ) => {
+            console.log( "member_added", payload )
+            // dispatch( actions.addGroupMessage( payload ) )
+            // console.log( payload );
+            dispatch( actions.showNotification( payload ) );
+            setTimeout( () => {
+              dispatch( actions.removeNotification() );
+            }, 4000 )
           })
           return Object.assign({}, group, {channel} )
         })

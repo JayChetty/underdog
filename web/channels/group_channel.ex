@@ -31,6 +31,33 @@ defmodule Underdog.GroupChannel do
 
     {:noreply, socket }
   end
+
+  def handle_in("add_member", %{"email" => email, "group_id" => group_id}, socket) do
+    Logger.warn "GOT MEMBER MESSAGE #{ inspect group_id }"
+    user_to_add = Underdog.Repo.get_by(Underdog.User, email: email)
+    Logger.warn "Adding User #{ inspect user_to_add }"
+
+    case user_to_add do
+      nil ->
+        nil
+        push socket, "error_adding_member", %{}
+
+      _ ->
+        membership= Underdog.Membership.changeset( %Underdog.Membership{}, %{user_id: user_to_add.id, group_id: group_id } )
+        case Underdog.Repo.insert(membership) do
+          {:ok, membership} ->
+            push socket, "member_added", %{membership: membership.id}
+            # broadcast! socket, "new_msg", message_data
+          {:error, changeset} ->
+            push socket, "error_adding_member", %{}
+        end
+
+
+    end
+    {:noreply, socket }
+  end
+
+
   # def join("room:" <> _private_room_id, _params, _socket) do
   #   {:error, %{reason: "unauthorized"}}
   # end

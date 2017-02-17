@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const Nav = ( { gameWeekIndex, view, inGroup } ) => {
-
+const Nav = ( { gameWeekIndex, view, inGroup, groupId } ) => {
+  console.log("nav group id", groupId)
   let gameClasses = "";
   if ( view === "weeks" ) {
     gameClasses = "navbar-selected"
@@ -19,9 +19,16 @@ const Nav = ( { gameWeekIndex, view, inGroup } ) => {
 
   if ( inGroup ) {
     navigation = <div className="navbar-simple">
-                  <Link to="/groups" className="layout-flex layout-flex-center-vertical">
+                  {/*<Link to="/groups" className="layout-flex layout-flex-center-vertical">
                     <i className="fa fa-angle-left" aria-hidden="true"></i>
-                  </Link>
+                  </Link>*/}
+                  <div>
+                    hello
+                    <i className="fa fa-user-plus" aria-hidden="true"></i>
+                    <Link to={ `/groups/${groupId}/invite` } className="layout-flex layout-flex-center-vertical">
+                      <i className="fa fa fa-user-plus" aria-hidden="true"></i>
+                    </Link>
+                  </div>
                 </div>
   }
 

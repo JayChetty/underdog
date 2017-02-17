@@ -17,7 +17,7 @@ function requireAuth( Component ) {
 
     checkAuth( isAuthenticated ) {
       if (!isAuthenticated) {
-        browserHistory.push('/login')
+        browserHistory.push('/signup')
       }
     }
 

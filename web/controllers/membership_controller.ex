@@ -10,7 +10,7 @@ defmodule Underdog.MembershipController do
 
   def create(conn, %{"membership" => membership_params}) do
     changeset = Membership.changeset(%Membership{}, membership_params)
-
+    # Logger.warn
     case Repo.insert(changeset) do
       {:ok, membership} ->
         conn

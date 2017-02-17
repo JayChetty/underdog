@@ -2,6 +2,7 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import React from "react";
 import actions from '../../actions/actions';
 import { connect } from 'react-redux';
+import {Link} from 'react-router'
 
 export class SignUp extends React.Component {
 
@@ -43,6 +44,7 @@ export class SignUp extends React.Component {
             <input className="stacked-form-input" type="password"  placeholder="Password" onChange={ handlePasswordChange } />
             <button className="button button-submit button-full-width" onClick={ this.signUp.bind( this ) }>Sign Up</button>
           </form>
+          <Link to="/login"> Already have an account? Login </Link>
         </div>
       </div>
     )

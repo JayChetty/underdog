@@ -20,12 +20,14 @@ import GroupsList from './components/groups/GroupsList';
 import GroupTable from './components/groups/GroupTable';
 import GroupPredictions from './components/groups/GroupPredictions';
 import GroupChat from './components/groups/GroupChat';
+import GroupAddUser from './components/groups/GroupAddUser';
+
 import {Socket} from "phoenix";
 
 export const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension(), applyMiddleware( thunk ));
 
 const initRender = ( gameWeekIndex ) => {
-
+  console.log('init render')
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory}>
@@ -38,6 +40,8 @@ const initRender = ( gameWeekIndex ) => {
           <Route path='/groups/:groupId/chat' component={ requireAuth( GroupChat ) }/>
           <Route path='/groups/:groupId/weeks/:displayWeekIndex' component={ requireAuth( GroupPredictions ) }/>
           <Route path='/groups/:groupId/table' component={ requireAuth( GroupTable ) }/>
+          <Route path='/groups/:groupId/invite' component={ requireAuth( GroupAddUser ) }/>
+
           <Route path='/weeks/:id/users/:userId' component={ requireAuth( WeekContainer ) }/>
         </Route>
         <Redirect from="*" to="/"/>

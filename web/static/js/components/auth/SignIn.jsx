@@ -3,6 +3,8 @@ import React from 'react';
 import reactMixin from 'react-mixin';
 import actions from '../../actions/actions';
 import { connect } from 'react-redux';
+import {Link} from 'react-router'
+
 
 export class SignIn extends React.Component {
 
@@ -29,6 +31,7 @@ export class SignIn extends React.Component {
             <input className="stacked-form-input" type="password" valueLink={this.linkState('password')} placeholder="Password" />
             <button className="button button-submit button-full-width" onClick={this.signIn.bind( this )}> Sign In </button>
           </form>
+          <Link to="/signup"> Sign up for account </Link>
         </div>
       </div>
     );

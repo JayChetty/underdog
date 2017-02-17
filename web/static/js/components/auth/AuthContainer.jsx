@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import SignIn from './SignIn'
+// import SignIn from './SignIn'
+import SignUp from './SignUp'
+
 import WeekContainer from '../week/WeekContainer';
 import { connect } from 'react-redux';
 import actions from '../../actions/actions';
@@ -12,6 +14,7 @@ class AuthContainer extends Component {
 
   render() {
     let main = <h1> Fetching Data </h1>
+    console.log("AUTH CONTAINER")
     const dispatch = this.props.dispatch
 
     if( !this.props.session ) {
@@ -19,7 +22,7 @@ class AuthContainer extends Component {
       if( cachedSession ){
         dispatch( actions.addSession( JSON.parse(cachedSession) ) );
       } else {
-        main = <SignIn url="api/sessions"/>
+        main = <SignUp url="api/sessions"/>
       }
     } else {
       main = <WeekContainer />
