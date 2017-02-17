@@ -73,12 +73,12 @@ function calcPointsForWeek( week, predictions, predicting ){
     if(!fixture){
       return 0
     }
+
     if(predicting){
       return fixture.predicted_upset_modifier
     }else{
       return fixture.upset_modifier
     }
-
   })
   const totalPredictionPoints = _.sum(upsetPoints)
   if( predicting ){
