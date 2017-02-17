@@ -19,7 +19,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
 
   let clickHandler = ()=>{ console.log("NOT IN GAME WEEK") };
 
-  const homeTeamPredictedWinner = fixture.home_team_ug_points < fixture.away_team_ug_points
+  const homeTeamPredictedWinner = fixture.home_team_ug_points <= fixture.away_team_ug_points
   const predictUpset = !!prediction
   const mayHavePredictions = isGameWeek || isInPast
   const activeGameWeek = isGameWeek && !matchesInPlay

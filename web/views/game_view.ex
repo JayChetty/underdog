@@ -19,7 +19,7 @@ defmodule Underdog.GameView do
         is_draw = fixture.away_team_score == fixture.home_team_score
         no_result = !fixture.home_team_score
 
-        home_team_favorate = total_home_team_points > total_away_team_points
+        home_team_favorate = total_home_team_points >= total_away_team_points
         away_team_favorate = total_home_team_points < total_away_team_points
 
         away_team_upset = home_team_favorate && fixture.away_team_score > fixture.home_team_score

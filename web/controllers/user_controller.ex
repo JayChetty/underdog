@@ -39,4 +39,23 @@ defmodule Underdog.UserController do
     )
     Logger.warn("response #{inspect response}")
   end
+
+  def unsubscribe_to_group_topics(user) do
+    Enum.each(user.groups, fn( group )->
+      unsubscribe_to_topic( user.firebase_token, "group_#{group.id}" )
+    end)
+  end
+
+  def unsubscribe_to_topic(firebase_token, topic)do
+    url = "https://iid.googleapis.com/iid/v1/#{firebase_token}/rel/topics/#{topic}"
+    Logger.warn("trying to join group #{inspect url}")
+    response = HTTPotion.delete(
+      url,
+      headers: [
+        "Authorization": "key=#{System.get_env( "FCM_SERVER_KEY" )}",
+        "Content-Type": "application/json"
+      ]
+    )
+    Logger.warn("response #{inspect response}")
+  end
 end

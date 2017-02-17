@@ -19,6 +19,7 @@ function WeekContainer( props ) {
   }
 
   const changeWeek = ( notEqualTo, howMany, friendOnDisplay ) => {
+    console.log("trying to change week")
     const index = props.displayWeekIndex
     if ( index === notEqualTo ) {
       return "No more fixtures"
@@ -73,12 +74,12 @@ function calcPointsForWeek( week, predictions, predicting ){
     if(!fixture){
       return 0
     }
+
     if(predicting){
       return fixture.predicted_upset_modifier
     }else{
       return fixture.upset_modifier
     }
-
   })
   const totalPredictionPoints = _.sum(upsetPoints)
   if( predicting ){
