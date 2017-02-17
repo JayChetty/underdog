@@ -134,7 +134,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
           </div>
           <div>
             <span className="text-x-small">{ homeTeamName }</span>
-            <img src={ `${host}/images/teams/${fixture.home_team.name}.png` } />
+            {/*<img src={ `${host}/images/teams/${fixture.home_team.name}.png` } />*/}
             <span className="text-small"> { fixture.home_team_score } </span>
           </div>
         </div>
@@ -144,7 +144,7 @@ function Fixture( {fixture, makePrediction, deletePrediction, isGameWeek, isInPa
         <div className="layout-flex layout-flex-center-vertical layout-justify-flex-space-between">
           <div>
             <span className="text-small">{ fixture.away_team_score }</span>
-            <img src={ `${host}/images/teams/${fixture.away_team.name}.png` } />
+            {/*<img src={ `${host}/images/teams/${fixture.away_team.name}.png` } />*/}
             <span className="text-x-small">{ awayTeamName }</span>
           </div>
           <div className="tags">
