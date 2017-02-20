@@ -18,6 +18,7 @@ defmodule Underdog.ResultRunner do
   def handle_info(:work, state) do
     # Do the work you desire here
     Logger.disable( self )
+    update_dates()
     updated_results = update_results()
     Logger.enable( self )
     if List.first(updated_results) do
