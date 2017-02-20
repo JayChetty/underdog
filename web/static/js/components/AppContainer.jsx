@@ -7,7 +7,6 @@ import Nav from './nav/Nav';
 import actions from '../actions/actions'
 
 const AppContainer = ( { view, inGroup, inGroupChat, numberOfWeeks, params, gameViewIndex, gameWeekIndex, children, notify, notificationGroup, inGroups, isSender, displayWeekIndex } ) => {
-  console.log("APP CONTAINER", children)
   return(
     <div className="app-content layout-flex layout-flex-direction-column">
       <InAppNotify notify={ notify } inGroups={ inGroups } inGroupChat={ inGroupChat } notificationGroup={ notificationGroup } isSender={ isSender } />
@@ -29,7 +28,6 @@ const findNotificationGroup = ( groupId, groups ) => {
 }
 
 const mapStateToProps = (state, {params, location})=>{
-  console.log("APP CONTAINER", params, location)
   const displayWeekIndex = Number( params.id )
   const numberOfWeeks = state.weeks.items.length;
   const notificationGroup = findNotificationGroup( state.notify.groupId, state.groups.items )

@@ -33,9 +33,10 @@ defmodule Underdog.GroupChannel do
   end
 
   def handle_in("add_member", %{"email" => email, "group_id" => group_id}, socket) do
-    Logger.warn "GOT MEMBER MESSAGE #{ inspect group_id }"
+    # Logger.warn "GOT MEMBER MESSAGE #{ inspect group_id }"
     user_to_add = Underdog.Repo.get_by(Underdog.User, email: email)
-    Logger.warn "Adding User #{ inspect user_to_add }"
+    user_to_add = Underdog.Repo.preload(user_to_add, :predictions)
+    # Logger.warn "Adding User #{ inspect user_to_add }"
 
     case user_to_add do
       nil ->
@@ -46,7 +47,10 @@ defmodule Underdog.GroupChannel do
         membership= Underdog.Membership.changeset( %Underdog.Membership{}, %{user_id: user_to_add.id, group_id: group_id } )
         case Underdog.Repo.insert(membership) do
           {:ok, membership} ->
-            push socket, "member_added", %{membership: membership.id}
+            user_json = Underdog.GroupView.render("user_with_predictions.json", %{user: user_to_add})
+            # Logger.warn("UserJSON"userJSON)
+            Logger.warn "user_json#{ inspect user_json }"
+            push socket, "member_added", %{user: user_json}
             # broadcast! socket, "new_msg", message_data
           {:error, changeset} ->
             push socket, "error_adding_member", %{}

@@ -8,6 +8,17 @@ const initialState = {
 
 export default ( state = initialState, action ) => {
   switch ( action.type ) {
+    case 'ADD_USER_TO_GROUP':
+      console.log("in reducer add user to group", action)
+      const groupsWithNewUser = state.items.map((group)=>{
+        if(group.id === action.groupId){
+          const newUsers = [ ...group.users, action.user ]
+          return Object.assign( {}, group, { users:  newUsers } )
+        } else{
+          return group
+        }
+      })
+      return Object.assign( {}, state, { items: groupsWithNewUser } )
     case 'REQUEST_GROUPS':
       return Object.assign( {}, state, { isFetching: true } )
     case 'RECEIVE_GROUPS':

@@ -246,6 +246,15 @@ const actions = {
     }
   },
 
+  addUserToGroup:(groupId, user)=>{
+    console.log("dispatching action", groupId, user)
+    return{
+      type: "ADD_USER_TO_GROUP",
+      groupId,
+      user
+    }
+  },
+
   getGame: () => {
     return ( dispatch, token, userLoggingIn ) => {
       dispatch( actions.requestWeeks() )
@@ -277,19 +286,21 @@ const actions = {
         const groupsWithChannels = data.groups.map((group)=>{
           let channel = joinChannel(socket, `group:${group.id}`)
           channel.on("new_msg", ( payload ) => {
-            console.log( "got new message" )
             dispatch( actions.addGroupMessage( payload ) )
-            console.log( payload );
             dispatch( actions.showNotification( payload ) );
             setTimeout( () => {
               dispatch( actions.removeNotification() );
             }, 4000 )
           })
-          channel.on("member_added", ( payload ) => {
-            console.log( "member_added", payload )
-            // dispatch( actions.addGroupMessage( payload ) )
-            // console.log( payload );
-            dispatch( actions.showNotification( payload ) );
+          channel.on("member_added", ( membership ) => {
+            dispatch( actions.addUserToGroup( group.id, membership.user ) );
+            dispatch( actions.showNotification( {
+              user_id: -99,
+              user_name: membership.user.name,
+              group_id: group.id,
+              body: "Added to Group!"
+            } ) )
+
             setTimeout( () => {
               dispatch( actions.removeNotification() );
             }, 4000 )
